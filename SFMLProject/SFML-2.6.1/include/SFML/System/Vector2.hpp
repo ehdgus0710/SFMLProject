@@ -24,7 +24,7 @@
 
 #ifndef SFML_VECTOR2_HPP
 #define SFML_VECTOR2_HPP
-
+#include <math.h>
 
 namespace sf
 {
@@ -69,12 +69,65 @@ public:
     template <typename U>
     explicit Vector2(const Vector2<U>& vector);
 
+
+
+    Vector2& operator=(const Vector2& lhs)
+    {
+        x = lhs.x;
+        y = lhs.y;
+        return *this;
+    }
+
+public:
+    void Normalized()
+    {
+        auto lenght = Length();
+        x /= lenght;
+        y /= lenght;
+    }
+    
+    T Length()
+    {
+        return (T)sqrt(x * x + y * y);
+    }
+
+
+
+    static float Dot(const Vector2<T>& lhs, const Vector2<T>& rhs);
+    static Vector2<T> Lerp(const Vector2<T>& startPosition, const Vector2<T>& destination, float time);
+    static Vector2<T> SmoothStep(const Vector2<T>& startPosition, const Vector2<T>& destination, float time);
+    static float Distance(const Vector2<T>& lhs, const Vector2<T>& rhs);
+    static float SqrMagnitude(const Vector2<T>& lhs, const Vector2<T>& rhs);
+    static Vector2<T> Min(const Vector2<T>& lhs, const Vector2<T>& rhs);
+    static Vector2<T> Max(const Vector2<T>& lhs, const Vector2<T>& rhs);
+    static Vector2<T> Clamp(const Vector2<T>& value, const Vector2<T>& min, const Vector2<T>& max);
+
+    static const Vector2<T> down;
+    static const Vector2<T> one;
+    static const Vector2<T> right;
+    static const Vector2<T> zero;
+    static const Vector2<T> up;
+    static const Vector2<T> left;
+public:
     ////////////////////////////////////////////////////////////
     // Member data
     ////////////////////////////////////////////////////////////
     T x; //!< X coordinate of the vector
     T y; //!< Y coordinate of the vector
 };
+
+template <typename T>
+const Vector2<T> Vector2<T>::down = Vector2<T>(0, 1);
+template <typename T>
+const Vector2<T> Vector2<T>::one = Vector2<T>(1, 1);
+template <typename T>
+const Vector2<T> Vector2<T>::right = Vector2<T>(1, 0);
+template <typename T>
+const Vector2<T> Vector2<T>::zero = Vector2<T>(0, 0);
+template <typename T>
+const Vector2<T> Vector2<T>::up = Vector2<T>(0, -1);
+template <typename T>
+const Vector2<T> Vector2<T>::left = Vector2<T>(-1, 0);
 
 ////////////////////////////////////////////////////////////
 /// \relates Vector2
@@ -159,6 +212,12 @@ Vector2<T> operator -(const Vector2<T>& left, const Vector2<T>& right);
 template <typename T>
 Vector2<T> operator *(const Vector2<T>& left, T right);
 
+template <typename T>
+Vector2<T> operator *(const Vector2<T>& left, const Vector2<T>& right)
+{
+    return Vector2<T>(left.x * right.x, left.y * right.y);
+}
+
 ////////////////////////////////////////////////////////////
 /// \relates Vector2
 /// \brief Overload of binary operator *
@@ -201,6 +260,9 @@ Vector2<T>& operator *=(Vector2<T>& left, T right);
 template <typename T>
 Vector2<T> operator /(const Vector2<T>& left, T right);
 
+template <typename T>
+Vector2<T> operator /(const Vector2<T>& left, const T& right);
+
 ////////////////////////////////////////////////////////////
 /// \relates Vector2
 /// \brief Overload of binary operator /=
@@ -216,6 +278,30 @@ Vector2<T> operator /(const Vector2<T>& left, T right);
 ////////////////////////////////////////////////////////////
 template <typename T>
 Vector2<T>& operator /=(Vector2<T>& left, T right);
+
+template <typename T>
+Vector2<T>& operator /=(Vector2<T>& left, const T& right);
+
+template <typename T>
+Vector2<T>& operator /=(Vector2<T>& left, const int& right)
+{
+    left.x /= right;
+    left.y /= right;
+    return *this;
+}
+template <typename T>
+Vector2<T>& operator /=(Vector2<T>& left, const float& right)
+{
+    left.x /= right;
+    left.y /= right;
+    return *this;
+}
+
+template <typename T>
+Vector2<T> operator /(const Vector2<unsigned int>& left, const float& right)
+{
+    return Vector2<T>(left.x / (unsigned int)right, left.y / (unsigned int)right);
+}
 
 ////////////////////////////////////////////////////////////
 /// \relates Vector2
@@ -256,7 +342,10 @@ typedef Vector2<float>        Vector2f;
 
 } // namespace sf
 
-
+sf::Vector2f operator/(const sf::Vector2u& lhs, const float& rhs)
+{
+    return sf::Vector2f(lhs.x / rhs, lhs.y / rhs);
+}
 #endif // SFML_VECTOR2_HPP
 
 

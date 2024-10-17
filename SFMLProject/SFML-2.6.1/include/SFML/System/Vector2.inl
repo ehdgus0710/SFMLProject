@@ -1,3 +1,4 @@
+#include "Vector2.hpp"
 ////////////////////////////////////////////////////////////
 //
 // SFML - Simple and Fast Multimedia Library
@@ -42,6 +43,61 @@ y(Y)
 
 }
 
+template<typename T>
+inline float sf::Vector2<T>::Dot(const Vector2<T>& lhs, const Vector2<T>& rhs)
+{
+    return (float)(lhs.x * rhs.x + lhs.y * rhs.y);
+}
+
+template<typename T>
+inline Vector2<T> sf::Vector2<T>::Lerp(const Vector2<T>& startPosition, const Vector2<T>& destination, float time)
+{
+    time = (time > 1.0f) ? 1.0f : ((time < 0.0f) ? 0.0f : time);
+    return startPosition * (1.0f - time) + destination * time;
+}
+
+template<typename T>
+inline Vector2<T> sf::Vector2<T>::SmoothStep(const Vector2<T>& startPosition, const Vector2<T>& destination, float time)
+{
+    time = (time > 1.0f) ? 1.0f : ((time < 0.0f) ? 0.0f : time);
+    time = time * time * (3.f - 2.f * time);
+    return Vector2<T>(startPosition + time * (destination - startPosition));
+}
+
+template<typename T>
+inline float sf::Vector2<T>::Distance(const Vector2<T>& lhs, const Vector2<T>& rhs)
+{
+    return Vector2<T>( lhs.x - rhs.x , lhs.y - rhs.y).Length();
+}
+
+template<typename T>
+inline float sf::Vector2<T>::SqrMagnitude(const Vector2<T>& lhs, const Vector2<T>& rhs)
+{
+    Vector2<T> sqrMagnitude(lhs.x - rhs.x, lhs.y - rhs.y);
+    return sqrMagnitude.x * sqrMagnitude.x + sqrMagnitude.y * sqrMagnitude.y;
+}
+
+template<typename T>
+inline Vector2<T> sf::Vector2<T>::Min(const Vector2<T>& lhs, const Vector2<T>& rhs)
+{
+    return Vector2<T>(lhs.x <= rhs.x ? lhs.x : rhs.x , lhs.y <= rhs.y ? lhs.y : rhs.y);
+}
+
+template<typename T>
+inline Vector2<T> sf::Vector2<T>::Max(const Vector2<T>& lhs, const Vector2<T>& rhs)
+{
+    return Vector2<T>(lhs.x >= rhs.x ? lhs.x : rhs.x, lhs.y >= rhs.y ? lhs.y : rhs.y);
+}
+
+template<typename T>
+inline Vector2<T> sf::Vector2<T>::Clamp(const Vector2<T>& value, const Vector2<T>& min, const Vector2<T>& max)
+{
+    Vector2<T> clampVector({ value.x >= min.x ? value.x : min.x , value.y >= min.y ? value.y : min.y });
+    clampVector.x = value.x <= max.x ? value.x : max.x;
+    clampVector.y = value.y <= max.y ? value.y : max.y;
+
+    return clampVector;
+}
 
 ////////////////////////////////////////////////////////////
 template <typename T>
@@ -133,10 +189,18 @@ inline Vector2<T> operator /(const Vector2<T>& left, T right)
     return Vector2<T>(left.x / right, left.y / right);
 }
 
-
 ////////////////////////////////////////////////////////////
 template <typename T>
 inline Vector2<T>& operator /=(Vector2<T>& left, T right)
+{
+    left.x /= right;
+    left.y /= right;
+
+    return left;
+}
+
+template <typename T>
+inline Vector2<T>& operator /=(Vector2<T>& left, const T& right)
 {
     left.x /= right;
     left.y /= right;
