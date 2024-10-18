@@ -34,12 +34,12 @@
     <Filter Include="Manager\Object">
       <UniqueIdentifier>{e6f70e50-bc42-4c8c-b753-49d6737d51b9}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Manager\WindowManager">
+      <UniqueIdentifier>{8e589d71-a8af-4d2a-bce8-e56e50c5dd16}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="SFMLProject.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="Singleton.cpp">
+    <ClCompile Include="main.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
     <ClCompile Include="InputManager.cpp">
@@ -53,6 +53,12 @@
     </ClCompile>
     <ClCompile Include="Object.cpp">
       <Filter>Manager\Object</Filter>
+    </ClCompile>
+    <ClCompile Include="WindowManager.cpp">
+      <Filter>Manager\WindowManager</Filter>
+    </ClCompile>
+    <ClCompile Include="Singleton.cpp">
+      <Filter>Manager\1. Singleton</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -76,6 +82,9 @@
     </ClInclude>
     <ClInclude Include="Object.h">
       <Filter>Manager\Object</Filter>
+    </ClInclude>
+    <ClInclude Include="WindowManager.h">
+      <Filter>Manager\WindowManager</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

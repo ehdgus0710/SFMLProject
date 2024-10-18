@@ -12,11 +12,11 @@ protected:
 	Singleton(const Singleton&) = delete;
 	Singleton& operator=(const Singleton&) = delete;
 public:
-	static Singleton<T>& GetInstance();
+	static T& GetInstance();
 };
 
 template<typename T>
-inline Singleton<T>& Singleton<T>::GetInstance()
+inline T& Singleton<T>::GetInstance()
 {
 	static T instance;
 	return instance;

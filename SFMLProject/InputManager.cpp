@@ -1,4 +1,5 @@
 #include "InputManager.h"
+#include "WindowManager.h"
 
 inline void InputManager::Clear()
 {
@@ -28,7 +29,7 @@ inline void InputManager::UpdateEvent(const sf::Event& ev)
 
 	break;
 	case sf::Event::MouseMoved:
-		// mousePosition = sf::Mouse::getPosition(RenderManager::window);
+		 mousePosition = sf::Mouse::getPosition(*WindowManager::GetInstance().GetRenderWindow());
 		break;
 	case sf::Event::MouseButtonPressed:
 	{
