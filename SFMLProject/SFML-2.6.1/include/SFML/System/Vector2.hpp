@@ -260,9 +260,6 @@ Vector2<T>& operator *=(Vector2<T>& left, T right);
 template <typename T>
 Vector2<T> operator /(const Vector2<T>& left, T right);
 
-template <typename T>
-Vector2<T> operator /(const Vector2<T>& left, const T& right);
-
 ////////////////////////////////////////////////////////////
 /// \relates Vector2
 /// \brief Overload of binary operator /=
@@ -342,10 +339,6 @@ typedef Vector2<float>        Vector2f;
 
 } // namespace sf
 
-sf::Vector2f operator/(const sf::Vector2u& lhs, const float& rhs)
-{
-    return sf::Vector2f(lhs.x / rhs, lhs.y / rhs);
-}
 #endif // SFML_VECTOR2_HPP
 
 

@@ -199,16 +199,6 @@ inline Vector2<T>& operator /=(Vector2<T>& left, T right)
     return left;
 }
 
-template <typename T>
-inline Vector2<T>& operator /=(Vector2<T>& left, const T& right)
-{
-    left.x /= right;
-    left.y /= right;
-
-    return left;
-}
-
-
 ////////////////////////////////////////////////////////////
 template <typename T>
 inline bool operator ==(const Vector2<T>& left, const Vector2<T>& right)

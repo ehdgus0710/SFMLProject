@@ -149,10 +149,21 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Entity.cpp" />
+    <ClCompile Include="InputManager.cpp" />
+    <ClCompile Include="Object.cpp" />
     <ClCompile Include="SFMLProject.cpp" />
+    <ClCompile Include="Singleton.cpp" />
+    <ClCompile Include="TimeManager.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Core.h" />
+    <ClInclude Include="Entity.h" />
+    <ClInclude Include="InputManager.h" />
+    <ClInclude Include="Object.h" />
+    <ClInclude Include="ResourcesManager.h" />
+    <ClInclude Include="Singleton.h" />
+    <ClInclude Include="TimeManager.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

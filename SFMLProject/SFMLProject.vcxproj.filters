@@ -13,15 +13,69 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Manager">
+      <UniqueIdentifier>{cbb9e0a6-6624-4e04-835b-0c7ee13d6398}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Manager\1. Singleton">
+      <UniqueIdentifier>{7d2f06e4-5843-42c9-9145-4c902b01e58e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Manager\4. TimeManager">
+      <UniqueIdentifier>{a29a16d0-0031-4b0e-927b-5e102c918f8b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Manager\3. ResourcesManager">
+      <UniqueIdentifier>{ee12dc71-27b9-4bab-942a-c8d3b4d51134}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Manager\2. InputManager">
+      <UniqueIdentifier>{29e1335b-618f-4430-8a16-6607cdfd8653}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Manager\Entity">
+      <UniqueIdentifier>{3594ac28-1dfb-46fb-9661-4e1dfbc195b1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Manager\Object">
+      <UniqueIdentifier>{e6f70e50-bc42-4c8c-b753-49d6737d51b9}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="SFMLProject.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
+    <ClCompile Include="Singleton.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="InputManager.cpp">
+      <Filter>Manager\2. InputManager</Filter>
+    </ClCompile>
+    <ClCompile Include="TimeManager.cpp">
+      <Filter>Manager\4. TimeManager</Filter>
+    </ClCompile>
+    <ClCompile Include="Entity.cpp">
+      <Filter>Manager\Entity</Filter>
+    </ClCompile>
+    <ClCompile Include="Object.cpp">
+      <Filter>Manager\Object</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Core.h">
       <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="Singleton.h">
+      <Filter>Manager\1. Singleton</Filter>
+    </ClInclude>
+    <ClInclude Include="InputManager.h">
+      <Filter>Manager\2. InputManager</Filter>
+    </ClInclude>
+    <ClInclude Include="ResourcesManager.h">
+      <Filter>Manager\3. ResourcesManager</Filter>
+    </ClInclude>
+    <ClInclude Include="TimeManager.h">
+      <Filter>Manager\4. TimeManager</Filter>
+    </ClInclude>
+    <ClInclude Include="Entity.h">
+      <Filter>Manager\Entity</Filter>
+    </ClInclude>
+    <ClInclude Include="Object.h">
+      <Filter>Manager\Object</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
