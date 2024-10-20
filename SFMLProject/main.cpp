@@ -13,6 +13,8 @@ int main()
     WindowManager::GetInstance().init({ 1920, 1080 }, "haha");
     auto renderWindow = WindowManager::GetInstance().GetRenderWindow();
 
+    ResourcesManager<sf::Texture>::GetInstance().Load("Bee", "test/test.png");
+    
     while (renderWindow->isOpen())
     {
         sf::Event event;

@@ -37,6 +37,15 @@
     <Filter Include="Manager\WindowManager">
       <UniqueIdentifier>{8e589d71-a8af-4d2a-bce8-e56e50c5dd16}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Core">
+      <UniqueIdentifier>{f2828a87-ba93-4592-a082-eb587de7f2b3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Core\0. Framework">
+      <UniqueIdentifier>{62dfbdd2-5b33-457f-8bf7-7ada7d2ac1bd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Core\3. Resources">
+      <UniqueIdentifier>{0eb9f089-86ee-4ef3-b53d-a2b9dc4f54c5}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -59,6 +68,12 @@
     </ClCompile>
     <ClCompile Include="Singleton.cpp">
       <Filter>Manager\1. Singleton</Filter>
+    </ClCompile>
+    <ClCompile Include="Framework.cpp">
+      <Filter>Core\0. Framework</Filter>
+    </ClCompile>
+    <ClCompile Include="Resources.cpp">
+      <Filter>Core\3. Resources</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -85,6 +100,12 @@
     </ClInclude>
     <ClInclude Include="WindowManager.h">
       <Filter>Manager\WindowManager</Filter>
+    </ClInclude>
+    <ClInclude Include="Framework.h">
+      <Filter>Core\0. Framework</Filter>
+    </ClInclude>
+    <ClInclude Include="Resources.h">
+      <Filter>Core\3. Resources</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

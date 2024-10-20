@@ -1,6 +1,6 @@
 #pragma once
-
 #include "Singleton.h"
+#include "Resources.h"
 #include "Core.h"
 
 template<typename T>
@@ -8,7 +8,7 @@ class ResourcesManager : public Singleton<ResourcesManager<T>>
 {
 	friend Singleton<ResourcesManager<T>>;
 protected:
-	std::unordered_map<std::string, T*> resourcesMap;
+	std::unordered_map<std::string, Resources<T>*> resourcesMap;
 
 	ResourcesManager() = default;
 	~ResourcesManager()
@@ -29,16 +29,21 @@ public:
 		resourcesMap.clear();
 	}
 
-	bool Load(const std::string& id)
+	bool Load(const std::string& id, const std::string& filepath)
 	{
 		if (resourcesMap.find(id) != resourcesMap.end())
 			return false;
 
-		T* resource = new T();
-		bool success = resource->LoadFromFile(id);
+		Resources<T>* resource = new Resources<T>;
+		T* test = new T;
+		bool successtest = test->loadFromFile(filepath);
+
+		bool success = resource->resource.loadFromFile(filepath);
 		if (success)
 		{
 			resourcesMap.insert({ id, resource });
+			resource->SetKey(id);
+			resource->SetFilePath(filepath);
 		}
 		else
 		{
@@ -60,7 +65,7 @@ public:
 		return true;
 	}
 
-	T& Get(const std::string& id)
+	Resources<T>& GetResource(const std::string& id)
 	{
 		auto iter = resourcesMap.find(id);
 		if (iter == resourcesMap.end())
@@ -68,6 +73,16 @@ public:
 			return Empty;
 		}
 		return *(iter->second);
+	}
+
+	T& Get(const std::string& id)
+	{
+		auto iter = resourcesMap.find(id);
+		if (iter == resourcesMap.end())
+		{
+			return Empty;
+		}
+		return *(iter->second->resource);
 	}
 };
 
