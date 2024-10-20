@@ -46,6 +46,9 @@
     <Filter Include="Core\3. Resources">
       <UniqueIdentifier>{0eb9f089-86ee-4ef3-b53d-a2b9dc4f54c5}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Manager\EventManager">
+      <UniqueIdentifier>{4744bf83-38b2-49b5-87d9-4e69b57f8e02}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">

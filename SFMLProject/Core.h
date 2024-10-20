@@ -17,7 +17,7 @@
 #include "Singleton.h"
 
 
-enum class KeyInput
+enum class KeyState
 {
 	KeyUp,
 	KeyDown,
