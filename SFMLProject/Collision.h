@@ -15,6 +15,8 @@ public:
 	void IsCollision() { ++collisionCount; }
 	void EndCollision() { --collisionCount; }
 
+	virtual void SetPosition(const sf::Vector2f& pos) { position = pos; }
+	sf::Vector2f GetPosition() { return position; }
 	const ColliderType GetColliderType() { return colliderType; }
 public:
 	Collision(ColliderType colliderType);

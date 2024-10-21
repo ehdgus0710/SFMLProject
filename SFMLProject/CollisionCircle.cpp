@@ -17,7 +17,6 @@ CollisionCircle::~CollisionCircle()
 void CollisionCircle::Update()
 {
 	Collision::Update();
-	collisionCircle.setPosition(position);
 }
 
 void CollisionCircle::Render(sf::RenderWindow& renderWindow)

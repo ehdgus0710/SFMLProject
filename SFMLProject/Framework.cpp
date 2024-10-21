@@ -6,7 +6,6 @@
 
 void Framework::init()
 {
-
     ResourcesManager<sf::Texture>::GetInstance().Load("Bee", "graphics/bee.png");
     renderWindow = WindowManager::GetInstance().GetRenderWindow();
 }

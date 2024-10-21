@@ -7,7 +7,8 @@ class Collider
 private:
 	static int globalCount;
 	sf::Vector2f offsetPosition;
-	sf::Vector2f colliderSize;
+	sf::Vector2f colliderScale;
+	sf::Vector2f position;
 	Collision* collision;
 
 	uint64_t	iD;
@@ -22,13 +23,16 @@ public:
 	bool GetActive() const { return active; }
 	void SetActive(bool active) { this->active = active; }
 
+	void SetPosition(sf::Vector2f pos);
+	sf::Vector2f GetPosition();
+	sf::Vector2f GetScale() { return colliderScale; }
 
 public:
 	void CreateCollision(ColliderType colliderType, sf::Vector2f offset = sf::Vector2f::zero, sf::Vector2f size = sf::Vector2f::one);
 
-	void OnCollisionEnter(Collision* target);
-	void OnCollisionStay(Collision* target);
-	void OnCollisionEnd(Collision* target);
+	void OnCollisionEnter(Collider* target);
+	void OnCollisionStay(Collider* target);
+	void OnCollisionEnd(Collider* target);
 
 public:
 	Collider();

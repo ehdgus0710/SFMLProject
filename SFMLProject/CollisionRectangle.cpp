@@ -18,7 +18,6 @@ CollisionRectangle::~CollisionRectangle()
 void CollisionRectangle::Update()
 {
 	Collision::Update();
-	rectanleRender.setPosition(position);
 }
 
 void CollisionRectangle::Render(sf::RenderWindow& renderWindow)
