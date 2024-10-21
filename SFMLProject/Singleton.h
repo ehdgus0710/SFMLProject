@@ -1,5 +1,4 @@
 #pragma once
-#include "Object.h"
 
 template<typename T>
 class Singleton

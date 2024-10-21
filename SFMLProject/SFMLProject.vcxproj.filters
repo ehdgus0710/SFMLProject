@@ -49,6 +49,9 @@
     <Filter Include="Manager\EventManager">
       <UniqueIdentifier>{4744bf83-38b2-49b5-87d9-4e69b57f8e02}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Core\KeyAction">
+      <UniqueIdentifier>{cce3386d-a812-44c1-8842-ee9d608a4eee}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -77,6 +80,12 @@
     </ClCompile>
     <ClCompile Include="Resources.cpp">
       <Filter>Core\3. Resources</Filter>
+    </ClCompile>
+    <ClCompile Include="KeyAction.cpp">
+      <Filter>Core\KeyAction</Filter>
+    </ClCompile>
+    <ClCompile Include="stdafx.cpp">
+      <Filter>소스 파일</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -109,6 +118,12 @@
     </ClInclude>
     <ClInclude Include="Resources.h">
       <Filter>Core\3. Resources</Filter>
+    </ClInclude>
+    <ClInclude Include="KeyAction.h">
+      <Filter>Core\KeyAction</Filter>
+    </ClInclude>
+    <ClInclude Include="stdafx.h">
+      <Filter>헤더 파일</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -1,8 +1,5 @@
 #pragma once
 
-#include "Singleton.h"
-#include <SFML/Graphics.hpp>
-
 class WindowManager : public Singleton<WindowManager>
 {
 	friend Singleton<WindowManager>;

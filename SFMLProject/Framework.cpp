@@ -1,27 +1,23 @@
-#include "Framework.h"
+#include "stdafx.h"
 
-#include "InputManager.h"
-#include "ResourcesManager.h"
-#include "TimeManager.h"
-#include "WindowManager.h"
+#include "Framework.h"
 #include "Core.h"
 
 
 void Framework::init()
 {
 
-    ResourcesManager<sf::Texture>::GetInstance().Load("Bee", "test/test.png");
+    ResourcesManager<sf::Texture>::GetInstance().Load("Bee", "graphics/bee.png");
     renderWindow = WindowManager::GetInstance().GetRenderWindow();
 }
 
 void Framework::Update()
 {
-    sf::Event event;
     while (renderWindow->pollEvent(event))
     {
         if (event.type == sf::Event::Closed)
             renderWindow->close();
-        //InputManager::GetInstance().UpdateEvent(event);
+        InputManager::GetInstance().UpdateEvent(&event);
     }
 }
 

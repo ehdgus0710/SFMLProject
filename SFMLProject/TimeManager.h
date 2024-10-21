@@ -1,32 +1,35 @@
 #pragma once
 
-#include "Singleton.h"
-#include <SFML/System/Time.hpp>
-#include <SFML/System/Clock.hpp>
-
 class TimeManager : public Singleton<TimeManager>
 {
 	friend Singleton<TimeManager>;
-public:
-	void Init();
-	void Update();
-
-	const float DeletaTime() const { return deltaTime; }
-	const float FixedDeletaTime() const { return fixedTime; }
-	const float GetElapsedTime() const 
-	{
-		return clock.getElapsedTime().asSeconds();
-	}
-	
-
 private:
 	sf::Clock		clock;
 	sf::Time		sfTime;
 
+	float			time;
+	float			realTime;
+
 	float			timeScale;
 	float			deltaTime;
+	float			realDeltatime;
 	float			fixedTime;
 	unsigned int	frameTarget;
+
+public:
+	void Init();
+	void Update();
+
+	float GetUnScaleDeletaTime() const { return deltaTime * timeScale; }
+	float GetUnScaleFixedDeletaTime() const { return fixedTime * timeScale; }
+	float GetDeletaTime() const { return deltaTime; }
+	float GetFixedDeletaTime() const { return fixedTime ; }
+	float GetTime() const 	{ return time; }
+	float GetRealTime() const { return realTime; }
+	float GetRealDeltatime() const { return realDeltatime; }
+	float GetTimeScale() const { return timeScale; }
+
+	void SetTimeScale(float newTimeScale) { timeScale = newTimeScale; }
 
 protected:
 	TimeManager();

@@ -1,26 +1,22 @@
 #pragma once
 
-// std
-#include<iostream>
-#include <time.h>
-#include <math.h>
-
-// 자료구조
-#include <unordered_map>
-#include <cassert>
-
-// SFML
-#include <SFML/Graphics.hpp>
-
-
-#include "SFML/System/Vector2.hpp"
-#include "Singleton.h"
-
-
 enum class KeyState
 {
 	KeyUp,
 	KeyDown,
 	KeyPressed,
 	KeyNone
+};
+enum class KeyCode
+{
+	W = 0,
+	A,
+	S,
+	D,
+	Space,
+	MouseLeftButton,
+	MouseRightButton,
+	//MiddleButton,
+
+	end
 };

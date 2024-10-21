@@ -1,5 +1,4 @@
 #pragma once
-#include "Singleton.h"
 #include "Resources.h"
 #include "Core.h"
 
@@ -36,9 +35,10 @@ public:
 
 		Resources<T>* resource = new Resources<T>;
 		T* test = new T;
-		bool successtest = test->loadFromFile(filepath);
 
 		bool success = resource->resource.loadFromFile(filepath);
+		assert(success);
+
 		if (success)
 		{
 			resourcesMap.insert({ id, resource });

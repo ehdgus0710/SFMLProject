@@ -1,5 +1,4 @@
-#include "InputManager.h"
-#include "WindowManager.h"
+#include "stdafx.h"
 
 inline void InputManager::Clear()
 {
@@ -9,46 +8,54 @@ inline void InputManager::Clear()
 
 void InputManager::init()
 {
+	for (int i = 0; i < (int)KeyCode::end; ++i)
+	{
+		//keyboardInputMap.insert({ (KeyCode)i , KeyState::KeyDown });
 
+
+		//sf::Keyboard::
+		//keyboardInputMap.insert({ ev->key.code , KeyState::KeyDown });
+
+	}
 }
 
-inline void InputManager::UpdateEvent(const sf::Event& ev)
+void InputManager::UpdateEvent(const sf::Event* ev)
 {
-	switch (ev.type)
+	switch (ev->type)
 	{
 	case sf::Event::KeyPressed:
 	{
-		auto iter = keyboardInputMap.find(ev.key.code);
+		auto iter = keyboardInputMap.find(ev->key.code);
 		if (iter != keyboardInputMap.end())
 		{
 			iter->second = KeyState::KeyUp == iter->second ? KeyState::KeyDown : KeyState::KeyPressed;
 		}
 		else
-			keyboardInputMap.insert({ ev.key.code , KeyState::KeyDown });
+			keyboardInputMap.insert({ ev->key.code , KeyState::KeyDown });
 	}
 	break;
 	case sf::Event::KeyReleased:
 	{
-		keyboardInputMap[ev.key.code] = KeyState::KeyUp;
+		keyboardInputMap[ev->key.code] = KeyState::KeyUp;
 	}
 
 	break;
 	case sf::Event::MouseMoved:
-		 mousePosition = sf::Mouse::getPosition(*WindowManager::GetInstance().GetRenderWindow());
+		mousePosition = sf::Mouse::getPosition(*WindowManager::GetInstance().GetRenderWindow());
 		break;
 	case sf::Event::MouseButtonPressed:
 	{
-		auto iter = mouseInputMap.find(ev.mouseButton.button);
+		auto iter = mouseInputMap.find(ev->mouseButton.button);
 		if (iter != mouseInputMap.end())
 		{
 			iter->second = KeyState::KeyUp == iter->second ? KeyState::KeyDown : KeyState::KeyPressed;
 		}
 		else
-			mouseInputMap.insert({ ev.mouseButton.button , KeyState::KeyDown });
+			mouseInputMap.insert({ ev->mouseButton.button , KeyState::KeyDown });
 	}
 	break;
 	case sf::Event::MouseButtonReleased:
-		mouseInputMap[ev.mouseButton.button] = KeyState::KeyUp;
+		mouseInputMap[ev->mouseButton.button] = KeyState::KeyUp;
 		break;
 	}
 }

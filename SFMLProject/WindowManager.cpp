@@ -1,4 +1,4 @@
-#include "WindowManager.h"
+#include "stdafx.h"
 
 WindowManager::~WindowManager()
 {

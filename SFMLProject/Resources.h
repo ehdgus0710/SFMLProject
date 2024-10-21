@@ -1,6 +1,5 @@
 #pragma once
 #include "Entity.h"
-#include <iostream>
 
 template <typename T>
 class Resources : public Entity
