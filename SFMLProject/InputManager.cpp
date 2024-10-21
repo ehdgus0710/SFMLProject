@@ -8,15 +8,15 @@ inline void InputManager::Clear()
 
 void InputManager::init()
 {
-	for (int i = 0; i < (int)KeyCode::end; ++i)
-	{
-		//keyboardInputMap.insert({ (KeyCode)i , KeyState::KeyDown });
+	//for (int i = 0; i < (int)KeyCode::end; ++i)
+	//{
+	//	//keyboardInputMap.insert({ (KeyCode)i , KeyState::KeyDown });
 
 
-		//sf::Keyboard::
-		//keyboardInputMap.insert({ ev->key.code , KeyState::KeyDown });
+	//	//sf::Keyboard::
+	//	//keyboardInputMap.insert({ ev->key.code , KeyState::KeyDown });
 
-	}
+	//}
 }
 
 void InputManager::UpdateEvent(const sf::Event* ev)

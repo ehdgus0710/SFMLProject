@@ -19,3 +19,8 @@
 #include "ResourcesManager.h"
 #include "TimeManager.h"
 #include "WindowManager.h"
+#include "ColliderManager.h"
+
+// Objec
+#include "Entity.h"
+#include "Core.h"

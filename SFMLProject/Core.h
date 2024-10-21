@@ -1,5 +1,13 @@
 #pragma once
 
+enum class ColliderType
+{
+	Point,
+	Circle,
+	Rectangle
+};
+
+
 enum class KeyState
 {
 	KeyUp,

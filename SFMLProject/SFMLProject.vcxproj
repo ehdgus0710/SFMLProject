@@ -150,8 +150,15 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Collider.cpp" />
+    <ClCompile Include="ColliderManager.cpp" />
+    <ClCompile Include="Collision.cpp" />
+    <ClCompile Include="CollisionCircle.cpp" />
+    <ClCompile Include="CollisionPoint.cpp" />
+    <ClCompile Include="CollisionRectangle.cpp" />
     <ClCompile Include="Entity.cpp" />
     <ClCompile Include="Framework.cpp" />
+    <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="InputManager.cpp" />
     <ClCompile Include="KeyAction.cpp" />
     <ClCompile Include="Object.cpp" />
@@ -167,9 +174,16 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Collider.h" />
+    <ClInclude Include="ColliderManager.h" />
+    <ClInclude Include="Collision.h" />
+    <ClInclude Include="CollisionCircle.h" />
+    <ClInclude Include="CollisionPoint.h" />
+    <ClInclude Include="CollisionRectangle.h" />
     <ClInclude Include="Core.h" />
     <ClInclude Include="Entity.h" />
     <ClInclude Include="Framework.h" />
+    <ClInclude Include="GameObject.h" />
     <ClInclude Include="InputManager.h" />
     <ClInclude Include="KeyAction.h" />
     <ClInclude Include="Object.h" />

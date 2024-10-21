@@ -3,9 +3,9 @@
 class Entity
 {
 public:
-	virtual void Update() {}
-	virtual void FixedUpdate() {}
-	virtual void LateUpdate() {}
+	virtual void Update(const float& deltaTime) {}
+	virtual void FixedUpdate(const float& deltaTime) {}
+	virtual void LateUpdate(const float& deltaTime) {}
 	virtual void Awake() {}
 	virtual void Start() {}
 
