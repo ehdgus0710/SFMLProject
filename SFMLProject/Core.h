@@ -28,3 +28,19 @@ enum class KeyCode
 
 	end
 };
+
+enum class SceneIds
+{
+	None = -1,
+	SceneDev1,
+	SceneDev2,
+	Count,
+};
+
+enum class Origins
+{
+	TopLeft, TopCenter, TopRight,
+	MiddleLeft, MiddleCenter, MiddleRight,
+	BottomLeft, BottomCenter, BottomRight,
+	Custom
+};
