@@ -28,31 +28,52 @@
     <Filter Include="Manager\2. InputManager">
       <UniqueIdentifier>{29e1335b-618f-4430-8a16-6607cdfd8653}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Manager\Entity">
-      <UniqueIdentifier>{3594ac28-1dfb-46fb-9661-4e1dfbc195b1}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Manager\Object">
-      <UniqueIdentifier>{e6f70e50-bc42-4c8c-b753-49d6737d51b9}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Manager\WindowManager">
-      <UniqueIdentifier>{8e589d71-a8af-4d2a-bce8-e56e50c5dd16}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Core">
       <UniqueIdentifier>{f2828a87-ba93-4592-a082-eb587de7f2b3}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Core\0. Framework">
-      <UniqueIdentifier>{62dfbdd2-5b33-457f-8bf7-7ada7d2ac1bd}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Core\3. Resources">
-      <UniqueIdentifier>{0eb9f089-86ee-4ef3-b53d-a2b9dc4f54c5}</UniqueIdentifier>
     </Filter>
     <Filter Include="Manager\EventManager">
       <UniqueIdentifier>{4744bf83-38b2-49b5-87d9-4e69b57f8e02}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Core\KeyAction">
+    <Filter Include="Manager\5. SceneManager">
+      <UniqueIdentifier>{5d357d44-568b-4b78-9601-eec285bb1b82}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Core\Utils">
+      <UniqueIdentifier>{42ae1fc0-c546-4d7b-aa1a-a72cf1c8dcc9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Manager\6. ColliderManager">
+      <UniqueIdentifier>{6d72ffce-95d8-4075-a8cc-e41e777a23ae}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Manager\7. WindowManager">
+      <UniqueIdentifier>{8e589d71-a8af-4d2a-bce8-e56e50c5dd16}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Core\Object">
+      <UniqueIdentifier>{e6f70e50-bc42-4c8c-b753-49d6737d51b9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Core\Object\UI">
+      <UniqueIdentifier>{3ca163a0-826a-44b2-9c7f-b72e53eed20d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Core\Object\GameObject">
+      <UniqueIdentifier>{2bf2f865-c382-47d6-8da9-93b6060f9507}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Core\0. define">
+      <UniqueIdentifier>{9fd34642-d56e-4549-9d57-bb1c19c91e83}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Core\0. Framework">
+      <UniqueIdentifier>{62dfbdd2-5b33-457f-8bf7-7ada7d2ac1bd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Core\1. Entity">
+      <UniqueIdentifier>{3594ac28-1dfb-46fb-9661-4e1dfbc195b1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Core\2. KeyAction">
       <UniqueIdentifier>{cce3386d-a812-44c1-8842-ee9d608a4eee}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Core\Collision">
+    <Filter Include="Core\3. Resources">
+      <UniqueIdentifier>{0eb9f089-86ee-4ef3-b53d-a2b9dc4f54c5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Core\5. Scene">
+      <UniqueIdentifier>{a88923db-d80c-40e0-a228-7c5f3e66d9b4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Core\6. Collision">
       <UniqueIdentifier>{d6fa543b-33b9-4d42-b3e9-bd1ce6ac07d3}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
@@ -67,13 +88,13 @@
       <Filter>Manager\4. TimeManager</Filter>
     </ClCompile>
     <ClCompile Include="Entity.cpp">
-      <Filter>Manager\Entity</Filter>
+      <Filter>Core\1. Entity</Filter>
     </ClCompile>
     <ClCompile Include="Object.cpp">
-      <Filter>Manager\Object</Filter>
+      <Filter>Core\Object</Filter>
     </ClCompile>
     <ClCompile Include="WindowManager.cpp">
-      <Filter>Manager\WindowManager</Filter>
+      <Filter>Manager\7. WindowManager</Filter>
     </ClCompile>
     <ClCompile Include="Singleton.cpp">
       <Filter>Manager\1. Singleton</Filter>
@@ -85,37 +106,52 @@
       <Filter>Core\3. Resources</Filter>
     </ClCompile>
     <ClCompile Include="KeyAction.cpp">
-      <Filter>Core\KeyAction</Filter>
-    </ClCompile>
-    <ClCompile Include="stdafx.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="GameObject.cpp">
-      <Filter>소스 파일</Filter>
+      <Filter>Core\2. KeyAction</Filter>
     </ClCompile>
     <ClCompile Include="Collision.cpp">
-      <Filter>Core\Collision</Filter>
+      <Filter>Core\6. Collision</Filter>
     </ClCompile>
     <ClCompile Include="CollisionCircle.cpp">
-      <Filter>Core\Collision</Filter>
+      <Filter>Core\6. Collision</Filter>
     </ClCompile>
     <ClCompile Include="CollisionPoint.cpp">
-      <Filter>Core\Collision</Filter>
+      <Filter>Core\6. Collision</Filter>
     </ClCompile>
     <ClCompile Include="CollisionRectangle.cpp">
-      <Filter>Core\Collision</Filter>
+      <Filter>Core\6. Collision</Filter>
     </ClCompile>
     <ClCompile Include="Collider.cpp">
-      <Filter>Core\Collision</Filter>
+      <Filter>Core\6. Collision</Filter>
+    </ClCompile>
+    <ClCompile Include="UITextGameObject.cpp">
+      <Filter>Core\Object\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="UIGameObject.cpp">
+      <Filter>Core\Object\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="Utils.cpp">
+      <Filter>Core\Utils</Filter>
+    </ClCompile>
+    <ClCompile Include="stdafx.cpp">
+      <Filter>Core\0. define</Filter>
+    </ClCompile>
+    <ClCompile Include="SceneManager.cpp">
+      <Filter>Manager\5. SceneManager</Filter>
+    </ClCompile>
+    <ClCompile Include="GameObject.cpp">
+      <Filter>Core\Object\GameObject</Filter>
+    </ClCompile>
+    <ClCompile Include="SpriteGameObject.cpp">
+      <Filter>Core\Object\GameObject</Filter>
+    </ClCompile>
+    <ClCompile Include="Scene.cpp">
+      <Filter>Core\5. Scene</Filter>
     </ClCompile>
     <ClCompile Include="ColliderManager.cpp">
-      <Filter>Manager</Filter>
+      <Filter>Manager\6. ColliderManager</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Core.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
     <ClInclude Include="Singleton.h">
       <Filter>Manager\1. Singleton</Filter>
     </ClInclude>
@@ -129,13 +165,13 @@
       <Filter>Manager\4. TimeManager</Filter>
     </ClInclude>
     <ClInclude Include="Entity.h">
-      <Filter>Manager\Entity</Filter>
+      <Filter>Core\1. Entity</Filter>
     </ClInclude>
     <ClInclude Include="Object.h">
-      <Filter>Manager\Object</Filter>
+      <Filter>Core\Object</Filter>
     </ClInclude>
     <ClInclude Include="WindowManager.h">
-      <Filter>Manager\WindowManager</Filter>
+      <Filter>Manager\7. WindowManager</Filter>
     </ClInclude>
     <ClInclude Include="Framework.h">
       <Filter>Core\0. Framework</Filter>
@@ -144,31 +180,55 @@
       <Filter>Core\3. Resources</Filter>
     </ClInclude>
     <ClInclude Include="KeyAction.h">
-      <Filter>Core\KeyAction</Filter>
-    </ClInclude>
-    <ClInclude Include="stdafx.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="GameObject.h">
-      <Filter>헤더 파일</Filter>
+      <Filter>Core\2. KeyAction</Filter>
     </ClInclude>
     <ClInclude Include="CollisionPoint.h">
-      <Filter>Core\Collision</Filter>
+      <Filter>Core\6. Collision</Filter>
     </ClInclude>
     <ClInclude Include="Collision.h">
-      <Filter>Core\Collision</Filter>
+      <Filter>Core\6. Collision</Filter>
     </ClInclude>
     <ClInclude Include="CollisionCircle.h">
-      <Filter>Core\Collision</Filter>
+      <Filter>Core\6. Collision</Filter>
     </ClInclude>
     <ClInclude Include="CollisionRectangle.h">
-      <Filter>Core\Collision</Filter>
+      <Filter>Core\6. Collision</Filter>
     </ClInclude>
     <ClInclude Include="Collider.h">
-      <Filter>Core\Collision</Filter>
+      <Filter>Core\6. Collision</Filter>
+    </ClInclude>
+    <ClInclude Include="UITextGameObject.h">
+      <Filter>Core\Object\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="UIGameObject.h">
+      <Filter>Core\Object\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="Utils.h">
+      <Filter>Core\Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="stdafx.h">
+      <Filter>Core\0. define</Filter>
+    </ClInclude>
+    <ClInclude Include="Core.h">
+      <Filter>Core\0. define</Filter>
+    </ClInclude>
+    <ClInclude Include="SceneManager.h">
+      <Filter>Manager\5. SceneManager</Filter>
+    </ClInclude>
+    <ClInclude Include="GameObject.h">
+      <Filter>Core\Object\GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="SpriteGameObject.h">
+      <Filter>Core\Object\GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene.h">
+      <Filter>Core\5. Scene</Filter>
     </ClInclude>
     <ClInclude Include="ColliderManager.h">
-      <Filter>Manager</Filter>
+      <Filter>Manager\6. ColliderManager</Filter>
+    </ClInclude>
+    <ClInclude Include="Defines.h">
+      <Filter>Core\0. define</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

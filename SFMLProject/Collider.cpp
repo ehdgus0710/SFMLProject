@@ -46,6 +46,7 @@ void Collider::CreateCollision(ColliderType colliderType, sf::Vector2f offset, s
 
 void Collider::OnCollisionEnter(Collider* target)
 {
+	collision->IsCollision();
 }
 
 void Collider::OnCollisionStay(Collider* target)
@@ -54,6 +55,7 @@ void Collider::OnCollisionStay(Collider* target)
 
 void Collider::OnCollisionEnd(Collider* target)
 {
+	collision->EndCollision();
 }
 
 ColliderType Collider::GetColliderType()

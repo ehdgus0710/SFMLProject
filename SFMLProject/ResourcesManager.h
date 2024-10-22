@@ -82,9 +82,9 @@ public:
 		{
 			return Empty;
 		}
-		return *(iter->second->resource);
+		return (iter->second->resource);
 	}
 };
 
 template<typename T>
-T ResourcesManager<T>::Empty = nullptr;
+T ResourcesManager<T>::Empty;

@@ -22,6 +22,11 @@ void CollisionRectangle::Update()
 
 void CollisionRectangle::Render(sf::RenderWindow& renderWindow)
 {
+	if (collisionCount > 0)
+		rectanleRender.setOutlineColor(sf::Color::Red);
+	else
+		rectanleRender.setOutlineColor(sf::Color::Green);
+
 	renderWindow.draw(rectanleRender);
 }
 

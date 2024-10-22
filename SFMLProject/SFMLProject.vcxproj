@@ -164,11 +164,17 @@
     <ClCompile Include="Object.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Resources.cpp" />
+    <ClCompile Include="Scene.cpp" />
+    <ClCompile Include="SceneManager.cpp" />
     <ClCompile Include="Singleton.cpp" />
+    <ClCompile Include="SpriteGameObject.cpp" />
     <ClCompile Include="stdafx.cpp" />
     <ClCompile Include="TimeManager.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="UIGameObject.cpp" />
+    <ClCompile Include="UITextGameObject.cpp" />
+    <ClCompile Include="Utils.cpp" />
     <ClCompile Include="WindowManager.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Use</PrecompiledHeader>
     </ClCompile>
@@ -181,6 +187,7 @@
     <ClInclude Include="CollisionPoint.h" />
     <ClInclude Include="CollisionRectangle.h" />
     <ClInclude Include="Core.h" />
+    <ClInclude Include="Defines.h" />
     <ClInclude Include="Entity.h" />
     <ClInclude Include="Framework.h" />
     <ClInclude Include="GameObject.h" />
@@ -189,9 +196,15 @@
     <ClInclude Include="Object.h" />
     <ClInclude Include="Resources.h" />
     <ClInclude Include="ResourcesManager.h" />
+    <ClInclude Include="Scene.h" />
+    <ClInclude Include="SceneManager.h" />
     <ClInclude Include="Singleton.h" />
+    <ClInclude Include="SpriteGameObject.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="TimeManager.h" />
+    <ClInclude Include="UIGameObject.h" />
+    <ClInclude Include="UITextGameObject.h" />
+    <ClInclude Include="Utils.h" />
     <ClInclude Include="WindowManager.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

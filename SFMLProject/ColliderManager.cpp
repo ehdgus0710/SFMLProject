@@ -17,7 +17,7 @@ void ColliderManager::Update()
     {
         for (int j = i + 1; j <= vectorSize; ++j)
         {
-            if (colliderVector[i]->GetActive() || colliderVector[j]->GetActive())
+            if (!colliderVector[i]->GetActive() || !colliderVector[j]->GetActive())
                 continue;
 
             auto left = colliderVector[i]->GetID() < colliderVector[j]->GetID() ? colliderVector[i]->GetID() : colliderVector[j]->GetID();
@@ -62,7 +62,7 @@ bool ColliderManager::CheckCollision(Collider* left, Collider* right)
     if (left->GetColliderType() == ColliderType::Rectangle)
     {
         if (right->GetColliderType() == ColliderType::Rectangle)
-            return IsCircleToRectCollision(left, right);
+            return IsRectToRectCollision(left, right);
         else if (right->GetColliderType() == ColliderType::Circle)
             return IsCircleToRectCollision(right, left);
         else
