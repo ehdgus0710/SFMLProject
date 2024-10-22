@@ -1,5 +1,4 @@
 #pragma once
-#include "Core.h"
 
 class InputManager : public Singleton<InputManager>
 {
@@ -11,7 +10,7 @@ private:
 	sf::Vector2i mousePosition;
 
 public:
-	void init();
+	void Init();
 
 	void UpdateEvent(const sf::Event* ev);
 	bool GetKeyDown(sf::Keyboard::Key key);
@@ -23,7 +22,7 @@ public:
 
 protected:
 	InputManager() = default;
-	~InputManager() override {}
+	~InputManager() = default;
 	InputManager(const InputManager&) = delete;
 	InputManager& operator=(const InputManager&) = delete;
 };

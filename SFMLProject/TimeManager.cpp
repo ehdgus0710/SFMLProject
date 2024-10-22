@@ -18,7 +18,7 @@ void TimeManager::Init()
 	clock.restart();
 }
 
-inline void TimeManager::Update()
+void TimeManager::Update()
 {
 	sfTime = clock.restart();
 	realDeltatime = deltaTime = sfTime.asSeconds();

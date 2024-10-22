@@ -1,13 +1,13 @@
 #include "stdafx.h"
 #include "SceneManager.h"
 
-//#include "SceneDev1.h"
-//#include "SceneDev2.h"
+#include "SceneDev1.h"
+#include "SceneDev2.h"
 
 void SceneManager::Init()
 {
-	//sceneVec.push_back(new SceneDev1());
-	//sceneVec.push_back(new SceneDev2());
+	sceneVec.push_back(new SceneDev1());
+	sceneVec.push_back(new SceneDev2());
 
 	for (auto& scene : sceneVec)
 	{
@@ -31,7 +31,6 @@ void SceneManager::Release()
 
 void SceneManager::ChangeScene(SceneIds id)
 {
-
 	sceneVec[(int)currentScene]->Exit();
 	currentScene = id;
 	sceneVec[(int)currentScene]->Enter();

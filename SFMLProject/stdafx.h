@@ -1,6 +1,7 @@
 #pragma once
 
 
+#include "Core.h"
 // std
 #include<iostream>
 #include <time.h>
@@ -27,7 +28,6 @@
 
 #include "Defines.h"
 #include "Utils.h"
-#include "Core.h"
 
 // Objec
 #include "GameObject.h"

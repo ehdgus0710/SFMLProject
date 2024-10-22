@@ -6,7 +6,7 @@ inline void InputManager::Clear()
 	mouseInputMap.clear();
 }
 
-void InputManager::init()
+void InputManager::Init()
 {
 	//for (int i = 0; i < (int)KeyCode::end; ++i)
 	//{
@@ -60,22 +60,22 @@ void InputManager::UpdateEvent(const sf::Event* ev)
 	}
 }
 
-inline bool InputManager::GetKeyDown(sf::Keyboard::Key key)
+bool InputManager::GetKeyDown(sf::Keyboard::Key key)
 {
 	return  keyboardInputMap[key] == KeyState::KeyDown;
 }
 
-inline bool InputManager::GetKey(sf::Keyboard::Key key)
+bool InputManager::GetKey(sf::Keyboard::Key key)
 {
 	return keyboardInputMap.find(key) != keyboardInputMap.end();
 }
 
-inline bool InputManager::GetKeyUp(sf::Keyboard::Key key)
+bool InputManager::GetKeyUp(sf::Keyboard::Key key)
 {
 	return keyboardInputMap[key] == KeyState::KeyUp;
 }
 
-inline const sf::Vector2i InputManager::GetMousePosition() const
+const sf::Vector2i InputManager::GetMousePosition() const
 {
 	return mousePosition;
 }

@@ -88,3 +88,5 @@ public:
 
 template<typename T>
 T ResourcesManager<T>::Empty;
+
+#define TEXTURE_MANAGER (ResourcesManager<sf::Texture>::GetInstance())

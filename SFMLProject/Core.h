@@ -7,7 +7,6 @@ enum class ColliderType
 	Rectangle
 };
 
-
 enum class KeyState
 {
 	KeyUp,

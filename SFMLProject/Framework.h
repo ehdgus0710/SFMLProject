@@ -6,8 +6,9 @@ private:
 	sf::RenderWindow*	renderWindow;
 	sf::Event			event;
 public:
-	void init();
+	void Init();
 	void Update();
+	void Release();
 public:
 	Framework();
 	~Framework();
