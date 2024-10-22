@@ -2,6 +2,7 @@
 #include "SceneDev1.h"
 #include "SpriteGameObject.h"
 #include "UiTextGameObject.h"
+#include "Test.h"
 
 void SceneDev1::Init()
 {
@@ -10,11 +11,15 @@ void SceneDev1::Init()
 
 	obj->SetOrigin(Origins::MiddleCenter);
 	obj->SetPosition({ 1920.f * 0.5f, 1080 * 0.5f });
+	obj->CreateCollider(ColliderType::Circle);
 
 	obj = AddGameObecjt(new UITextGameObject("fonts/KOMIKAP_.ttf", "", 100));
 	obj->SetOrigin(Origins::TopLeft);
 	obj->SetPosition({ });
 	((UITextGameObject*)obj)->SetString("SceneDev1");
+
+	Test* test = AddGameObecjt(new Test("player"));
+	test->CreateCollider(ColliderType::Rectangle);
 
 
 	Scene::Init();
@@ -22,7 +27,6 @@ void SceneDev1::Init()
 
 void SceneDev1::Enter()
 {
-
 	TEXTURE_MANAGER.Load("player", "graphics/player.png");
 
 

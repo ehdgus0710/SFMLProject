@@ -18,8 +18,8 @@ void SpriteGameObject::SetPosition(const sf::Vector2f& pos)
 
 void SpriteGameObject::Render(sf::RenderWindow& renderWindow)
 {
-	GameObject::Render(renderWindow);
 	renderWindow.draw(sprite);
+	GameObject::Render(renderWindow);
 }
 
 void SpriteGameObject::Reset()

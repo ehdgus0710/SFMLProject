@@ -4,15 +4,22 @@
 
 struct Rectangle
 {
-	sf::Vector2f leftTopPosition;
-	sf::Vector2f rightBottomPosition;
+	float leftPosition;
+	float rightPosition;
+	float topPosition;
+	float bottomPosition;
 
 	Rectangle(sf::Vector2f size)
 	{
-		leftTopPosition.x = size.x / 2.f * -1.f;
-		leftTopPosition.y = size.y / 2.f * -1.f; 
-		rightBottomPosition.x = leftTopPosition.x * -1.f;
-		rightBottomPosition.y = leftTopPosition.y * -1.f;
+		SetSize(size);
+	}
+
+	void SetSize(sf::Vector2f size)
+	{
+		leftPosition = size.x * 0.5f * -1.f;
+		topPosition = size.y * 0.5f * -1.f;
+		rightPosition = leftPosition  * -1.f;
+		bottomPosition = topPosition * -1.f;
 	}
 };
 
@@ -24,16 +31,24 @@ private:
 	Rectangle rectanglePosition;
 
 public:
+	void Init() override;
+
 	void Update() override;
 	virtual void Render(sf::RenderWindow& renderWindow);
 
 	void SetSize(sf::Vector2f size);
-	sf::Vector2f GetSize() const { return rectangleSize; }
+	sf::Vector2f GetScale() const override { return rectanleRender.getSize(); }
+	void SetPosition(const sf::Vector2f& pos) override;
 
-	sf::Vector2f GetLeftTopPosition() { return position + rectanglePosition.leftTopPosition; }
-	sf::Vector2f GetRightBottomPosition() { return position + rectanglePosition.rightBottomPosition; }
-	sf::Vector2f GetRightTopPosition() { return position + sf::Vector2f(rectanglePosition.rightBottomPosition.x, rectanglePosition.leftTopPosition.y); }
-	sf::Vector2f GetLeftBottomPosition() { return position + sf::Vector2f(rectanglePosition.leftTopPosition.x, rectanglePosition.rightBottomPosition.y); }
+	sf::Vector2f GetLeftTopPosition() { return { position.x + rectanglePosition.leftPosition , position.y + rectanglePosition.topPosition }; }
+	sf::Vector2f GetRightBottomPosition() { return { position.x + rectanglePosition.rightPosition , position.y + rectanglePosition.bottomPosition }; }
+	sf::Vector2f GetRightTopPosition() { return { position.x + rectanglePosition.rightPosition , position.y + rectanglePosition.topPosition }; }
+	sf::Vector2f GetLeftBottomPosition() { return { position.x + rectanglePosition.leftPosition , position.y + rectanglePosition.topPosition }; }
+
+	float GetLeftPosition() { return position.x + rectanglePosition.leftPosition; }
+	float GetRightPosition() { return position.x + rectanglePosition.rightPosition; }
+	float GetTopPosition() { return position.y + rectanglePosition.topPosition; }
+	float GetBottomPosition() { return position.y + rectanglePosition.bottomPosition; }
 
 public:
 	CollisionRectangle(sf::Vector2f size = sf::Vector2f::one);

@@ -8,11 +8,20 @@ CollisionRectangle::CollisionRectangle(sf::Vector2f size)
 	, Collision(ColliderType::Rectangle)
 	, rectanleRender(size)
 {
-	rectanleRender.setOutlineColor(sf::Color::Green);
+	Init();
 }
 
 CollisionRectangle::~CollisionRectangle()
 {
+}
+
+void CollisionRectangle::Init()
+{
+	rectanleRender.setFillColor(sf::Color::Transparent);
+	rectanleRender.setOutlineColor(sf::Color::Green);
+	rectanleRender.setOutlineThickness(1);
+	rectanleRender.setOrigin(rectangleSize * 0.5f);
+	SetSize(rectangleSize);
 }
 
 void CollisionRectangle::Update()
@@ -33,5 +42,11 @@ void CollisionRectangle::Render(sf::RenderWindow& renderWindow)
 void CollisionRectangle::SetSize(sf::Vector2f size)
 {
 	rectangleSize = size;
+	rectanglePosition.SetSize(size);
 }
 
+void CollisionRectangle::SetPosition(const sf::Vector2f& pos)
+{
+	rectanleRender.setPosition(pos);
+	Collision::SetPosition(pos);
+}

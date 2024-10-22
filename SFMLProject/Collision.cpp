@@ -10,7 +10,7 @@ void Collision::Update()
 	//collionSprite.setPosition(position);
 }
 
-void Collision::Render(sf::RenderWindow renderWindow)
+void Collision::Render(sf::RenderWindow& renderWindow)
 {
 }
 

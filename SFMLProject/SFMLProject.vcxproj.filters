@@ -76,6 +76,15 @@
     <Filter Include="Core\6. Collision">
       <UniqueIdentifier>{d6fa543b-33b9-4d42-b3e9-bd1ce6ac07d3}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Contants">
+      <UniqueIdentifier>{06ae2c78-007e-4287-94cb-32fae660e895}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contants\Player">
+      <UniqueIdentifier>{da450f9f-2676-436b-8904-480965c27d5d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contants\Bullet">
+      <UniqueIdentifier>{ad83cf75-fdd1-4388-bfe9-cf3241f03954}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -155,6 +164,9 @@
     </ClCompile>
     <ClCompile Include="SceneDev2.cpp">
       <Filter>Core\5. Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="Test.cpp">
+      <Filter>소스 파일</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -241,6 +253,9 @@
     </ClInclude>
     <ClInclude Include="SceneDev2.h">
       <Filter>Core\5. Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="Test.h">
+      <Filter>헤더 파일</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

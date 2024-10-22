@@ -10,13 +10,16 @@ protected:
 public:
 	virtual void Init();
 	virtual void Update();
-	virtual void Render(sf::RenderWindow renderWindow);
+	virtual void Render(sf::RenderWindow& renderWindow);
 
 	void IsCollision() { ++collisionCount; }
 	void EndCollision() { --collisionCount; }
 
 	virtual void SetPosition(const sf::Vector2f& pos) { position = pos; }
 	sf::Vector2f GetPosition() { return position; }
+
+	virtual sf::Vector2f GetScale() const = 0;
+
 	const ColliderType GetColliderType() { return colliderType; }
 public:
 	Collision(ColliderType colliderType);

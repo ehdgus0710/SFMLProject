@@ -6,7 +6,7 @@ protected:
 	sf::Vector2f rotation;
 	sf::Vector2f scale;
 
-
+	Collider* collider;
 	sf::Vector2f origin;
 	Origins		originPreset;
 
@@ -32,7 +32,7 @@ public:
 	void SetName(const std::string& name) { this->name = name; }
 
 	sf::Vector2f GetPosition() const { return position; }
-	virtual void SetPosition(const sf::Vector2f& pos) { position = pos; }
+	virtual void SetPosition(const sf::Vector2f& pos);
 
 	sf::Vector2f GetOrigin() const { return origin; }
 	virtual void SetOrigin(Origins preset);
@@ -42,12 +42,15 @@ public:
 		originPreset = Origins::Custom;
 	}
 
+
+	virtual bool CreateCollider(ColliderType colliderType, sf::Vector2f offset = sf::Vector2f::zero, sf::Vector2f size = sf::Vector2f::one);
+	Collider* GetCollider() { return collider; }
 public:
 	bool Save() const override;
 	bool Load() override;
 public:
 	GameObject(const std::string& name);
-	virtual ~GameObject() {}
+	virtual ~GameObject();
 	GameObject(const GameObject& other);
 	//GameObject& operator=(const GameObject&& other);
 };

@@ -171,6 +171,7 @@
     <ClCompile Include="Singleton.cpp" />
     <ClCompile Include="SpriteGameObject.cpp" />
     <ClCompile Include="stdafx.cpp" />
+    <ClCompile Include="Test.cpp" />
     <ClCompile Include="TimeManager.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
     </ClCompile>
@@ -205,6 +206,7 @@
     <ClInclude Include="Singleton.h" />
     <ClInclude Include="SpriteGameObject.h" />
     <ClInclude Include="stdafx.h" />
+    <ClInclude Include="Test.h" />
     <ClInclude Include="TimeManager.h" />
     <ClInclude Include="UIGameObject.h" />
     <ClInclude Include="UITextGameObject.h" />
