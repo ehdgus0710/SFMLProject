@@ -20,7 +20,15 @@
 #include "TimeManager.h"
 #include "WindowManager.h"
 #include "ColliderManager.h"
+#include "SceneManager.h"
+#include "Scene.h"
+
+// Utils
+
+#include "Defines.h"
+#include "Utils.h"
+#include "Core.h"
 
 // Objec
+#include "GameObject.h"
 #include "Entity.h"
-#include "Core.h"
