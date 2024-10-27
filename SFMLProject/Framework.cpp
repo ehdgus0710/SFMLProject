@@ -19,6 +19,7 @@ void Framework::Update()
 {
     while (renderWindow->isOpen())
     {
+        InputManager::GetInstance().UpDownCheck();
         TimeManager::GetInstance().Update();
 
         while (renderWindow->pollEvent(event))
