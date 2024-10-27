@@ -21,6 +21,11 @@ Collider::~Collider()
 		delete collision;
 }
 
+bool Collider::GetDestory()
+{
+	return false;
+}
+
 void Collider::SetPosition(sf::Vector2f pos)
 {
 	position = pos + offsetPosition;

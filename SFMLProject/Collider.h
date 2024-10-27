@@ -23,6 +23,7 @@ public:
 	bool GetActive() const { return active; }
 	void SetActive(bool active) { this->active = active; }
 
+	bool GetDestory();
 	void SetPosition(sf::Vector2f pos);
 
 	void SetScale(sf::Vector2f size);

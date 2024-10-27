@@ -10,16 +10,21 @@ private:
 	std::unordered_map<std::string, bool> collisionMap;
 
 	// юс╫ц
-	std::vector<Collider*> colliderVector;
+	std::vector<std::vector<Collider*>>  colliderVector;
+	std::vector<std::vector<bool>> collisionCheckVector;
 	int vectorSize;
 		
 public:
 	void Init();
 	void Update();
-	//bool isCo
-	bool CheckCollision(Collider* left, Collider* right);
 
-	void AddCollider(Collider* newCollision);
+	void Clear();
+
+	void LayerCollision(int left, int right);
+	bool CheckCollision(Collider* left, Collider* right);
+	void SetCollisionCheck(ColliderLayer left, ColliderLayer right);
+
+	void AddCollider(Collider* newCollision, ColliderLayer right);
 
 	bool IsPointToPointCollision(Collider* left, Collider* right);
 	bool IsRectToRectCollision(Collider* left, Collider* right);
