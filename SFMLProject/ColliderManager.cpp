@@ -7,14 +7,28 @@
 #include "CollisionCircle.h"
 #include "CollisionRectangle.h"
 
+ColliderManager::ColliderManager()
+{
+    collisionCheckVector.clear();
+    colliderVector.clear();
+
+    colliderVector.resize((int)ColliderLayer::End);
+    collisionCheckVector.resize((int)ColliderLayer::End);
+
+    for (int i = 0; i < (int)ColliderLayer::End; ++i)
+    {
+        collisionCheckVector[i].resize((int)ColliderLayer::End);
+    }
+}
+
 void ColliderManager::Init()
 {
     collisionCheckVector.clear();
     colliderVector.clear();
 
     colliderVector.resize((int)ColliderLayer::End);
-
     collisionCheckVector.resize((int)ColliderLayer::End);
+
     for (int i = 0; i < (int)ColliderLayer::End; ++i)
     {
         collisionCheckVector[i].resize((int)ColliderLayer::End);
@@ -23,6 +37,7 @@ void ColliderManager::Init()
 
 void ColliderManager::Update()
 {
+
     for (int i = 0; i < (int)ColliderLayer::End; ++i)
     {
         for (int j = i; j < (int)ColliderLayer::End; ++j)
@@ -143,10 +158,9 @@ void ColliderManager::SetCollisionCheck(ColliderLayer left, ColliderLayer right)
     collisionCheckVector[(int)right][(int)left] = true;
 }
 
-void ColliderManager::AddCollider(Collider* newCollision, ColliderLayer right)
+void ColliderManager::AddCollider(Collider* newCollision, ColliderLayer colliderLayer)
 {
-    colliderVector.push_back(newCollision);
-    vectorSize = (int)colliderVector.size();
+    colliderVector[(int)colliderLayer].push_back(newCollision);
 }
 
 bool ColliderManager::IsPointToPointCollision(Collider* left, Collider* right)

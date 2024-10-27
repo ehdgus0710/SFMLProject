@@ -4,31 +4,41 @@
 Scene::Scene(const SceneIds id)
 	: id(id)
 {
+	gameObjectVector.resize((int)ColliderLayer::End);
 }
 
 void Scene::Init()
 {
-	for (auto object : gameObjectList)
+	for (auto& objectVector : gameObjectVector)
 	{
-		object->Awake();
+		for (auto& object : objectVector)
+		{
+			object->Awake();
+		}
 	}
 }
 
 void Scene::Release()
 {
-	for (auto object : gameObjectList)
+	for (auto& objectVector : gameObjectVector)
 	{
-		object->Release();
-		delete object;
+		for (auto& object : objectVector)
+		{
+			object->Release();
+			delete object;
+		}
+		objectVector.clear();
 	}
-	gameObjectList.clear();
 }
 
 void Scene::Enter()
 {
-	for (auto object : gameObjectList)
+	for (auto& objectVector : gameObjectVector)
 	{
-		object->Start();
+		for (auto& object : objectVector)
+		{
+			object->Start();
+		}
 	}
 }
 
@@ -39,43 +49,54 @@ void Scene::Exit()
 
 void Scene::Update(float deltaTime)
 {
-	for (auto object : gameObjectList)
+	for (auto& objectVector : gameObjectVector)
 	{
-		if (!object->IsActive())
-			continue;
+		for (auto& object : objectVector)
+		{
+			if (!object->IsActive())
+				continue;
 
-		object->Update(deltaTime);
+			object->Update(deltaTime);
+		}
 	}
 }
 
 void Scene::Render(sf::RenderWindow& window)
 {
-	for (auto object : gameObjectList)
+	for (auto& objectVector : gameObjectVector)
 	{
-		if (!object->IsActive())
-			continue;
+		for (auto& object : objectVector)
+		{
+			if (!object->IsActive())
+				continue;
 
-		object->Render(window);
+			object->Render(window);
+		}
 	}
 }
 
-GameObject* Scene::AddGameObject(GameObject* obj)
+GameObject* Scene::AddGameObject(GameObject* obj, RenderLayer rayer)
 {
-	if (std::find(gameObjectList.begin(), gameObjectList.end(), obj) == gameObjectList.end())
+	if (std::find(gameObjectVector[(int)rayer].begin(), gameObjectVector[(int)rayer].end(), obj) == gameObjectVector[(int)rayer].end())
 	{
-		gameObjectList.push_back(obj);
+		gameObjectVector[(int)rayer].push_back(obj);
 	}
 	return obj;
 }
 
 void Scene::RemoveGameObject(GameObject* obj)
 {
-	gameObjectList.remove(obj);
+	for (auto& objectVector : gameObjectVector)
+	{
+
+	}
+
+	// gameObjectList.remove(obj);
 }
 
 GameObject* Scene::FindGameObject(const std::string& name)
 {
-	for (auto object : gameObjectList)
+	/*for (auto object : gameObjectList)
 	{
 		if (object->GetName() == name)
 		{
@@ -83,12 +104,13 @@ GameObject* Scene::FindGameObject(const std::string& name)
 		}
 	}
 
+	*/
 	return nullptr;
 }
 
 int Scene::FindGameObjectAll(const std::string& name, std::list<GameObject*>& list)
 {
-	int currnetCount = 0;
+	/*int currnetCount = 0;
 	for (auto object : gameObjectList)
 	{
 		if (object->GetName() == name)
@@ -97,5 +119,6 @@ int Scene::FindGameObjectAll(const std::string& name, std::list<GameObject*>& li
 			list.push_back(object);
 		}
 	}
+	*/
 	return 0;
 }

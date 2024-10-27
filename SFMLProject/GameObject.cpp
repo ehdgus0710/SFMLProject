@@ -73,11 +73,11 @@ void GameObject::Render(sf::RenderWindow& renderWindow)
 		collider->Render(renderWindow);
 }
 
-bool GameObject::CreateCollider(ColliderType colliderType, sf::Vector2f offset, sf::Vector2f size)
+bool GameObject::CreateCollider(ColliderType colliderType, ColliderLayer colliderLayer, sf::Vector2f offset, sf::Vector2f size)
 {
 	if (collider == nullptr)
 	{
-		collider = new Collider(colliderType, offset, size * 100.f);
+		collider = new Collider(colliderType, colliderLayer, offset, size * 100.f);
 		collider->SetPosition(position);
 		return true;
 	}

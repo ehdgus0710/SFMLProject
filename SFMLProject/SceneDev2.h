@@ -13,6 +13,5 @@ public:
 public:
 	SceneDev2();
 	~SceneDev2();
-
 };
 

@@ -5,13 +5,13 @@
 
 void SceneDev2::Init()
 {
-	GameObject* obj = AddGameObject(new SpriteGameObject("Player"));
+	GameObject* obj = AddGameObject(new SpriteGameObject("Player"), RenderLayer::Default);
 
 
 	obj->SetOrigin(Origins::MiddleCenter);
 	obj->SetPosition({ 1920.f * 0.5f, 1080 * 0.5f });
 
-	obj = AddGameObject(new UITextGameObject("KOMIKAP", "", 100));
+	obj = AddGameObject(new UITextGameObject("KOMIKAP", "", 100), RenderLayer::Default);
 	obj->SetOrigin(Origins::TopLeft);
 	obj->SetPosition({ });
 	((UITextGameObject*)obj)->SetString("SceneDev1");

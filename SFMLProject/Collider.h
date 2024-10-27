@@ -5,15 +5,16 @@
 class Collider
 {
 private:
-	static int globalCount;
-	sf::Vector2f offsetPosition;
-	sf::Vector2f colliderScale;
-	sf::Vector2f position;
-	Collision* collision;
+	static int	globalCount;
+	sf::Vector2f	offsetPosition;
+	sf::Vector2f	colliderScale;
+	sf::Vector2f	position;
+	Collision*		collision;
+	ColliderLayer	colliderLayer;
 
-	uint64_t	iD;
-	int			collisionCount;
-	bool		active;
+	uint64_t		iD;
+	int				collisionCount;
+	bool			active;
 
 public:
 	Collision* GetCollision() const { return collision; }
@@ -39,6 +40,6 @@ public:
 	void OnCollisionEnd(Collider* target);
 
 public:
-	Collider(ColliderType colliderType, sf::Vector2f offset = sf::Vector2f::zero, sf::Vector2f size = sf::Vector2f::one);
+	Collider(ColliderType colliderType, ColliderLayer clliderLayer, sf::Vector2f offset = sf::Vector2f::zero, sf::Vector2f size = sf::Vector2f::one);
 	~Collider();
 };

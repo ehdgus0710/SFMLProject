@@ -12,7 +12,6 @@ private:
 	// юс╫ц
 	std::vector<std::vector<Collider*>>  colliderVector;
 	std::vector<std::vector<bool>> collisionCheckVector;
-	int vectorSize;
 		
 public:
 	void Init();
@@ -35,7 +34,7 @@ public:
 	bool IsCircleToPointCollision(Collider* left, Collider* right);
 
 protected:
-	ColliderManager() = default;
+	ColliderManager();
 	~ColliderManager() override {};
 	ColliderManager(const ColliderManager&) = delete;
 	ColliderManager& operator=(const ColliderManager&) = delete;

@@ -2,16 +2,16 @@
 class GameObject : public Entity
 {
 protected:
-	sf::Vector2f position;
-	sf::Vector2f rotation;
-	sf::Vector2f scale;
+	sf::Vector2f	position;
+	sf::Vector2f	rotation;
+	sf::Vector2f	scale;
+	sf::Vector2f	origin;
 
-	Collider* collider;
-	sf::Vector2f origin;
-	Origins		originPreset;
+	Collider*		collider;
+	Origins			originPreset;
 
-	std::string name;
-	bool active = true;
+	std::string		name;
+	bool			active = true;
 public:
 	void Awake() override;
 	void Start() override;
@@ -41,7 +41,7 @@ public:
 	}
 
 
-	virtual bool CreateCollider(ColliderType colliderType, sf::Vector2f offset = sf::Vector2f::zero, sf::Vector2f size = sf::Vector2f::one);
+	virtual bool CreateCollider(ColliderType colliderType, ColliderLayer colliderLayer, sf::Vector2f offset = sf::Vector2f::zero, sf::Vector2f size = sf::Vector2f::one);
 	Collider* GetCollider() { return collider; }
 public:
 	bool Save() const override;
