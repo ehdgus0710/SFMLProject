@@ -10,7 +10,7 @@ void Scene::Init()
 {
 	for (auto object : gameObjectList)
 	{
-		object->Init();
+		object->Awake();
 	}
 }
 
@@ -28,7 +28,7 @@ void Scene::Enter()
 {
 	for (auto object : gameObjectList)
 	{
-		object->Reset();
+		object->Start();
 	}
 }
 

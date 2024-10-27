@@ -22,7 +22,7 @@ void SpriteGameObject::Render(sf::RenderWindow& renderWindow)
 	GameObject::Render(renderWindow);
 }
 
-void SpriteGameObject::Reset()
+void SpriteGameObject::Start()
 {
 	sprite.setTexture(ResourcesManager<sf::Texture>::GetInstance().Get(textureId));
 	SetOrigin(originPreset);

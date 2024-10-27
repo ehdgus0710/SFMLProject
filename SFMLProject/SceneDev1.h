@@ -8,7 +8,7 @@ public:
 	void Enter() override;
 	void Exit() override;
 	void Release() override;
-	void Update(float dt) override;
+	void Update(float deltaTime) override;
 	void Render(sf::RenderWindow& window)override;
 public:
 	SceneDev1();

@@ -41,10 +41,6 @@ void GameObject::SetOrigin(Origins preset)
 	origin = {};
 }
 
-void GameObject::Init()
-{
-}
-
 void GameObject::Awake()
 {
 }
@@ -56,11 +52,6 @@ void GameObject::Start()
 void GameObject::Release()
 {
 }
-
-void GameObject::Reset()
-{
-}
-
 
 void GameObject::Update(const float& deltaTime)
 {

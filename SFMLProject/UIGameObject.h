@@ -3,10 +3,10 @@
 class UIGameObject : public GameObject
 {
 public:
-	void Init() override;
+	void Awake() override;
 	void SetPosition(const sf::Vector2f& pos) override;
 	void Render(sf::RenderWindow& renderWindow) override;
-	void Reset() override;
+	void Start() override;
 
 	void Update(const float& deltaTime) override;
 	void FixedUpdate(const float& deltaTime) override;

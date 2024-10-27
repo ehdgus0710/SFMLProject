@@ -10,7 +10,7 @@ UITextGameObject::UITextGameObject(const std::string& textId, const std::string&
 {
 }
 
-void UITextGameObject::Init()
+void UITextGameObject::Awake()
 {
 	scoreText.setFont(ResourcesManager<sf::Font>::GetInstance().Get(textId));
 	SetOrigin(originPreset);
@@ -20,7 +20,7 @@ void UITextGameObject::Init()
 	scoreText.setString(textString);
 }
 
-void UITextGameObject::Reset()
+void UITextGameObject::Start()
 {
 	scoreText.setFont(ResourcesManager<sf::Font>::GetInstance().Get(textId));
 	SetOrigin(originPreset);

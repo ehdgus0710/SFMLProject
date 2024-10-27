@@ -6,14 +6,14 @@ UIGameObject::UIGameObject(const std::string& name)
 {
 }
 
-void UIGameObject::Init()
+void UIGameObject::Awake()
 {
-	GameObject::Init();
+	GameObject::Awake();
 }
 
-void UIGameObject::Reset()
+void UIGameObject::Start()
 {
-	GameObject::Reset();
+	GameObject::Start();
 }
 
 void UIGameObject::Update(const float& deltaTime)

@@ -85,6 +85,9 @@
     <Filter Include="Contants\Bullet">
       <UniqueIdentifier>{ad83cf75-fdd1-4388-bfe9-cf3241f03954}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Manager\0. Framework">
+      <UniqueIdentifier>{79b74483-ecd5-4f20-b650-51e47259682e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">

@@ -16,9 +16,7 @@ public:
 	void Awake() override;
 	void Start() override;
 
-	virtual void Init();
 	virtual void Release();
-	virtual void Reset();
 
 	void Update(const float& deltaTime) override;
 	void FixedUpdate(const float& deltaTime) override;

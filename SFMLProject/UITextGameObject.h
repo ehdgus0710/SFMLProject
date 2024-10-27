@@ -10,8 +10,8 @@ protected:
 	unsigned int	textSize;
 
 public:
-	void Init() override;
-	void Reset() override;
+	void Awake() override;
+	void Start() override;
 	void Render(sf::RenderWindow& window) override;
 
 	void SetOrigin(Origins preset) override;

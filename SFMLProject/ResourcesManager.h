@@ -34,7 +34,6 @@ public:
 			return false;
 
 		Resources<T>* resource = new Resources<T>;
-		T* test = new T;
 
 		bool success = resource->resource.loadFromFile(filepath);
 		assert(success);

@@ -43,3 +43,28 @@ enum class Origins
 	BottomLeft, BottomCenter, BottomRight,
 	Custom
 };
+
+
+enum class RenderLayer
+{
+	Default,
+
+	Player,
+	Enemy,
+	PlayerBullet,
+	EnemyBullet,
+
+	End
+};
+
+enum class ColliderLayer
+{
+	Default,
+	Player,
+	Enemy,
+	PlayerBullet,
+	EnemyBullet,
+
+
+	End
+};

@@ -7,6 +7,8 @@ class Scene
 protected:
 	const SceneIds id;
 	std::list<GameObject*> gameObjectList;
+	std::vector<GameObject*> removeObjectVector;
+	std::vector<std::vector<GameObject*>> gameObjectVector;
 
 public:
 	Scene(const SceneIds id);
@@ -29,13 +31,12 @@ public:
 	virtual int FindGameObjectAll(const std::string& name, std::list<GameObject*>& list);
 
 	template<typename T>
-	T* AddGameObecjt(T* obj);
+	T* AddGameObject(T* obj);
 
 };
 
-
 template<typename T>
-inline T* Scene::AddGameObecjt(T* obj)
+inline T* Scene::AddGameObject(T* obj)
 {
 	if (std::find(gameObjectList.begin(), gameObjectList.end(), obj) == gameObjectList.end())
 	{

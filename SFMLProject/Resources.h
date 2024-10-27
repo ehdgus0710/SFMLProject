@@ -23,7 +23,6 @@ public:
 		this->filePath = path;
 	}
 
-
 public:
 	Resources();
 	~Resources();
