@@ -70,11 +70,18 @@ public:
     explicit Vector2(const Vector2<U>& vector);
 
 
-
     Vector2& operator=(const Vector2& lhs)
     {
         x = lhs.x;
         y = lhs.y;
+        return *this;
+    }
+
+    template <typename U>
+    Vector2& operator=(const Vector2<U>& lhs)
+    {
+        x = (T)lhs.x;
+        y = (T)lhs.y;
         return *this;
     }
 

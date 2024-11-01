@@ -10,7 +10,7 @@ private:
 
 	std::vector<sf::Keyboard::Key>					keyUpDownStateVector;
 	std::vector<sf::Mouse::Button>					mouseUpDownStateVector;
-	sf::Vector2i mousePosition;
+	sf::Vector2i									mousePosition;
 
 
 public:

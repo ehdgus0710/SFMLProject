@@ -88,6 +88,12 @@
     <Filter Include="Manager\0. Framework">
       <UniqueIdentifier>{79b74483-ecd5-4f20-b650-51e47259682e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Core\8. Animation">
+      <UniqueIdentifier>{82137c88-2e27-4dfc-81e2-d51228666c63}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Core\7. Animator">
+      <UniqueIdentifier>{df6e0ab0-842d-4276-8b32-06bfc53a5a6c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -170,6 +176,12 @@
     </ClCompile>
     <ClCompile Include="Test.cpp">
       <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="Animation.cpp">
+      <Filter>Core\8. Animation</Filter>
+    </ClCompile>
+    <ClCompile Include="Animator.cpp">
+      <Filter>Core\7. Animator</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -259,6 +271,12 @@
     </ClInclude>
     <ClInclude Include="Test.h">
       <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="Animation.h">
+      <Filter>Core\8. Animation</Filter>
+    </ClInclude>
+    <ClInclude Include="Animator.h">
+      <Filter>Core\7. Animator</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
