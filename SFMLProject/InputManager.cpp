@@ -20,7 +20,7 @@ bool InputManager::BindKey(const sf::Keyboard::Key& key)
 bool InputManager::BindMouseButton(const sf::Mouse::Button& mouseButton)
 {
 	auto iter = mouseInputMap.find(mouseButton);
-
+	
 	if (iter != mouseInputMap.end())
 		return false;
 

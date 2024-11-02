@@ -88,8 +88,9 @@ void Scene::RemoveGameObject(GameObject* obj)
 {
 	for (auto& objectVector : gameObjectVector)
 	{
-
+		gameObjectVector.erase(std::find(gameObjectVector.begin(), gameObjectVector.end(), objectVector));
 	}
+	
 
 	// gameObjectList.remove(obj);
 }

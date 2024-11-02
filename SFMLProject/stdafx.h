@@ -3,9 +3,10 @@
 
 #include "Core.h"
 // std
-#include<iostream>
+#include <iostream>
 #include <time.h>
 #include <math.h>
+#include <functional>
 
 // 자료구조
 #include <unordered_map>

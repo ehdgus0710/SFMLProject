@@ -174,14 +174,14 @@
     <ClCompile Include="SceneDev2.cpp">
       <Filter>Core\5. Scene</Filter>
     </ClCompile>
-    <ClCompile Include="Test.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
     <ClCompile Include="Animation.cpp">
       <Filter>Core\8. Animation</Filter>
     </ClCompile>
     <ClCompile Include="Animator.cpp">
       <Filter>Core\7. Animator</Filter>
+    </ClCompile>
+    <ClCompile Include="Test.cpp">
+      <Filter>Contants</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -269,14 +269,14 @@
     <ClInclude Include="SceneDev2.h">
       <Filter>Core\5. Scene</Filter>
     </ClInclude>
-    <ClInclude Include="Test.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
     <ClInclude Include="Animation.h">
       <Filter>Core\8. Animation</Filter>
     </ClInclude>
     <ClInclude Include="Animator.h">
       <Filter>Core\7. Animator</Filter>
+    </ClInclude>
+    <ClInclude Include="Test.h">
+      <Filter>Contants</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

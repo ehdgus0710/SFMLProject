@@ -85,6 +85,8 @@ public:
         return *this;
     }
 
+
+
 public:
     void Normalized()
     {
@@ -218,6 +220,12 @@ Vector2<T> operator -(const Vector2<T>& left, const Vector2<T>& right);
 ////////////////////////////////////////////////////////////
 template <typename T>
 Vector2<T> operator *(const Vector2<T>& left, T right);
+
+template <typename T, typename U>
+Vector2<T> operator *(const Vector2<T>& left, U right)
+{
+    return Vector2<T>(left.x * (T)right, left.y * (T)right);
+}
 
 template <typename T>
 Vector2<T> operator *(const Vector2<T>& left, const Vector2<T>& right)
