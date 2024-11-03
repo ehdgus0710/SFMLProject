@@ -6,30 +6,45 @@ class TimeManager : public Singleton<TimeManager>
 private:
 	sf::Clock		clock;
 	sf::Time		sfTime;
+	sf::Text		frameText;
+	float			timeScale;
 
 	float			time;
 	float			realTime;
 
-	float			timeScale;
 	float			deltaTime;
 	float			realDeltatime;
-	float			fixedTime;
+
+	float			maximumAllowedTimestep;
+	float			fixedDeltaTime;
+	float			currentFixedTimestep;
 	unsigned int	frameTarget;
 
+	unsigned int	currentFrame;
+	float			currentFrameTime;
+
 public:
-	void Init();
-	void Update();
+	bool IsFixedUpdate();
+
+	void SetFixedTimeStep(float fixedTime) { fixedDeltaTime = fixedTime; }
+	void SetMaximumAllowedTimestep(float timestep) { maximumAllowedTimestep = timestep; }
 
 	float GetUnScaleDeletaTime() const { return deltaTime; }
-	float GetUnScaleFixedDeletaTime() const { return fixedTime; }
+	float GetUnScaleFixedDeletaTime() const { return fixedDeltaTime; }
 	float GetDeletaTime() const { return deltaTime * timeScale; }
-	float GetFixedDeletaTime() const { return fixedTime * timeScale; }
+	float GetFixedDeletaTime() const { return fixedDeltaTime * timeScale; }
 	float GetTime() const 	{ return time; }
 	float GetRealTime() const { return realTime; }
 	float GetRealDeltatime() const { return realDeltatime; }
 	float GetTimeScale() const { return timeScale; }
 
 	void SetTimeScale(float newTimeScale) { timeScale = newTimeScale; }
+
+	void FrameCheck();
+public:
+	void Init();
+	void Update();
+	void Render(sf::RenderWindow& renderWindow);
 
 protected:
 	TimeManager();

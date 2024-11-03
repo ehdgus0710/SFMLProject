@@ -54,6 +54,8 @@ enum class RenderLayer
 	PlayerBullet,
 	EnemyBullet,
 
+	InGameUI,
+
 	UI,
 	End
 };

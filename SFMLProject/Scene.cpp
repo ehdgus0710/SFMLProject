@@ -83,6 +83,20 @@ void Scene::Update(float deltaTime)
 	}
 }
 
+void Scene::FixedUpdate(float fixedDeltaTime)
+{
+	for (auto& objectVector : gameObjectVector)
+	{
+		for (auto& object : objectVector)
+		{
+			if (!object->IsActive())
+				continue;
+
+			object->FixedUpdate(fixedDeltaTime);
+		}
+	}
+}
+
 void Scene::Render(sf::RenderWindow& window)
 {
 	WindowManager::GetInstance().GetRenderWindow()->setView(mainCamera->GetView());

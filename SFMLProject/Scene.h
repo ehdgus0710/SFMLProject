@@ -27,6 +27,7 @@ public:
 	virtual void Exit();
 
 	virtual void Update(float dt);
+	virtual void FixedUpdate(float fixedDeltaTime);
 	virtual void Render(sf::RenderWindow& window);
 
 public:

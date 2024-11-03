@@ -36,9 +36,14 @@ void SceneManager::ChangeScene(SceneIds id)
 	sceneVec[(int)currentScene]->Enter();
 }
 
-void SceneManager::Update(float dt)
+void SceneManager::Update(float deltaTime)
 {
-	sceneVec[(int)currentScene]->Update(dt);
+	sceneVec[(int)currentScene]->Update(deltaTime);
+}
+
+void SceneManager::FixedUpdate(float fixedDeltaTime)
+{
+	sceneVec[(int)currentScene]->FixedUpdate(fixedDeltaTime);
 }
 
 void SceneManager::Render(sf::RenderWindow& window)

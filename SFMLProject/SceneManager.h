@@ -17,7 +17,8 @@ public:
 	SceneIds GetCurrentScene() const { return currentScene; }
 	void ChangeScene(SceneIds id);
 
-	void Update(float dt);
+	void Update(float deltaTime);
+	void FixedUpdate(float fixedDeltaTime);
 	void Render(sf::RenderWindow& window);
 
 protected:
