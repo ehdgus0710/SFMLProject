@@ -94,6 +94,12 @@
     <Filter Include="Core\7. Animator">
       <UniqueIdentifier>{df6e0ab0-842d-4276-8b32-06bfc53a5a6c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Manager\8. CameraManger">
+      <UniqueIdentifier>{eee04735-de0f-4a1b-9551-147ee5ca8c45}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Core\4. Camera">
+      <UniqueIdentifier>{fd05910c-2fb7-4a23-b75e-cf9799320468}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -182,6 +188,12 @@
     </ClCompile>
     <ClCompile Include="Test.cpp">
       <Filter>Contants</Filter>
+    </ClCompile>
+    <ClCompile Include="CameraManger.cpp">
+      <Filter>Manager\8. CameraManger</Filter>
+    </ClCompile>
+    <ClCompile Include="Camera.cpp">
+      <Filter>Core\4. Camera</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -277,6 +289,12 @@
     </ClInclude>
     <ClInclude Include="Test.h">
       <Filter>Contants</Filter>
+    </ClInclude>
+    <ClInclude Include="CameraManger.h">
+      <Filter>Manager\8. CameraManger</Filter>
+    </ClInclude>
+    <ClInclude Include="Camera.h">
+      <Filter>Core\4. Camera</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

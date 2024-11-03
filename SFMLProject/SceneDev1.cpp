@@ -7,6 +7,9 @@
 #include "Animation.h"
 #include "Animator.h"
 
+#include "Camera.h"
+#include "CameraManger.h"
+
 void SceneDev1::Init()
 {
 	Scene::Init();
@@ -14,13 +17,15 @@ void SceneDev1::Init()
 
 void SceneDev1::Enter()
 {
+	CameraManger::GetInstance().SetCamera(mainCamera);
+	CameraManger::GetInstance().SetCamera(uICamera);
+
 	TEXTURE_MANAGER.Load("Char", "graphics/CharRun.png");
 
 	TEXTURE_MANAGER.Load("PlayerMove", "graphics/PC_Move.png");
 	TEXTURE_MANAGER.Load("PlayerDash", "graphics/PC_Dash.png");
 
 	ResourcesManager<sf::Font>::GetInstance().Load("KOMIKAP", "fonts/KOMIKAP_.ttf");
-
 
 	/*GameObject* obj = AddGameObject(new SpriteGameObject("player"), RenderLayer::Default);
 
@@ -46,16 +51,18 @@ void SceneDev1::Enter()
 	test->SetPosition({ 1920.f * 0.5f, 1080 * 0.5f });
 
 	test->animator->Start();
-	//Test* test2 = AddGameObject(new Test("Char"), RenderLayer::Default);
-	//// test->CreateCollider(ColliderType::Rectangle, ColliderLayer::Default);
 
-	//test2->SetOrigin(Origins::MiddleCenter);
-	//test2->Awake();
-	//test2->CreateAnimator();
-	//test2->animator->CreateAnimation("Char", "CharRun", { 32,32 }, 8, 0.1f, true);
-	//test2->animator->ChangeAnimation("CharRun", true);
-	//test2->SetPosition({ 1920.f * 0.5f + 32.f, 1080 * 0.5f });
+	Test* test2 = AddGameObject(new Test("Char"), RenderLayer::Default);
+	// test->CreateCollider(ColliderType::Rectangle, ColliderLayer::Default);
 
+	test2->SetOrigin(Origins::MiddleCenter);
+	test2->Awake();
+	test2->CreateAnimator();
+	test2->animator->CreateAnimation("Char", "CharRun", { 32,32 }, 8, 0.1f, true);
+	test2->animator->ChangeAnimation("CharRun", true);
+	test2->SetPosition({ 1920.f * 0.5f + 32.f, 1080 * 0.5f });
+
+	cameraPosition = mainCamera->GetCameraPosition();
 	Scene::Enter();
 }
 
@@ -64,6 +71,8 @@ void SceneDev1::Exit()
 	TEXTURE_MANAGER.unLoad("player");
 	ResourcesManager<sf::Font>::GetInstance().Load("KOMIKAP", "fonts/KOMIKAP_.ttf");
 	Scene::Exit();
+
+	CameraManger::GetInstance().Clear();
 }
 
 void SceneDev1::Release()
@@ -77,10 +86,30 @@ void SceneDev1::Update(float dt)
 
 	/*if (InputManager::GetInstance().GetKeyUp(sf::Keyboard::Space))
 		SCENE_MANAGER.ChangeScene(SceneIds::SceneDev2);*/
+
+	if (InputManager::GetInstance().GetKeyPressed(sf::Keyboard::Left))
+	{
+		cameraPosition += sf::Vector2f::left * cameraSpeed * dt;
+	}
+	if (InputManager::GetInstance().GetKeyPressed(sf::Keyboard::Right))
+	{
+		cameraPosition += sf::Vector2f::right * cameraSpeed * dt;
+	}
+	if (InputManager::GetInstance().GetKeyPressed(sf::Keyboard::Up))
+	{
+		cameraPosition += sf::Vector2f::up * cameraSpeed * dt;
+	}
+	if (InputManager::GetInstance().GetKeyPressed(sf::Keyboard::Down))
+	{
+		cameraPosition += sf::Vector2f::down * cameraSpeed * dt;
+	}
+
+	mainCamera->SetCameraPosition(cameraPosition);
 }
 
 void SceneDev1::Render(sf::RenderWindow& window)
 {
+	window.setView(mainCamera->GetView());
 	Scene::Render(window);
 }
 

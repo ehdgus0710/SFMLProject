@@ -73,6 +73,7 @@ void InputManager::UpdateEvent(const sf::Event* ev)
 		if (GetKey(ev->key.code))
 		{
 			keyboardInputMap[ev->key.code] = KeyState::KeyDown;
+			keyUpDownStateVector.push_back(ev->key.code);
 		}
 	}
 	break;
@@ -81,6 +82,7 @@ void InputManager::UpdateEvent(const sf::Event* ev)
 		if (GetKey(ev->key.code))
 		{
 			keyboardInputMap[ev->key.code] = KeyState::KeyUp;
+			keyUpDownStateVector.push_back(ev->key.code);
 		}
 	}
 	break;
@@ -89,6 +91,7 @@ void InputManager::UpdateEvent(const sf::Event* ev)
 		if ((GetKey(ev->mouseButton.button)))
 		{
 			mouseInputMap[ev->mouseButton.button] = KeyState::KeyDown;
+			mouseUpDownStateVector.push_back(ev->mouseButton.button);
 		}
 	}
 	break;
@@ -97,6 +100,7 @@ void InputManager::UpdateEvent(const sf::Event* ev)
 		if ((GetKey(ev->mouseButton.button)))
 		{
 			mouseInputMap[ev->mouseButton.button] = KeyState::KeyUp;
+			mouseUpDownStateVector.push_back(ev->mouseButton.button);
 		}
 	}
 		break;

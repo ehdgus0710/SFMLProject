@@ -1,10 +1,32 @@
 #include "stdafx.h"
 #include "Scene.h"
+#include "Camera.h"
 
 Scene::Scene(const SceneIds id)
 	: id(id)
+	, cameraSpeed(500.f)
+	, mainCamera(nullptr)
+	, uICamera(nullptr)
 {
-	gameObjectVector.resize((int)ColliderLayer::End);
+	gameObjectVector.resize((int)RenderLayer::End);
+	cameraPosition = sf::Vector2f::zero;
+
+	mainCamera = new Camera(WindowManager::GetInstance().GetRenderWindow()->getDefaultView(), CameraType::Main);
+	uICamera = new Camera(WindowManager::GetInstance().GetRenderWindow()->getDefaultView(), CameraType::UI);
+}
+
+Scene::~Scene()
+{
+	if (mainCamera != nullptr)
+	{
+		delete mainCamera;
+		mainCamera = nullptr;
+	}
+	if (uICamera != nullptr)
+	{
+		delete uICamera;
+		uICamera = nullptr;
+	}
 }
 
 void Scene::Init()
@@ -63,9 +85,23 @@ void Scene::Update(float deltaTime)
 
 void Scene::Render(sf::RenderWindow& window)
 {
-	for (auto& objectVector : gameObjectVector)
+	WindowManager::GetInstance().GetRenderWindow()->setView(mainCamera->GetView());
+
+	for (int i = 0; i < (int)RenderLayer::UI; ++i)
 	{
-		for (auto& object : objectVector)
+		for (auto& object : gameObjectVector[i])
+		{
+			if (!object->IsActive())
+				continue;
+
+			object->Render(window);
+		}
+	}
+	WindowManager::GetInstance().GetRenderWindow()->setView(uICamera->GetView());
+
+	for (int i = (int)RenderLayer::UI; i < (int)RenderLayer::End; ++i)
+	{
+		for (auto& object : gameObjectVector[i])
 		{
 			if (!object->IsActive())
 				continue;

@@ -83,6 +83,16 @@ void Animator::SetCurrentFrameRect(const sf::IntRect& rect)
 	sprite.setTextureRect(uvRect);
 }
 
+void Animator::Test1()
+{
+	ChangeAnimation("PlayerMove");
+}
+
+void Animator::Test2()
+{
+	ChangeAnimation("PlayerDash");
+}
+
 void Animator::Update(const float& deltaTime)
 {
 	if(isPlaying)
@@ -93,5 +103,6 @@ void Animator::Start()
 {
 	//this->GetAnimation("PlayerDash")->func = std::move(std::bind(&Animator::Test1, this));
 	//this->GetAnimation("PlayerMove")->func = std::move(std::bind(&Animator::Test2, this)); // = &Animator::Test2;
-	//this->GetAnimation("PlayerDash")->func(*this);
+	this->GetAnimation("PlayerDash")->functest = std::bind(&Animator::Test1, this);
+	this->GetAnimation("PlayerMove")->functest = std::bind(&Animator::Test2, this);
 }

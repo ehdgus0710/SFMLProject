@@ -152,6 +152,9 @@ void Animation::Update(float deltaTime)
 
 		if (currentIndex == frameCount)
 		{
+			if(functest)
+				functest();
+
 			if (isRepeat)
 				currentIndex = 0;
 			else

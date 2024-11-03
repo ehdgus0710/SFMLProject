@@ -1,17 +1,24 @@
 #pragma once
 
 class GameObject;
+class Camera;
 
 class Scene
 {
 protected:
-	const SceneIds id;
-	std::vector<GameObject*> removeObjectVector;
-	std::vector<std::vector<GameObject*>> gameObjectVector;
+	const SceneIds							id;
+	std::vector<GameObject*>				removeObjectVector;
+	std::vector<std::vector<GameObject*>>	gameObjectVector;
+
+	Camera*									mainCamera;
+	Camera*									uICamera;
+
+	sf::Vector2f							cameraPosition;
+	float									cameraSpeed;
 
 public:
 	Scene(const SceneIds id);
-	virtual ~Scene() = default;
+	virtual ~Scene();
 
 	virtual void Init() = 0;
 	virtual void Release() = 0;

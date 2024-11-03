@@ -25,8 +25,10 @@ protected:
 	bool						isPlaying;
 	bool						isRepeat;
 
-//public:
-	//std::function<void()> functest;
+public:
+
+	typedef std::function<void()> Event;
+	std::function<void()> functest;
 	//void(Animator::* onFunc)();
 	//std::function<void(Animator&)> func;
 

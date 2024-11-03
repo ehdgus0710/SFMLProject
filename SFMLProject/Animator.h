@@ -22,8 +22,8 @@ public:
 	void SetCurrentFrameRect(const sf::IntRect& rect);
 	sf::Sprite& GetCurrentSprite() { return sprite; }
 
-	//void Test1();
-	//void Test2();
+	void Test1();
+	void Test2();
 
 public:
 	void Update(const float& deltaTime) override;

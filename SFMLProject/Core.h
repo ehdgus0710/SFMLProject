@@ -69,3 +69,12 @@ enum class ColliderLayer
 
 	End
 };
+
+enum class CameraType
+{
+	Main,
+	Effet,
+	UI,
+
+	End
+};
