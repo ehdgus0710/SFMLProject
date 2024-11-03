@@ -9,9 +9,9 @@ void Framework::Init()
 	renderWindow = WindowManager::GetInstance().GetRenderWindow();
 
 	InputManager::GetInstance().Init();
+	ColliderManager::GetInstance().Init();
 	SceneManager::GetInstance().Init();
 	TimeManager::GetInstance().Init();
-	ColliderManager::GetInstance().Init();
 }
 
 void Framework::Update()

@@ -32,6 +32,7 @@ public:
 	bool IsCircleToRectCollision(Collider* left, Collider* right);
 	bool IsPointToRectCollision(Collider* left, Collider* right);
 	bool IsCircleToPointCollision(Collider* left, Collider* right);
+	bool IsCircleToPointCollision(sf::Vector2f circlePosition, float radian, sf::Vector2f pointPosition);
 
 protected:
 	ColliderManager();

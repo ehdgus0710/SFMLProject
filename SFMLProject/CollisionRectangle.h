@@ -8,7 +8,14 @@ struct Rectangle
 	float rightPosition;
 	float topPosition;
 	float bottomPosition;
+	Rectangle()
+		: leftPosition(0)
+		, rightPosition(0)
+		, topPosition(0)
+		, bottomPosition(0)
+	{
 
+	}
 	Rectangle(sf::Vector2f size)
 	{
 		SetSize(size);
@@ -38,6 +45,7 @@ public:
 
 	void SetSize(sf::Vector2f size);
 	sf::Vector2f GetScale() const override { return rectanleRender.getSize(); }
+	const sf::FloatRect& GetRect() { return rectanleRender.getGlobalBounds(); }
 	void SetPosition(const sf::Vector2f& pos) override;
 
 	sf::Vector2f GetLeftTopPosition() { return { position.x + rectanglePosition.leftPosition , position.y + rectanglePosition.topPosition }; }

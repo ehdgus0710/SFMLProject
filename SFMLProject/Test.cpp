@@ -12,8 +12,9 @@ Test::Test(const std::string& texId, const std::string& name)
 
 void Test::SetPosition(const sf::Vector2f& pos)
 {
-	GameObject::SetPosition(pos);
-	animator->GetCurrentSprite().setPosition(pos);
+	SpriteGameObject::SetPosition(pos);
+	if(animator != nullptr)
+		animator->GetCurrentSprite().setPosition(pos);
 }
 
 void Test::SetSpriteRect()
@@ -35,8 +36,8 @@ void Test::Start()
 
 void Test::Update(const float& deltaTime)
 {
-	// position = sf::Vector2f(InputManager::GetInstance().GetMousePosition());
-	// SetPosition(position);
+	position = sf::Vector2f(InputManager::GetInstance().GetMousePosition());
+	SetPosition(position);
 	SpriteGameObject::Update(deltaTime);
 
 	if (animator != nullptr)
@@ -45,6 +46,8 @@ void Test::Update(const float& deltaTime)
 
 void Test::Render(sf::RenderWindow& renderWindow)
 {
+	SpriteGameObject::Render(renderWindow);
+
 	if(animator != nullptr)
 		animator->Render(renderWindow);
 }
