@@ -1,10 +1,6 @@
 #include "stdafx.h"
 #include "Collision.h"
 
-void Collision::Init()
-{
-}
-
 void Collision::Update()
 {
 	//collionSprite.setPosition(position);
@@ -12,6 +8,11 @@ void Collision::Update()
 
 void Collision::Render(sf::RenderWindow& renderWindow)
 {
+}
+
+void Collision::SetScale(const sf::Vector2f& scale)
+{
+	this->scale = scale;
 }
 
 Collision::Collision(ColliderType colliderType)

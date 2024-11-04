@@ -39,6 +39,10 @@ void CollisionRectangle::Render(sf::RenderWindow& renderWindow)
 	renderWindow.draw(rectanleRender);
 }
 
+void CollisionRectangle::Reset()
+{
+}
+
 void CollisionRectangle::SetSize(sf::Vector2f size)
 {
 	rectangleSize = size;

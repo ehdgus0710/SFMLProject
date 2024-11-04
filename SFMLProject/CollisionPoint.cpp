@@ -11,6 +11,14 @@ CollisionPoint::~CollisionPoint()
 {
 }
 
+void CollisionPoint::Init()
+{
+}
+
+void CollisionPoint::Reset()
+{
+}
+
 void CollisionPoint::Update()
 {
 }

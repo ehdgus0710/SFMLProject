@@ -27,10 +27,25 @@ bool Collider::GetDestory()
 	return false;
 }
 
-void Collider::SetPosition(sf::Vector2f pos)
+void Collider::SetOffsetPosition(const sf::Vector2f& offset)
 {
-	position = pos + offsetPosition;
-	collision->SetPosition(position);
+	offsetPosition = offset;
+	collision->SetPosition(position + offsetPosition);
+}
+
+void Collider::SetPosition(const sf::Vector2f& pos)
+{
+	position = pos;
+	collision->SetPosition(position + offsetPosition);
+}
+
+void Collider::SetOrigin(const sf::Vector2f& origin)
+{
+}
+
+void Collider::SetOrigin(const Origins& origins)
+{
+
 }
 
 sf::Vector2f Collider::GetPosition()
@@ -45,7 +60,12 @@ sf::Vector2f Collider::GetScale()
 
 void Collider::SetScale(sf::Vector2f size)
 {
-	//collision->SetSize();
+	collision->SetScale(size);
+}
+
+void Collider::Reset()
+{
+	collision->Reset();
 }
 
 void Collider::CreateCollision(ColliderType colliderType, sf::Vector2f offset, sf::Vector2f size)

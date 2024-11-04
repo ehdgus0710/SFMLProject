@@ -26,6 +26,7 @@ void SpriteGameObject::Start()
 {
 	sprite.setTexture(ResourcesManager<sf::Texture>::GetInstance().Get(textureId));
 	SetOrigin(originPreset);
+
 }
 
 void SpriteGameObject::Update(const float& deltaTime)

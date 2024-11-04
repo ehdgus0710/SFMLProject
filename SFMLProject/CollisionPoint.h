@@ -7,11 +7,15 @@ class CollisionPoint : public Collision
 private:
 	sf::VertexArray vertexPoint;
 
-public:
-	void Update() override;
-	virtual void Render(sf::RenderWindow& renderWindow);
+public:	
 	void SetPosition(const sf::Vector2f& pos) override;
 	sf::Vector2f GetScale() const override { return sf::Vector2f::one; };
+
+public:
+	void Init() override;
+	void Reset() override;
+	void Update() override;
+	virtual void Render(sf::RenderWindow& renderWindow);
 
 public:
 	CollisionPoint();

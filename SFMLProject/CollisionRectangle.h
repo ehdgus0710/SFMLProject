@@ -38,11 +38,6 @@ private:
 	Rectangle rectanglePosition;
 
 public:
-	void Init() override;
-
-	void Update() override;
-	virtual void Render(sf::RenderWindow& renderWindow);
-
 	void SetSize(sf::Vector2f size);
 	sf::Vector2f GetScale() const override { return rectanleRender.getSize(); }
 	const sf::FloatRect& GetRect() { return rectanleRender.getGlobalBounds(); }
@@ -57,6 +52,12 @@ public:
 	float GetRightPosition() { return position.x + rectanglePosition.rightPosition; }
 	float GetTopPosition() { return position.y + rectanglePosition.topPosition; }
 	float GetBottomPosition() { return position.y + rectanglePosition.bottomPosition; }
+
+public:
+	void Init() override;
+	void Reset() override;
+	void Update() override;
+	void Render(sf::RenderWindow& renderWindow) override;
 
 public:
 	CollisionRectangle(sf::Vector2f size = sf::Vector2f::one);
