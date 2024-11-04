@@ -6,6 +6,9 @@ GameObject::GameObject(const std::string& name)
     : name(name)
 	, originPreset(Origins::MiddleCenter)
 	, collider(nullptr)
+	, rotation(0.f)
+	, scale(sf::Vector2f::one)
+	, position(sf::Vector2f::zero)
 {
 }
 
@@ -23,9 +26,14 @@ GameObject::GameObject(const GameObject& other)
 	, origin(other.origin)
 	, originPreset(other.originPreset)
 	, active(other.active)
-
-
 {
+}
+
+void GameObject::SetScale(const sf::Vector2f& scale)
+{
+	this->scale = scale;
+	if (collider != nullptr)
+		collider->SetScale(scale);
 }
 
 void GameObject::SetPosition(const sf::Vector2f& pos)
@@ -47,6 +55,8 @@ void GameObject::Awake()
 
 void GameObject::Start()
 {
+	if (collider != nullptr)
+		collider->Reset();
 }
 
 void GameObject::Release()
@@ -77,7 +87,7 @@ bool GameObject::CreateCollider(ColliderType colliderType, ColliderLayer collide
 {
 	if (collider == nullptr)
 	{
-		collider = new Collider(colliderType, colliderLayer, offset, size * 100.f);
+		collider = new Collider(colliderType, colliderLayer, offset, size);
 		collider->SetPosition(position);
 		return true;
 	}

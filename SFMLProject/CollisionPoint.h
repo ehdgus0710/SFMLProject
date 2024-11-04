@@ -11,6 +11,7 @@ public:
 	void SetPosition(const sf::Vector2f& pos) override;
 	sf::Vector2f GetScale() const override { return sf::Vector2f::one; };
 
+	void SetOrigin(const Origins& origins) override;
 public:
 	void Init() override;
 	void Reset() override;

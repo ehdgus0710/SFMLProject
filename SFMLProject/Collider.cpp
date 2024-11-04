@@ -45,7 +45,7 @@ void Collider::SetOrigin(const sf::Vector2f& origin)
 
 void Collider::SetOrigin(const Origins& origins)
 {
-
+	collision->SetOrigin(origins);
 }
 
 sf::Vector2f Collider::GetPosition()

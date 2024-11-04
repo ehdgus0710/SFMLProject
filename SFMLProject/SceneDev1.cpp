@@ -22,19 +22,20 @@ void SceneDev1::Enter()
 
 	TEXTURE_MANAGER.Load("Char", "graphics/CharRun.png");
 
+	TEXTURE_MANAGER.Load("Player", "graphics/player.png");
 	TEXTURE_MANAGER.Load("PlayerMove", "graphics/PC_Move.png");
 	TEXTURE_MANAGER.Load("PlayerDash", "graphics/PC_Dash.png");
 
 	ResourcesManager<sf::Font>::GetInstance().Load("KOMIKAP", "fonts/KOMIKAP_.ttf");
 
-	GameObject* obj = AddGameObject(new SpriteGameObject("player"), RenderLayer::Default);
+	GameObject* obj = AddGameObject(new SpriteGameObject("Player"), RenderLayer::Default);
 	obj->SetOrigin(Origins::MiddleCenter);
 	obj->SetPosition({ 1920.f * 0.5f, 1080 * 0.5f });
 	obj->CreateCollider(ColliderType::Rectangle, ColliderLayer::Default);
 
-	obj = AddGameObject(new Test("player"), RenderLayer::Default);
+	obj = AddGameObject(new SpriteGameObject("Player"), RenderLayer::Default);
 	obj->SetOrigin(Origins::MiddleCenter);
-	obj->SetPosition({ 1920.f * 0.5f, 1080 * 0.5f });
+	obj->SetPosition({ 1920.f * 0.5f + 300.f, 1080 * 0.5f });
 	obj->CreateCollider(ColliderType::Circle, ColliderLayer::Default);
 	/*
 

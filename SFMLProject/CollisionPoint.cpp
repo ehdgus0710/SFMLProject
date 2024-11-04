@@ -11,6 +11,10 @@ CollisionPoint::~CollisionPoint()
 {
 }
 
+void CollisionPoint::SetOrigin(const Origins& origins)
+{
+}
+
 void CollisionPoint::Init()
 {
 }

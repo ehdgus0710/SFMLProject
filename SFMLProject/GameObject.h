@@ -3,7 +3,7 @@ class GameObject : public Entity
 {
 protected:
 	sf::Vector2f	position;
-	sf::Vector2f	rotation;
+	float			rotation;
 	sf::Vector2f	scale;
 	sf::Vector2f	origin;
 
@@ -28,6 +28,12 @@ public:
 	void SetActive(const bool active) { this->active = active; }
 	const std::string& GetName() const { return name; }
 	void SetName(const std::string& name) { this->name = name; }
+
+	virtual void SetScale(const sf::Vector2f& scale);
+	virtual sf::Vector2f GetScale() const { return scale; }
+
+	virtual void SetRotation(float angle) { rotation = angle; }
+	virtual float GetRotation() { return rotation; }
 
 	sf::Vector2f GetPosition() const { return position; }
 	virtual void SetPosition(const sf::Vector2f& pos);

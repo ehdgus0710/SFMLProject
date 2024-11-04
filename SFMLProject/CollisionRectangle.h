@@ -33,13 +33,13 @@ struct Rectangle
 class CollisionRectangle : public Collision
 {
 private:
-	sf::Vector2f rectangleSize;
 	sf::RectangleShape rectanleRender;
 	Rectangle rectanglePosition;
 
 public:
-	void SetSize(sf::Vector2f size);
+	void SetScale(const sf::Vector2f& scale) override;
 	sf::Vector2f GetScale() const override { return rectanleRender.getSize(); }
+
 	const sf::FloatRect& GetRect() { return rectanleRender.getGlobalBounds(); }
 	void SetPosition(const sf::Vector2f& pos) override;
 
@@ -53,6 +53,7 @@ public:
 	float GetTopPosition() { return position.y + rectanglePosition.topPosition; }
 	float GetBottomPosition() { return position.y + rectanglePosition.bottomPosition; }
 
+	void SetOrigin(const Origins& origins) override;
 public:
 	void Init() override;
 	void Reset() override;

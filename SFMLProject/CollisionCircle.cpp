@@ -25,7 +25,8 @@ void CollisionCircle::Init()
 void CollisionCircle::Reset()
 {
 	collisionCircle.setRadius(radian);
-	// collisionCircle.setOrigin()
+	collisionCircle.setPosition(position);
+	collisionCircle.setOrigin(originPosition);
 }
 
 void CollisionCircle::Update()
@@ -61,8 +62,8 @@ void CollisionCircle::SetScale(const sf::Vector2f& scale)
 {
 	this->scale = scale;
 	radian = scale.x <= scale.y ? scale.x : scale.y;
+	radian *= 0.5f;
 	collisionCircle.setRadius(radian);
-
 }
 
 void CollisionCircle::SetOrigin(const sf::Vector2f& origin)
@@ -72,4 +73,5 @@ void CollisionCircle::SetOrigin(const sf::Vector2f& origin)
 
 void CollisionCircle::SetOrigin(const Origins& origins)
 {
+	originPosition = Utils::SetOrigin(collisionCircle, origins);
 }

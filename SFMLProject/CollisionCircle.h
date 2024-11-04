@@ -16,9 +16,8 @@ public:
 	void SetScale(const sf::Vector2f& scale) override;
 	sf::Vector2f GetScale() const override { return sf::Vector2f::one * radian; };
 
-
 	void SetOrigin(const sf::Vector2f& origin);
-	void SetOrigin(const Origins& origins);
+	void SetOrigin(const Origins& origins) override;
 
 public:
 	void Init() override;
