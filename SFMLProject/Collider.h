@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Collision.h"
+class Collision;
 
 class Collider
 {
@@ -12,37 +12,49 @@ private:
 	sf::Vector2f	colliderScale;
 	sf::Vector2f	colliderRotation;
 
-	Collision*		collision;
+	GameObject* owner;
 	ColliderLayer	colliderLayer;
+
+	Collision*		collision;
+
+	std::vector<Collider*> collisionTagetVector;
 
 	uint64_t		iD;
 	int				collisionCount;
 	bool			active;
+	bool			isDestory;
 
 public:
 	Collision* GetCollision() const { return collision; }
 	ColliderType GetColliderType();
+	ColliderLayer GetColliderLayer() { return colliderLayer; }
 	uint64_t GetID() const { return iD; }
 
 	bool GetActive() const { return active; }
 	void SetActive(bool active) { this->active = active; }
 
-	bool GetDestory();
+	void OnDestory();
+	bool IsDestory();
+
+	void SetPosition(const sf::Vector2f& pos);
+	sf::Vector2f GetPosition();
 
 	void SetOffsetPosition(const sf::Vector2f& offset);
-	void SetPosition(const sf::Vector2f& pos);
+	sf::Vector2f GetOffsetPosition() { return offsetPosition; }
+
+	void SetScale(sf::Vector2f size);
+	sf::Vector2f GetScale();
+
 	void SetOrigin(const sf::Vector2f& origin);
 	void SetOrigin(const Origins& origins);
 
-	void SetScale(sf::Vector2f size);
+	void SetOwner(GameObject* owner) { this->owner = owner; }
+	GameObject* GetOwner() { return owner; }
 
-	sf::Vector2f GetOffsetPosition() { return offsetPosition; }
-	sf::Vector2f GetPosition();
-	sf::Vector2f GetScale();
+	const std::vector<Collider*>& GetCollisionTarget() { return collisionTagetVector; }
 
 public:
 	void Reset();
-
 	void CreateCollision(ColliderType colliderType, sf::Vector2f offset = sf::Vector2f::zero, sf::Vector2f size = sf::Vector2f::one);
 
 	virtual void Render(sf::RenderWindow& renderWindow);
@@ -52,5 +64,6 @@ public:
 
 public:
 	Collider(ColliderType colliderType, ColliderLayer clliderLayer, sf::Vector2f offset = sf::Vector2f::zero, sf::Vector2f size = sf::Vector2f::one);
+	Collider(const Collider& other);
 	~Collider();
 };

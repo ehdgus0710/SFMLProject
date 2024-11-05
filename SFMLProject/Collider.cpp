@@ -12,8 +12,29 @@ Collider::Collider(ColliderType colliderType, ColliderLayer colliderLayer, sf::V
 	, colliderLayer(colliderLayer)
 	, collisionCount(0)
 	, iD(globalCount++)
+	, isDestory(false)
 {
 	CreateCollision(colliderType, offset, size);
+}
+
+Collider::Collider(const Collider& other)
+	: active(true)
+	, colliderLayer(colliderLayer)
+	, collisionCount(0)
+	, iD(globalCount++)
+	, isDestory(false)
+	, owner(nullptr)
+{
+	ColliderType colliderType = other.collision->GetColliderType();
+	if (ColliderType::Rectangle == colliderType)
+		collision = new CollisionRectangle(other.colliderScale);
+	else if (ColliderType::Circle == colliderType)
+		collision = new CollisionCircle(other.colliderScale.x);
+	else
+		collision = new CollisionPoint();
+
+	offsetPosition = other.offsetPosition;
+	ColliderManager::GetInstance().AddCollider(this, colliderLayer);
 }
 
 Collider::~Collider()
@@ -22,9 +43,15 @@ Collider::~Collider()
 		delete collision;
 }
 
-bool Collider::GetDestory()
+void Collider::OnDestory()
 {
-	return false;
+	isDestory = true;
+	SetActive(false);
+}
+
+bool Collider::IsDestory()
+{
+	return isDestory;
 }
 
 void Collider::SetOffsetPosition(const sf::Vector2f& offset)
@@ -65,7 +92,10 @@ void Collider::SetScale(sf::Vector2f size)
 
 void Collider::Reset()
 {
+	collisionTagetVector.clear();
 	collision->Reset();
+	isDestory = false;
+	SetActive(true);
 }
 
 void Collider::CreateCollision(ColliderType colliderType, sf::Vector2f offset, sf::Vector2f size)
@@ -88,16 +118,22 @@ void Collider::Render(sf::RenderWindow& renderWindow)
 
 void Collider::OnCollisionEnter(Collider* target)
 {
+	collisionTagetVector.push_back(target);
 	collision->IsCollision();
+	owner->OnCollisionEnter(target);
 }
 
 void Collider::OnCollisionStay(Collider* target)
 {
+	owner->OnCollisionStay(target);
 }
 
 void Collider::OnCollisionEnd(Collider* target)
 {
+	owner->OnCollisionEnd(target);
 	collision->EndCollision();
+	if(!isDestory)
+		collisionTagetVector.erase(std::find(collisionTagetVector.begin(), collisionTagetVector.end(), target));
 }
 
 ColliderType Collider::GetColliderType()

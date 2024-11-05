@@ -37,7 +37,7 @@ void ColliderManager::Init()
 
 void ColliderManager::Update()
 {
-
+    
     for (int i = 0; i < (int)ColliderLayer::End; ++i)
     {
         for (int j = i; j < (int)ColliderLayer::End; ++j)
@@ -56,6 +56,33 @@ void ColliderManager::Clear()
     colliderVector.clear();
     collisionCheckVector.clear();
     Init();
+}
+
+void ColliderManager::DestoryColliderCheck()
+{
+    for (auto& destoryCollider : destoryVector)
+    {
+        auto targetVector = destoryCollider->GetCollisionTarget();
+
+        for (auto& targetCollider : targetVector)
+        {
+            auto leftID = destoryCollider->GetID() < targetCollider->GetID() ? destoryCollider->GetID() : targetCollider->GetID();
+            auto rightID = destoryCollider->GetID() < targetCollider->GetID() ? targetCollider->GetID() : destoryCollider->GetID();
+            std::string hash = std::to_string(leftID) + "," + std::to_string(rightID);
+
+            auto iter = collisionMap.find(hash);
+            if (iter == collisionMap.end())
+                continue;
+
+            destoryCollider->OnCollisionEnd(targetCollider);
+            targetCollider->OnCollisionEnd(destoryCollider);
+            iter->second = false;
+        }
+
+        targetVector.clear();
+    }
+
+    destoryVector.clear();
 }
 
 void ColliderManager::LayerCollision(int left, int right)
@@ -86,15 +113,8 @@ void ColliderManager::LayerCollision(int left, int right)
 
             if (CheckCollision(colliderVector[left][i], colliderVector[right][j]))
             {
-                // 사망 예정 오브젝트
-                if (colliderVector[left][i]->GetDestory() || colliderVector[right][i]->GetDestory())
-                {
-                    colliderVector[left][i]->OnCollisionEnd(colliderVector[right][j]);
-                    colliderVector[right][j]->OnCollisionEnd(colliderVector[left][i]);
-                    iter->second = false;
-                }
                 // 충돌하지 않음
-                else if (!iter->second)
+                if (!iter->second)
                 {
                     colliderVector[left][i]->OnCollisionEnter(colliderVector[right][j]);
                     colliderVector[right][j]->OnCollisionEnter(colliderVector[left][i]);

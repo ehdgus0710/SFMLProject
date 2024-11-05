@@ -26,7 +26,10 @@ GameObject::GameObject(const GameObject& other)
 	, origin(other.origin)
 	, originPreset(other.originPreset)
 	, active(other.active)
+	, collider(nullptr)
 {
+	if (other.collider != nullptr)
+		collider = new Collider(*other.collider);
 }
 
 void GameObject::SetScale(const sf::Vector2f& scale)
@@ -88,6 +91,7 @@ bool GameObject::CreateCollider(ColliderType colliderType, ColliderLayer collide
 	if (collider == nullptr)
 	{
 		collider = new Collider(colliderType, colliderLayer, offset, size);
+		collider->SetOwner(this);
 		collider->SetPosition(position);
 		return true;
 	}

@@ -12,16 +12,6 @@ protected:
 
 	std::string		name;
 	bool			active = true;
-public:
-	void Awake() override;
-	void Start() override;
-
-	virtual void Release();
-
-	void Update(const float& deltaTime) override;
-	void FixedUpdate(const float& deltaTime) override;
-	void LateUpdate(const float& deltaTime) override;
-	virtual void Render(sf::RenderWindow& renderWindow);
 
 public:
 	const bool IsActive() const { return active; }
@@ -49,6 +39,21 @@ public:
 
 	virtual bool CreateCollider(ColliderType colliderType, ColliderLayer colliderLayer, sf::Vector2f offset = sf::Vector2f::zero, sf::Vector2f size = sf::Vector2f::one);
 	Collider* GetCollider() { return collider; }
+public:
+	void Awake() override;
+	void Start() override;
+
+	virtual void Release();
+
+	void Update(const float& deltaTime) override;
+	void FixedUpdate(const float& deltaTime) override;
+	void LateUpdate(const float& deltaTime) override;
+	virtual void Render(sf::RenderWindow& renderWindow);
+
+	virtual void OnCollisionEnter(Collider* target) {}
+	virtual void OnCollisionStay(Collider* target) {}
+	virtual void OnCollisionEnd(Collider* target) {}
+
 public:
 	bool Save() const override;
 	bool Load() override;
