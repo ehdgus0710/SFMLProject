@@ -36,8 +36,8 @@ public:
 	void SetScale(const sf::Vector2f& scale) override;
 	sf::Vector2f GetScale() const override { return rectanleRender.getSize(); }
 
-	// Rectangle GetRect() {return }
-	sf::FloatRect GetRect() { return sf::FloatRect{ position,rectanleRender.getSize() }; }
+	Rectangle GetRectangle() { return Rectangle(position, rectanleRender.getSize()); }
+	sf::FloatRect GetGlobalBounds() { return rectanleRender.getGlobalBounds(); }
 	void SetPosition(const sf::Vector2f& pos) override;
 
 	sf::Vector2f GetLeftTopPosition() { return { GetLeftPosition(),GetTopPosition() }; }
@@ -45,10 +45,10 @@ public:
 	sf::Vector2f GetRightTopPosition() { return { GetRightPosition(),GetTopPosition() }; }
 	sf::Vector2f GetLeftBottomPosition() { return { GetLeftPosition(),GetBottomPosition() }; }
 
-	float GetLeftPosition() { return position.x - rectanleRender.getSize().x * 0.5; }
-	float GetRightPosition() { return position.x + rectanleRender.getSize().x * 0.5; }
-	float GetTopPosition() { return  position.y - rectanleRender.getSize().y * 0.5; }
-	float GetBottomPosition() { return position.y + rectanleRender.getSize().y * 0.5; }
+	float GetLeftPosition() { return position.x - rectanleRender.getSize().x * 0.5f; }
+	float GetRightPosition() { return position.x + rectanleRender.getSize().x * 0.5f; }
+	float GetTopPosition() { return  position.y - rectanleRender.getSize().y * 0.5f; }
+	float GetBottomPosition() { return position.y + rectanleRender.getSize().y * 0.5f; }
 
 	void SetOrigin(const Origins& origins) override;
 public:
