@@ -46,10 +46,11 @@ void Test::Update(const float& deltaTime)
 
 void Test::Render(sf::RenderWindow& renderWindow)
 {
-	SpriteGameObject::Render(renderWindow);
 
 	if(animator != nullptr)
 		animator->Render(renderWindow);
+	else
+		SpriteGameObject::Render(renderWindow);
 }
 
 void Test::CreateAnimator()
@@ -63,4 +64,6 @@ void Test::CreateAnimator()
 
 Test::~Test()
 {
+	if(animator != nullptr)
+		delete animator;
 }

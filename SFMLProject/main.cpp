@@ -3,7 +3,6 @@
 #include "Framework.h"
 int main()
 {
-    _CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
 
     Framework framework;
     WindowManager::GetInstance().init({ 1920, 1080 }, "haha");
@@ -12,13 +11,8 @@ int main()
     framework.Init();
     framework.Update();
 
-    //while (renderWindow->isOpen())
-    //{
-
-    //    // 랜더 매니저에게 전달
-    //    renderWindow->clear();
-    //    renderWindow->display();
-    //}
-
+    /*_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
+    _CrtSetReportMode(_CRT_WARN, _CRTDBG_MODE_DEBUG);
+    _CrtDumpMemoryLeaks();*/
     return 0;
 }

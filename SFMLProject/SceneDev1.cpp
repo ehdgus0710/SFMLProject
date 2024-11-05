@@ -28,18 +28,18 @@ void SceneDev1::Enter()
 
 	ResourcesManager<sf::Font>::GetInstance().Load("KOMIKAP", "fonts/KOMIKAP_.ttf");
 
-	GameObject* obj = AddGameObject(new SpriteGameObject("Player"), RenderLayer::Default);
+	GameObject* obj = AddGameObject(new Test("Player"), RenderLayer::Default);
 	obj->SetOrigin(Origins::MiddleCenter);
 	obj->SetPosition({ 1920.f * 0.5f, 1080 * 0.5f });
 	obj->CreateCollider(ColliderType::Rectangle, ColliderLayer::Default);
 
-	obj = AddGameObject(new SpriteGameObject("Player"), RenderLayer::Default);
+	obj = AddGameObject(new SpriteGameObject("Player"), RenderLayer::UI);
 	obj->SetOrigin(Origins::MiddleCenter);
 	obj->SetPosition({ 1920.f * 0.5f + 300.f, 1080 * 0.5f });
 	obj->CreateCollider(ColliderType::Circle, ColliderLayer::Default);
-	/*
+	
 
-	obj = AddGameObject(new UITextGameObject("fonts/KOMIKAP_.ttf", "", 100), RenderLayer::Default);
+	/*obj = AddGameObject(new UITextGameObject("fonts/KOMIKAP_.ttf", "", 100), RenderLayer::Default);
 	obj->SetOrigin(Origins::TopLeft);
 	obj->SetPosition({ });
 	((UITextGameObject*)obj)->SetString("SceneDev1");*/

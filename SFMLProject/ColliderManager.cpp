@@ -216,34 +216,30 @@ bool ColliderManager::IsCircleToRectCollision(Collider* left, Collider* right)
     sf::Vector2f circlePosition = left->GetCollision()->GetPosition();
     sf::Vector2f rectanglePosition = right->GetCollision()->GetPosition();
     float radian = ((CollisionCircle*)left->GetCollision())->GetRadian();
-	const sf::Vector2f rightScale = ((CollisionRectangle*)right->GetCollision())->GetScale();
-    Rectangle rightRect;
-    rightRect.rightPosition = rectanglePosition.x + rightScale.x * 0.5f;
-    rightRect.leftPosition = rectanglePosition.x - rightScale.x * 0.5f;
-    rightRect.topPosition = rectanglePosition.y - rightScale.y * 0.5f;
-    rightRect.bottomPosition = rectanglePosition.y + rightScale.y * 0.5f;
+    sf::FloatRect rightRect = ((CollisionRectangle*)right->GetCollision())->GetRect();
+    auto test = ((CollisionRectangle*)right->GetCollision())->GetScale();
 
-    if ((rightRect.leftPosition <= circlePosition.x && rightRect.rightPosition >= circlePosition.x)
-        || (rightRect.topPosition <= circlePosition.y && rightRect.bottomPosition >= circlePosition.y))
+    if ((rightRect.left <= circlePosition.x && rightRect.width >= circlePosition.x)
+        || (rightRect.top <= circlePosition.y && rightRect.height >= circlePosition.y))
     {
-        rightRect.leftPosition -= radian;
-        rightRect.rightPosition += radian;
-        rightRect.topPosition -= radian;
-        rightRect.bottomPosition += radian;
+        rightRect.left -= radian;
+        rightRect.width += radian;
+        rightRect.top -= radian;
+        rightRect.height += radian;
 
-        if (rightRect.leftPosition < circlePosition.x && rightRect.rightPosition > circlePosition.x
-            && rightRect.topPosition < circlePosition.y && rightRect.bottomPosition > circlePosition.y)
+        if (rightRect.left < circlePosition.x && rightRect.width > circlePosition.x
+            && rightRect.top < circlePosition.y && rightRect.height > circlePosition.y)
             return true;
     }
     else
     {
-        if (IsCircleToPointCollision(circlePosition, radian, { rightRect.leftPosition , rightRect.topPosition }))
+        if (IsCircleToPointCollision(circlePosition, radian, { rightRect.left , rightRect.top }))
             return true;
-        if (IsCircleToPointCollision(circlePosition, radian, { rightRect.leftPosition , rightRect.bottomPosition }))
+        if (IsCircleToPointCollision(circlePosition, radian, { rightRect.left , rightRect.height }))
             return true;
-        if (IsCircleToPointCollision(circlePosition, radian, { rightRect.rightPosition , rightRect.topPosition }))
+        if (IsCircleToPointCollision(circlePosition, radian, { rightRect.width , rightRect.top }))
             return true;
-        if (IsCircleToPointCollision(circlePosition, radian, { rightRect.rightPosition , rightRect.bottomPosition }))
+        if (IsCircleToPointCollision(circlePosition, radian, { rightRect.width , rightRect.height }))
             return true;
     }
 

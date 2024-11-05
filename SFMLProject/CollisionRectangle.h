@@ -1,32 +1,29 @@
 #pragma once
 
 #include "Collision.h"
-
 struct Rectangle
 {
 	float leftPosition;
 	float rightPosition;
 	float topPosition;
 	float bottomPosition;
-	Rectangle()
-		: leftPosition(0)
-		, rightPosition(0)
-		, topPosition(0)
-		, bottomPosition(0)
+
+	Rectangle(float left, float rgiht, float top, float bottom)
+		: leftPosition(left)
+		, rightPosition(rgiht)
+		, topPosition(top)
+		, bottomPosition(bottom)
 	{
 
 	}
-	Rectangle(sf::Vector2f size)
-	{
-		SetSize(size);
-	}
 
-	void SetSize(sf::Vector2f size)
+	Rectangle(sf::Vector2f position, sf::Vector2f size)
+		: leftPosition(position.x - size.x * 0.5f)
+		, rightPosition(position.x + size.x * 0.5f)
+		, topPosition(position.y - size.y * 0.5f)
+		, bottomPosition(position.y + size.y * 0.5f)
 	{
-		leftPosition = size.x * 0.5f * -1.f;
-		topPosition = size.y * 0.5f * -1.f;
-		rightPosition = leftPosition  * -1.f;
-		bottomPosition = topPosition * -1.f;
+
 	}
 };
 
@@ -34,24 +31,24 @@ class CollisionRectangle : public Collision
 {
 private:
 	sf::RectangleShape rectanleRender;
-	Rectangle rectanglePosition;
 
 public:
 	void SetScale(const sf::Vector2f& scale) override;
 	sf::Vector2f GetScale() const override { return rectanleRender.getSize(); }
 
-	const sf::FloatRect& GetRect() { return rectanleRender.getGlobalBounds(); }
+	// Rectangle GetRect() {return }
+	sf::FloatRect GetRect() { return sf::FloatRect{ position,rectanleRender.getSize() }; }
 	void SetPosition(const sf::Vector2f& pos) override;
 
-	sf::Vector2f GetLeftTopPosition() { return { position.x + rectanglePosition.leftPosition , position.y + rectanglePosition.topPosition }; }
-	sf::Vector2f GetRightBottomPosition() { return { position.x + rectanglePosition.rightPosition , position.y + rectanglePosition.bottomPosition }; }
-	sf::Vector2f GetRightTopPosition() { return { position.x + rectanglePosition.rightPosition , position.y + rectanglePosition.topPosition }; }
-	sf::Vector2f GetLeftBottomPosition() { return { position.x + rectanglePosition.leftPosition , position.y + rectanglePosition.topPosition }; }
+	sf::Vector2f GetLeftTopPosition() { return { GetLeftPosition(),GetTopPosition() }; }
+	sf::Vector2f GetRightBottomPosition() { return { GetRightPosition(),GetBottomPosition() }; }
+	sf::Vector2f GetRightTopPosition() { return { GetRightPosition(),GetTopPosition() }; }
+	sf::Vector2f GetLeftBottomPosition() { return { GetLeftPosition(),GetBottomPosition() }; }
 
-	float GetLeftPosition() { return position.x + rectanglePosition.leftPosition; }
-	float GetRightPosition() { return position.x + rectanglePosition.rightPosition; }
-	float GetTopPosition() { return position.y + rectanglePosition.topPosition; }
-	float GetBottomPosition() { return position.y + rectanglePosition.bottomPosition; }
+	float GetLeftPosition() { return position.x - rectanleRender.getSize().x * 0.5; }
+	float GetRightPosition() { return position.x + rectanleRender.getSize().x * 0.5; }
+	float GetTopPosition() { return  position.y - rectanleRender.getSize().y * 0.5; }
+	float GetBottomPosition() { return position.y + rectanleRender.getSize().y * 0.5; }
 
 	void SetOrigin(const Origins& origins) override;
 public:
