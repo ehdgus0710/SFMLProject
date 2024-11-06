@@ -14,7 +14,9 @@ public:
 	void Init();
 	void Release();
 
-	SceneIds GetCurrentScene() const { return currentScene; }
+	SceneIds GetCurrentSceneId() const { return currentScene; }
+
+	Scene* GetCurrentScene() const { return sceneVec[(int)currentScene]; }
 	void ChangeScene(SceneIds id);
 
 	void Update(float deltaTime);
