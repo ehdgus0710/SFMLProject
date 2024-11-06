@@ -24,6 +24,7 @@ public:
 
 	void LayerCollision(int left, int right);
 	bool CheckCollision(Collider* left, Collider* right);
+	bool CheckOBBCollision(Collider* left, Collider* right);
 	void SetCollisionCheck(ColliderLayer left, ColliderLayer right);
 	void AddCollider(Collider* newCollision, ColliderLayer right);
 	void SetDestoryCollider(Collider* destoryCollider) { destoryVector.push_back(destoryCollider); }

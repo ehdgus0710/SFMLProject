@@ -18,6 +18,7 @@ void Collision::SetScale(const sf::Vector2f& scale)
 Collision::Collision(ColliderType colliderType)
 	: colliderType(colliderType)
 	, collisionCount(0)
+	, rotation(0.f)
 {
 	//
 }

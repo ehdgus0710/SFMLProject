@@ -221,15 +221,22 @@ bool ColliderManager::IsRectToRectCollision(Collider* left, Collider* right)
         && leftRectangleCollision->GetBottomPosition() > rightRectangleCollision->GetTopPosition())
         return false;*/
 
-    // AABB
-    if ((left->GetScale().x + right->GetScale().x) * 0.5f < abs(left->GetPosition().x - right->GetPosition().x))
-        return false;
+
     
-    if ((left->GetScale().y + right->GetScale().y) * 0.5f < abs(left->GetPosition().y - right->GetPosition().y))
-        return false;
 
+    if (left->GetRotation() == 0.f && right->GetRotation() == 0.f)
+    {
+        if ((left->GetScale().x + right->GetScale().x) * 0.5f < abs(left->GetPosition().x - right->GetPosition().x))
+            return false;
 
-    return true;
+        if ((left->GetScale().y + right->GetScale().y) * 0.5f < abs(left->GetPosition().y - right->GetPosition().y))
+            return false;
+    }
+
+    else
+    {
+        return CheckOBBCollision(left, right);
+    }
 }
 bool ColliderManager::IsCircleToRectCollision(Collider* left, Collider* right)
 {
@@ -285,4 +292,81 @@ bool ColliderManager::IsCircleToPointCollision(sf::Vector2f circlePosition, floa
     float distance = sf::Vector2f::Distance(circlePosition, pointPosition);
 
     return distance < radian ? true : false;
+}
+
+bool ColliderManager::CheckOBBCollision(Collider* left, Collider* right)
+{
+    CollisionRectangle* leftCollsion = ((CollisionRectangle*)left->GetCollision());
+    CollisionRectangle* rightCollsion = ((CollisionRectangle*)right->GetCollision());
+    Rectangle leftRect = leftCollsion->GetRectangle();
+    Rectangle rightRect = rightCollsion->GetRectangle();
+
+    auto leftTransform = leftCollsion->GetTransform();
+    auto rightTransform = rightCollsion->GetTransform();
+
+    std::vector<sf::Vector2f> leftPoints(4);
+    leftPoints[0] = sf::Vector2f(leftRect.leftPosition, leftRect.topPosition);
+    leftPoints[1] = sf::Vector2f(leftRect.rightPosition, leftRect.topPosition);
+    leftPoints[2] = sf::Vector2f(leftRect.rightPosition, leftRect.bottomPosition);
+    leftPoints[3] = sf::Vector2f(leftRect.leftPosition, leftRect.bottomPosition);
+
+    std::vector<sf::Vector2f> rightPoints(4);
+    rightPoints[0] = sf::Vector2f(rightRect.leftPosition, rightRect.topPosition);
+    rightPoints[1] = sf::Vector2f(rightRect.rightPosition, rightRect.topPosition);
+    rightPoints[2] = sf::Vector2f(rightRect.rightPosition, rightRect.bottomPosition);
+    rightPoints[3] = sf::Vector2f(rightRect.leftPosition, rightRect.bottomPosition);
+
+    std::vector<sf::Vector2f> axes;
+    for (int i = 0; i < 4; ++i)
+    {
+        sf::Vector2f p1 = leftTransform.transformPoint(leftPoints[i]);
+        sf::Vector2f p2 = leftTransform.transformPoint(leftPoints[(i + 1) % 4]);
+        // 방향 벡터 구하기
+        sf::Vector2f edge = p2 - p1;
+        sf::Vector2f normal(-edge.y, edge.x);
+        normal.Normalized();
+        axes.push_back(normal);
+    }
+
+    for (int i = 0; i < 4; ++i)
+    {
+        sf::Vector2f p1 = rightTransform.transformPoint(rightPoints[i]);
+        sf::Vector2f p2 = rightTransform.transformPoint(rightPoints[(i + 1) % 4]);
+        sf::Vector2f edge = p2 - p1;
+        sf::Vector2f normal(-edge.y, edge.x);
+        normal.Normalized();
+        axes.push_back(normal);
+    }
+
+    // 모든 축마다 최대 값 최소 값을 구해서 비교
+
+    for (const auto& axis : axes)
+    {
+        float minA = std::numeric_limits<float>::max();
+        float maxA = std::numeric_limits<float>::lowest();
+        // 투영
+        for (const auto& point : leftPoints)
+        {
+            sf::Vector2f transformedPoint = leftTransform.transformPoint(point);
+            float projection = sf::Vector2f::Dot(axis, transformedPoint);
+            minA = std::min(minA, projection);
+            maxA = std::max(maxA, projection);
+        }
+
+        float minB = std::numeric_limits<float>::max();
+        float maxB = std::numeric_limits<float>::lowest();
+        for (const auto& point : rightPoints)
+        {
+            sf::Vector2f transformedPoint = rightTransform.transformPoint(point);
+            float projection = sf::Vector2f::Dot(axis, transformedPoint);
+            minB = std::min(minB, projection);
+            maxB = std::max(maxB, projection);
+        }
+
+        if (maxA < minB || maxB < minA)
+        {
+            return false;
+        }
+    }
+    return true;
 }

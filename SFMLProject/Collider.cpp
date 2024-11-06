@@ -85,6 +85,17 @@ sf::Vector2f Collider::GetScale()
 	return collision->GetScale();
 }
 
+void Collider::SetRotation(float angle)
+{
+	colliderRotation = angle;
+	collision->SetRotation(angle);
+}
+
+float Collider::GetRotation()
+{
+	return collision->GetRotation();
+}
+
 void Collider::SetScale(sf::Vector2f size)
 {
 	collision->SetScale(size);

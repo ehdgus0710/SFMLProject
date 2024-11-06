@@ -61,3 +61,9 @@ void CollisionRectangle::SetPosition(const sf::Vector2f& pos)
 	rectanleRender.setPosition(pos);
 	Collision::SetPosition(pos);
 }
+
+void CollisionRectangle::SetRotation(float angle)
+{
+	rectanleRender.setRotation(angle);
+	rotation = angle;
+}

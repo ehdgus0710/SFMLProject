@@ -24,7 +24,7 @@ public:
 	virtual void SetScale(const sf::Vector2f& scale);
 	virtual sf::Vector2f GetScale() const { return scale; }
 
-	virtual void SetRotation(float angle) { rotation = angle; }
+	virtual void SetRotation(float angle);
 	virtual float GetRotation() { return rotation; }
 
 	sf::Vector2f GetPosition() const { return position; }

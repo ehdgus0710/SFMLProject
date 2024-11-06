@@ -38,7 +38,11 @@ public:
 
 	Rectangle GetRectangle() { return Rectangle(position, rectanleRender.getSize()); }
 	sf::FloatRect GetGlobalBounds() { return rectanleRender.getGlobalBounds(); }
+	const sf::Transform& GetTransform() { return rectanleRender.getTransform(); }
+
 	void SetPosition(const sf::Vector2f& pos) override;
+
+	void SetRotation(float angle) override;
 
 	sf::Vector2f GetLeftTopPosition() { return { GetLeftPosition(),GetTopPosition() }; }
 	sf::Vector2f GetRightBottomPosition() { return { GetRightPosition(),GetBottomPosition() }; }

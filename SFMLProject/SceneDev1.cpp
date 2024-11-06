@@ -27,16 +27,18 @@ void SceneDev1::Enter()
 
 	ResourcesManager<sf::Font>::GetInstance().Load("KOMIKAP", "fonts/KOMIKAP_.ttf");
 
-	/*GameObject* obj = AddGameObject(new Test("Player"), LayerType::Default);
+	GameObject* obj = AddGameObject(new Test("Player"), LayerType::Default);
 	obj->SetOrigin(Origins::MiddleCenter);
 	obj->SetPosition({ 1920.f * 0.5f, 1080 * 0.5f });
 	obj->CreateCollider(ColliderType::Rectangle, ColliderLayer::Default);
 
+	test = obj;
+
 	obj = AddGameObject(new SpriteGameObject("Player"), LayerType::UI);
 	obj->SetOrigin(Origins::MiddleCenter);
 	obj->SetPosition({ 1920.f * 0.5f + 300.f, 1080 * 0.5f });
-	obj->CreateCollider(ColliderType::Circle, ColliderLayer::Default);
-	*/
+	obj->CreateCollider(ColliderType::Rectangle, ColliderLayer::Default);
+	
 
 	/*obj = AddGameObject(new UITextGameObject("fonts/KOMIKAP_.ttf", "", 100), RenderLayer::Default);
 	obj->SetOrigin(Origins::TopLeft);
@@ -111,6 +113,13 @@ void SceneDev1::Update(float dt)
 	{
 		cameraPosition += sf::Vector2f::down * cameraSpeed * dt;
 	}
+
+	if (InputManager::GetInstance().GetKeyPressed(sf::Keyboard::Z))
+	{
+		test->SetRotation(test->GetRotation() + 10.f * dt);
+	}
+
+	test->SetPosition((sf::Vector2f)InputManager::GetInstance().GetMousePosition());
 
 	mainCamera->SetCameraPosition(cameraPosition);
 }

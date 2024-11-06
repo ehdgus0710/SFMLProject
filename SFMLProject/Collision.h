@@ -3,11 +3,12 @@
 class Collision
 {
 protected:
-	ColliderType colliderType;
+	ColliderType	colliderType;
 
-	sf::Vector2f position;
-	sf::Vector2f scale;
-	sf::Vector2f originPosition;
+	sf::Vector2f	position;
+	sf::Vector2f	scale;
+	sf::Vector2f	originPosition;
+	float			rotation;
 	
 	int collisionCount;
 
@@ -23,6 +24,10 @@ public:
 
 	virtual void SetOrigin(const Origins& origins) = 0;
 	virtual sf::Vector2f GetOrigin() { return originPosition; }
+
+	virtual void SetRotation(float angle) {}
+	virtual float GetRotation() const { return rotation; }
+
 
 	const ColliderType GetColliderType() { return colliderType; }
 

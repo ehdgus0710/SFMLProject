@@ -10,7 +10,7 @@ private:
 	sf::Vector2f	position;
 	sf::Vector2f	offsetPosition;
 	sf::Vector2f	colliderScale;
-	sf::Vector2f	colliderRotation;
+	float			colliderRotation;
 
 	GameObject* owner;
 	ColliderLayer	colliderLayer;
@@ -44,6 +44,9 @@ public:
 
 	void SetScale(sf::Vector2f size);
 	sf::Vector2f GetScale();
+
+	void SetRotation(float angle);
+	float GetRotation();
 
 	void SetOrigin(const sf::Vector2f& origin);
 	void SetOrigin(const Origins& origins);

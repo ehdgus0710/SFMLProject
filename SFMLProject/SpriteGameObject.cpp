@@ -32,10 +32,10 @@ void SpriteGameObject::SetRotation(float angle)
 	rotation = angle;
 	sprite.setRotation(rotation);
 
-	/*if (collider != nullptr)
+	if (collider != nullptr)
 	{
-		collider->SetScale((sf::Vector2f)sprite.getTexture()->getSize() * scale);
-	}*/
+		collider->SetRotation(angle);
+	}
 }
 
 void SpriteGameObject::Render(sf::RenderWindow& renderWindow)

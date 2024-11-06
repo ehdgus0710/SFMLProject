@@ -39,6 +39,13 @@ void GameObject::SetScale(const sf::Vector2f& scale)
 		collider->SetScale(scale);
 }
 
+void GameObject::SetRotation(float angle)
+{
+	rotation = angle;
+	if (collider != nullptr)
+		collider->SetRotation(rotation);
+}
+
 void GameObject::SetPosition(const sf::Vector2f& pos)
 {
 	position = pos;

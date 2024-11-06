@@ -94,7 +94,7 @@ public:
         x /= lenght;
         y /= lenght;
     }
-    
+
     T Length()
     {
         return (T)sqrt(x * x + y * y);
