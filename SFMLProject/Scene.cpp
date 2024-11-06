@@ -8,7 +8,7 @@ Scene::Scene(const SceneIds id)
 	, mainCamera(nullptr)
 	, uICamera(nullptr)
 {
-	gameObjectVector.resize((int)RenderLayer::End);
+	gameObjectVectors.resize((int)LayerType::End);
 	cameraPosition = sf::Vector2f::zero;
 
 	mainCamera = new Camera(WindowManager::GetInstance().GetRenderWindow()->getDefaultView(), CameraType::Main);
@@ -31,7 +31,7 @@ Scene::~Scene()
 
 void Scene::Init()
 {
-	for (auto& objectVector : gameObjectVector)
+	for (auto& objectVector : gameObjectVectors)
 	{
 		for (auto& object : objectVector)
 		{
@@ -42,7 +42,7 @@ void Scene::Init()
 
 void Scene::Release()
 {
-	for (auto& objectVector : gameObjectVector)
+	for (auto& objectVector : gameObjectVectors)
 	{
 		for (auto& object : objectVector)
 		{
@@ -51,11 +51,12 @@ void Scene::Release()
 		}
 		objectVector.clear();
 	}
+	gameObjectVectors.clear();
 }
 
 void Scene::Enter()
 {
-	for (auto& objectVector : gameObjectVector)
+	for (auto& objectVector : gameObjectVectors)
 	{
 		for (auto& object : objectVector)
 		{
@@ -66,12 +67,16 @@ void Scene::Enter()
 
 void Scene::Exit()
 {
-	
+	Release();
+
+	ResourcesManager<sf::Texture>::GetInstance().UnloadAll();
+	ResourcesManager<sf::Font>::GetInstance().UnloadAll();
+	ResourcesManager<sf::SoundBuffer>::GetInstance().UnloadAll();
 }
 
 void Scene::Update(float deltaTime)
 {
-	for (auto& objectVector : gameObjectVector)
+	for (auto& objectVector : gameObjectVectors)
 	{
 		for (auto& object : objectVector)
 		{
@@ -85,7 +90,7 @@ void Scene::Update(float deltaTime)
 
 void Scene::FixedUpdate(float fixedDeltaTime)
 {
-	for (auto& objectVector : gameObjectVector)
+	for (auto& objectVector : gameObjectVectors)
 	{
 		for (auto& object : objectVector)
 		{
@@ -101,9 +106,9 @@ void Scene::Render(sf::RenderWindow& window)
 {
 	WindowManager::GetInstance().GetRenderWindow()->setView(mainCamera->GetView());
 
-	for (int i = 0; i < (int)RenderLayer::UI; ++i)
+	for (int i = 0; i < (int)LayerType::UI; ++i)
 	{
-		for (auto& object : gameObjectVector[i])
+		for (auto& object : gameObjectVectors[i])
 		{
 			if (!object->IsActive())
 				continue;
@@ -113,9 +118,9 @@ void Scene::Render(sf::RenderWindow& window)
 	}
 	WindowManager::GetInstance().GetRenderWindow()->setView(uICamera->GetView());
 
-	for (int i = (int)RenderLayer::UI; i < (int)RenderLayer::End; ++i)
+	for (int i = (int)LayerType::UI; i < (int)LayerType::End; ++i)
 	{
-		for (auto& object : gameObjectVector[i])
+		for (auto& object : gameObjectVectors[i])
 		{
 			if (!object->IsActive())
 				continue;
@@ -125,29 +130,67 @@ void Scene::Render(sf::RenderWindow& window)
 	}
 }
 
-GameObject* Scene::AddGameObject(GameObject* obj, RenderLayer rayer)
+
+GameObject* Scene::AddGameObject(GameObject* obj, LayerType rayer)
 {
-	if (std::find(gameObjectVector[(int)rayer].begin(), gameObjectVector[(int)rayer].end(), obj) == gameObjectVector[(int)rayer].end())
+	if (std::find(gameObjectVectors[(int)rayer].begin(), gameObjectVectors[(int)rayer].end(), obj) == gameObjectVectors[(int)rayer].end())
 	{
-		gameObjectVector[(int)rayer].push_back(obj);
+		gameObjectVectors[(int)rayer].push_back(obj);
 	}
 	return obj;
 }
 
 void Scene::RemoveGameObject(GameObject* obj)
 {
-	for (auto& objectVector : gameObjectVector)
+	for (int i = 0; i < (int)LayerType::End; ++i)
 	{
-		gameObjectVector.erase(std::find(gameObjectVector.begin(), gameObjectVector.end(), objectVector));
-	}
-	
+		auto iter = std::find(gameObjectVectors[i].begin(), gameObjectVectors[i].end(), obj);
 
-	// gameObjectList.remove(obj);
+		if (iter != gameObjectVectors[i].end())
+		{
+			gameObjectVectors[i].erase(iter);
+			return;
+		}
+	}
+}
+
+void Scene::RemoveGameObject(GameObject* obj, LayerType layer)
+{
+	auto iter = std::find(gameObjectVectors[(int)layer].begin(), gameObjectVectors[(int)layer].end(), obj);
+
+	if(iter != gameObjectVectors[(int)layer].end())
+		gameObjectVectors[(int)layer].erase(iter);
+}
+
+void Scene::ApplyRemoveGameObject()
+{
+	for (auto object : removeObjectVector)
+	{
+		//gameObjects.remove(object);
+	}
+	removeObjectVector.clear();
 }
 
 GameObject* Scene::FindGameObject(const std::string& name)
 {
-	/*for (auto object : gameObjectList)
+	for (int i = 0; i < (int)LayerType::End; ++i)
+	{
+		for (auto object : gameObjectVectors[i])
+		{
+			if (object->GetName() == name)
+			{
+				return object;
+			}
+		}
+	}
+	return nullptr;
+}
+
+GameObject* Scene::FindGameObject(const std::string& name, LayerType layer)
+{
+	int index = (int)layer;
+
+	for (auto object : gameObjectVectors[index])
 	{
 		if (object->GetName() == name)
 		{
@@ -155,21 +198,52 @@ GameObject* Scene::FindGameObject(const std::string& name)
 		}
 	}
 
-	*/
 	return nullptr;
 }
 
-int Scene::FindGameObjectAll(const std::string& name, std::list<GameObject*>& list)
+int Scene::FindGameObjectAll(const std::string& name, std::vector<GameObject*>& vector)
 {
-	/*int currnetCount = 0;
-	for (auto object : gameObjectList)
+	for (int i = 0; i < (int)LayerType::End; ++i)
 	{
-		if (object->GetName() == name)
+		for (auto object : gameObjectVectors[i])
 		{
-			++currnetCount;
-			list.push_back(object);
+			if (object->GetName() == name)
+			{
+				vector.push_back(object);
+			}
 		}
 	}
-	*/
-	return 0;
+
+	return (int)vector.size();
+}
+
+
+sf::Vector2f Scene::ScreenToWorld(sf::Vector2i screenPos)
+{
+	return WindowManager::GetInstance().GetRenderWindow()->mapPixelToCoords(screenPos, mainCamera->GetView());
+}
+
+sf::Vector2i Scene::WorldToScreen(sf::Vector2f screenPos)
+{
+	return WindowManager::GetInstance().GetRenderWindow()->mapCoordsToPixel(screenPos, mainCamera->GetView());
+}
+
+sf::Vector2f Scene::ScreenToUI(sf::Vector2i screenPos)
+{
+	return WindowManager::GetInstance().GetRenderWindow()->mapPixelToCoords(screenPos, uICamera->GetView());
+}
+
+sf::Vector2i Scene::UIToScreen(sf::Vector2f screenPos)
+{
+	return  WindowManager::GetInstance().GetRenderWindow()->mapCoordsToPixel(screenPos, uICamera->GetView());
+}
+
+sf::Vector2f Scene::ScreenToWorld(const sf::View& view, sf::Vector2i screenPos)
+{
+	return  WindowManager::GetInstance().GetRenderWindow()->mapPixelToCoords(screenPos, view);
+}
+
+sf::Vector2i Scene::WorldToScreen(const sf::View& view, sf::Vector2f screenPos)
+{
+	return WindowManager::GetInstance().GetRenderWindow()->mapCoordsToPixel(screenPos, view);
 }

@@ -34,7 +34,7 @@ public:
 
 public:
 	Collision(ColliderType colliderType);
-	~Collision() {}
+	virtual ~Collision() {}
 
 };
 

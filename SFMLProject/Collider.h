@@ -65,5 +65,5 @@ public:
 public:
 	Collider(ColliderType colliderType, ColliderLayer clliderLayer, sf::Vector2f offset = sf::Vector2f::zero, sf::Vector2f size = sf::Vector2f::one);
 	Collider(const Collider& other);
-	~Collider();
+	virtual ~Collider();
 };

@@ -14,6 +14,8 @@ protected:
 	bool			active = true;
 
 public:
+	int				sortingOrder = 0;
+
 	const bool IsActive() const { return active; }
 	void SetActive(const bool active) { this->active = active; }
 	const std::string& GetName() const { return name; }
@@ -35,6 +37,10 @@ public:
 		origin = newOrigin;
 		originPreset = Origins::Custom;
 	}
+
+
+	virtual sf::FloatRect GetLocalBounds() const { return { 0.f , 0.f  , 0.f , 0.f }; }
+	virtual sf::FloatRect GetGlobalBounds() const { return { 0.f , 0.f  , 0.f , 0.f }; }
 
 
 	virtual bool CreateCollider(ColliderType colliderType, ColliderLayer colliderLayer, sf::Vector2f offset = sf::Vector2f::zero, sf::Vector2f size = sf::Vector2f::one);

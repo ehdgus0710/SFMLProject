@@ -8,6 +8,7 @@
 #include <math.h>
 #include <functional>
 #include <random>
+#include <unordered_set>
 
 // 자료구조
 #include <unordered_map>
@@ -15,6 +16,7 @@
 
 // SFML
 #include <SFML/Graphics.hpp>
+#include <SFML/Audio.hpp>
 
 #include "Singleton.h"
 

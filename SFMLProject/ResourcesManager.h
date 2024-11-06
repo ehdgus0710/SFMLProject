@@ -21,21 +21,28 @@ public:
 
 	void UnloadAll()
 	{
-		for (const auto& iter : resourcesMap)
+		auto iter = resourcesMap.begin();
+
+		while (iter != resourcesMap.end())
 		{
-			delete iter.second;
+			if (iter->second->IsNotUnload())
+			{
+				delete iter->second;
+				iter = resourcesMap.erase(iter);
+			}
+			else
+				++iter;
 		}
-		resourcesMap.clear();
 	}
 
-	bool Load(const std::string& id, const std::string& filepath)
+	bool Load(const std::string& id, const std::string& filepath, bool notUnloadAll = false)
 	{
 		if (resourcesMap.find(id) != resourcesMap.end())
 			return false;
 
 		Resources<T>* resource = new Resources<T>;
 
-		bool success = resource->resource.loadFromFile(filepath);
+		bool success = resource->resource->loadFromFile(filepath);
 		assert(success);
 
 		if (success)
@@ -43,6 +50,7 @@ public:
 			resourcesMap.insert({ id, resource });
 			resource->SetKey(id);
 			resource->SetFilePath(filepath);
+			resource->SetnotUnload(notUnloadAll);
 		}
 		else
 		{
@@ -81,7 +89,7 @@ public:
 		{
 			return Empty;
 		}
-		return (iter->second->resource);
+		return (*iter->second->resource);
 	}
 };
 

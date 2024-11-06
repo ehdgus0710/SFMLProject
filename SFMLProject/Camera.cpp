@@ -3,11 +3,13 @@
 
 Camera::Camera(CameraType type)
 	: type(type)
+	 , isActive(true)
 {
 }
 
 Camera::Camera(const sf::View& view, CameraType type)
 	: type(type)
+	, isActive(true)
 {
 	camera = view;
 	cameraPosition = camera.getCenter();

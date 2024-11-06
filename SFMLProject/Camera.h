@@ -8,6 +8,12 @@ protected:
 
 	CameraType		type;
 
+	bool			isActive;
+
+public:
+	void SetActive(bool active) { isActive = active; }
+	bool IsActive() { return isActive; }
+
 public:
 	void SetViewInfo(const sf::View& view) { camera = view; }
 	const sf::View& GetView() { return camera; }

@@ -45,7 +45,7 @@ enum class Origins
 };
 
 
-enum class RenderLayer
+enum class LayerType
 {
 	Default,
 

@@ -9,7 +9,8 @@ class Resources : public Entity
 private:
 	std::string key;
 	std::string filePath;
-	T resource;
+	T* resource;
+	bool isNotUnload;
 
 public:
 	bool Save() const override;
@@ -21,6 +22,16 @@ public:
 	void SetFilePath(const std::string path)
 	{
 		this->filePath = path;
+	}
+
+	void SetnotUnload(bool notUnload)
+	{
+		isNotUnload = notUnload;
+	}
+
+	bool IsNotUnload()
+	{
+		return isNotUnload;
 	}
 
 public:
@@ -43,9 +54,11 @@ inline bool Resources<T>::Load()
 template<typename T>
 inline Resources<T>::Resources()
 {
+	resource = new T;
 }
 
 template<typename T>
 inline Resources<T>::~Resources()
 {
+	delete resource;
 }

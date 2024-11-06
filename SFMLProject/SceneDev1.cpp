@@ -21,19 +21,18 @@ void SceneDev1::Enter()
 	CameraManger::GetInstance().SetCamera(uICamera);
 
 	TEXTURE_MANAGER.Load("Char", "graphics/CharRun.png");
-
 	TEXTURE_MANAGER.Load("Player", "graphics/player.png");
 	TEXTURE_MANAGER.Load("PlayerMove", "graphics/PC_Move.png");
 	TEXTURE_MANAGER.Load("PlayerDash", "graphics/PC_Dash.png");
 
 	ResourcesManager<sf::Font>::GetInstance().Load("KOMIKAP", "fonts/KOMIKAP_.ttf");
 
-	GameObject* obj = AddGameObject(new Test("Player"), RenderLayer::Default);
+	GameObject* obj = AddGameObject(new Test("Player"), LayerType::Default);
 	obj->SetOrigin(Origins::MiddleCenter);
 	obj->SetPosition({ 1920.f * 0.5f, 1080 * 0.5f });
 	obj->CreateCollider(ColliderType::Rectangle, ColliderLayer::Default);
 
-	obj = AddGameObject(new SpriteGameObject("Player"), RenderLayer::UI);
+	obj = AddGameObject(new SpriteGameObject("Player"), LayerType::UI);
 	obj->SetOrigin(Origins::MiddleCenter);
 	obj->SetPosition({ 1920.f * 0.5f + 300.f, 1080 * 0.5f });
 	obj->CreateCollider(ColliderType::Circle, ColliderLayer::Default);
