@@ -56,6 +56,9 @@ void Animator::CreateAnimation(const sf::Texture* texture, const std::string& an
 	Animation* animation = new Animation(texture, rectSize, frameCount, frameTime, isRepeat);
 	animationMap.insert({ animationName ,animation });
 	animation->SetAnimator(this);
+
+	if (currentAnimation == nullptr)
+		StartAnimation(animation, isRepeat);
 }
 
 void Animator::ChangeAnimation(const std::string& animationName, bool isRepeat)
@@ -65,10 +68,18 @@ void Animator::ChangeAnimation(const std::string& animationName, bool isRepeat)
 		return;
 
 	isPlaying = true;
+	currentAnimation->SetRepeat(false);
 	currentAnimation = animation->second;
 
+	sprite.setTexture(*currentAnimation->GetTexture(), true);
+	currentAnimation->Play(isRepeat);
+}
 
-	sprite.setTexture(*currentAnimation->GetTexture());
+void Animator::StartAnimation(Animation* animation, bool isRepeat)
+{
+	isPlaying = true;
+	currentAnimation = animation;
+	sprite.setTexture(*currentAnimation->GetTexture(), true);
 	currentAnimation->Play(isRepeat);
 }
 
@@ -80,7 +91,29 @@ void Animator::Render(sf::RenderWindow& renderWindow)
 void Animator::SetCurrentFrameRect(const sf::IntRect& rect)
 {
 	uvRect = rect;
+	// sprite.setOrigin((sf::Vector2f)uvRect.getSize() * 0.5f);
 	sprite.setTextureRect(uvRect);
+}
+
+void Animator::SetCurrentFrameSize(const sf::Vector2u& size)
+{
+	sprite.setOrigin((sf::Vector2f)size * 0.5f);
+}
+
+void Animator::SetOrigin(Origins preset)
+{
+	if (preset == Origins::Custom)
+		return;
+
+	origins = preset;
+	originPosition = Utils::SetOrigin(sprite, preset);
+}
+
+void Animator::SetOrigin(const sf::Vector2f& newOrigin)
+{
+	origins = Origins::Custom;
+	originPosition = newOrigin;
+	sprite.setOrigin(originPosition);
 }
 
 void Animator::Test1()

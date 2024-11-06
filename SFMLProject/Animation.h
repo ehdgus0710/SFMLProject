@@ -49,9 +49,11 @@ public:
 	void SetRepeat(bool repeat) { isRepeat = repeat; }
 	void SetUnScaleUpdate(bool unscale) { isUnscale = unscale; }
 
+
 	void SetAnimationEvent(void* event, unsigned int index);
 	void SetAnimator(Animator* animator) { this->animator = animator; }
 	const sf::Texture* GetTexture() const { return texture; }
+	const sf::Vector2u& GetUvRect() { return frameInfoVector[0].rectSize; }
 
 public:
 	Animation();

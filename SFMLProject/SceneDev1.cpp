@@ -27,7 +27,7 @@ void SceneDev1::Enter()
 
 	ResourcesManager<sf::Font>::GetInstance().Load("KOMIKAP", "fonts/KOMIKAP_.ttf");
 
-	GameObject* obj = AddGameObject(new Test("Player"), LayerType::Default);
+	/*GameObject* obj = AddGameObject(new Test("Player"), LayerType::Default);
 	obj->SetOrigin(Origins::MiddleCenter);
 	obj->SetPosition({ 1920.f * 0.5f, 1080 * 0.5f });
 	obj->CreateCollider(ColliderType::Rectangle, ColliderLayer::Default);
@@ -36,36 +36,36 @@ void SceneDev1::Enter()
 	obj->SetOrigin(Origins::MiddleCenter);
 	obj->SetPosition({ 1920.f * 0.5f + 300.f, 1080 * 0.5f });
 	obj->CreateCollider(ColliderType::Circle, ColliderLayer::Default);
-	
+	*/
 
 	/*obj = AddGameObject(new UITextGameObject("fonts/KOMIKAP_.ttf", "", 100), RenderLayer::Default);
 	obj->SetOrigin(Origins::TopLeft);
 	obj->SetPosition({ });
 	((UITextGameObject*)obj)->SetString("SceneDev1");*/
 
-	//Test* test = AddGameObject(new Test("PlayerMove"), RenderLayer::Default);
-	////test->CreateCollider(ColliderType::Rectangle, ColliderLayer::Default);
+	Test* test = AddGameObject(new Test("PlayerMove"), LayerType::Default);
+	//test->CreateCollider(ColliderType::Rectangle, ColliderLayer::Default);
 
-	//test->SetOrigin(Origins::MiddleCenter);
-	//test->Awake();
-	//test->CreateAnimator();
-	//test->animator->CreateAnimation("PlayerMove", "PlayerMove", { 128,128 }, 8, 0.1f, true);
-	//test->animator->CreateAnimation("PlayerDash", "PlayerDash", { 256,128 }, 8, 0.1f, true);
-	//test->animator->ChangeAnimation("PlayerDash", true);
+	test->SetOrigin(Origins::MiddleCenter);
+	test->Awake();
+	test->CreateAnimator();
+	test->animator->CreateAnimation("PlayerMove", "PlayerMove", { 128,128 }, 8, 0.1f, true);
+	test->animator->CreateAnimation("PlayerDash", "PlayerDash", { 256,128 }, 8, 0.1f, true);
+	test->animator->ChangeAnimation("PlayerDash", true);
 
-	//test->SetPosition({ 1920.f * 0.5f, 1080 * 0.5f });
+	test->SetPosition({ 1920.f * 0.5f, 1080 * 0.5f });
 
-	//test->animator->Start();
+	test->animator->Start();
 
-	//Test* test2 = AddGameObject(new Test("Char"), RenderLayer::Default);
-	////test->CreateCollider(ColliderType::Rectangle, ColliderLayer::Default);
+	Test* test2 = AddGameObject(new Test("Char"), LayerType::Default);
+	//test->CreateCollider(ColliderType::Rectangle, ColliderLayer::Default);
 
-	//test2->SetOrigin(Origins::MiddleCenter);
-	//test2->Awake();
-	//test2->CreateAnimator();
-	//test2->animator->CreateAnimation("Char", "CharRun", { 32,32 }, 8, 0.1f, true);
-	//test2->animator->ChangeAnimation("CharRun", true);
-	//test2->SetPosition({ 1920.f * 0.5f + 32.f, 1080 * 0.5f });
+	test2->SetOrigin(Origins::MiddleCenter);
+	test2->Awake();
+	test2->CreateAnimator();
+	test2->animator->CreateAnimation("Char", "CharRun", { 32,32 }, 8, 0.1f, true);
+	test2->animator->ChangeAnimation("CharRun", true);
+	test2->SetPosition({ 1920.f * 0.5f + 32.f, 1080 * 0.5f });
 
 	cameraPosition = mainCamera->GetCameraPosition();
 

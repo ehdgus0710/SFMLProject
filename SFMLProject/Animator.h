@@ -11,6 +11,12 @@ protected:
 	sf::IntRect									uvRect;
 	bool										isPlaying;
 
+	Origins		origins;
+	sf::Vector2f originPosition;
+
+protected:
+	void StartAnimation(Animation* animation, bool isRepeat = false);
+
 public:
 	Animation* GetAnimation(const std::string& animationName);
 
@@ -20,7 +26,12 @@ public:
 	void ChangeAnimation(const std::string& animationName, bool isRepeat = false);
 	void Render(sf::RenderWindow& renderWindow);
 	void SetCurrentFrameRect(const sf::IntRect& rect);
+	void SetCurrentFrameSize(const sf::Vector2u& size);
 	sf::Sprite& GetCurrentSprite() { return sprite; }
+
+
+	void SetOrigin(Origins preset);
+	void SetOrigin(const sf::Vector2f& newOrigin);
 
 	void Test1();
 	void Test2();

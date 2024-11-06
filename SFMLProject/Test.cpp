@@ -36,9 +36,9 @@ void Test::Start()
 
 void Test::Update(const float& deltaTime)
 {
-	position = sf::Vector2f(InputManager::GetInstance().GetMousePosition());
+	/*position = sf::Vector2f(InputManager::GetInstance().GetMousePosition());
 	SetPosition(position);
-	SpriteGameObject::Update(deltaTime);
+	SpriteGameObject::Update(deltaTime);*/
 
 	if (animator != nullptr)
 		animator->Update(deltaTime);

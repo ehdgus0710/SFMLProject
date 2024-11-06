@@ -125,7 +125,10 @@ void Animation::Play(bool isRepeat)
 	isPlaying = true;
 
 	if (animator != nullptr)
-		animator->SetCurrentFrameRect(frameInfoVector[currentIndex].uvRect);
+	{
+		animator->SetCurrentFrameSize(frameInfoVector[0].rectSize);
+		animator->SetCurrentFrameRect(frameInfoVector[0].uvRect);
+	}
 }
 
 void Animation::Stop()
