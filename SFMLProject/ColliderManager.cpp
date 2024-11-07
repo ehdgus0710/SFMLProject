@@ -298,26 +298,27 @@ bool ColliderManager::CheckOBBCollision(Collider* left, Collider* right)
 {
     CollisionRectangle* leftCollsion = ((CollisionRectangle*)left->GetCollision());
     CollisionRectangle* rightCollsion = ((CollisionRectangle*)right->GetCollision());
-    Rectangle leftRect = leftCollsion->GetRectangle();
-    Rectangle rightRect = rightCollsion->GetRectangle();
+
+    auto leftLocal = leftCollsion->GetLocalBounds();
+    auto rgihtLoacl = rightCollsion->GetLocalBounds();
 
     auto leftTransform = leftCollsion->GetTransform();
     auto rightTransform = rightCollsion->GetTransform();
 
     std::vector<sf::Vector2f> leftPoints(4);
-    leftPoints[0] = sf::Vector2f(leftRect.leftPosition, leftRect.topPosition);
-    leftPoints[1] = sf::Vector2f(leftRect.rightPosition, leftRect.topPosition);
-    leftPoints[2] = sf::Vector2f(leftRect.rightPosition, leftRect.bottomPosition);
-    leftPoints[3] = sf::Vector2f(leftRect.leftPosition, leftRect.bottomPosition);
+    leftPoints[0] = sf::Vector2f(leftLocal.left, leftLocal.top);
+    leftPoints[1] = sf::Vector2f(leftLocal.left + leftLocal.width, leftLocal.top);
+    leftPoints[2] = sf::Vector2f(leftLocal.left + leftLocal.width, leftLocal.top + leftLocal.height);
+    leftPoints[3] = sf::Vector2f(leftLocal.left, leftLocal.top + leftLocal.height);
 
     std::vector<sf::Vector2f> rightPoints(4);
-    rightPoints[0] = sf::Vector2f(rightRect.leftPosition, rightRect.topPosition);
-    rightPoints[1] = sf::Vector2f(rightRect.rightPosition, rightRect.topPosition);
-    rightPoints[2] = sf::Vector2f(rightRect.rightPosition, rightRect.bottomPosition);
-    rightPoints[3] = sf::Vector2f(rightRect.leftPosition, rightRect.bottomPosition);
+    rightPoints[0] = sf::Vector2f(rgihtLoacl.left, rgihtLoacl.top);
+    rightPoints[1] = sf::Vector2f(rgihtLoacl.left + rgihtLoacl.width, rgihtLoacl.top);
+    rightPoints[2] = sf::Vector2f(rgihtLoacl.left + rgihtLoacl.width, rgihtLoacl.top + rgihtLoacl.height);
+    rightPoints[3] = sf::Vector2f(rgihtLoacl.left, rgihtLoacl.top + rgihtLoacl.height);
 
     std::vector<sf::Vector2f> axes;
-    for (int i = 0; i < 4; ++i)
+    for (int i = 0; i < 2; ++i)
     {
         sf::Vector2f p1 = leftTransform.transformPoint(leftPoints[i]);
         sf::Vector2f p2 = leftTransform.transformPoint(leftPoints[(i + 1) % 4]);
@@ -328,7 +329,7 @@ bool ColliderManager::CheckOBBCollision(Collider* left, Collider* right)
         axes.push_back(normal);
     }
 
-    for (int i = 0; i < 4; ++i)
+    for (int i = 0; i < 2; ++i)
     {
         sf::Vector2f p1 = rightTransform.transformPoint(rightPoints[i]);
         sf::Vector2f p2 = rightTransform.transformPoint(rightPoints[(i + 1) % 4]);
@@ -337,8 +338,6 @@ bool ColliderManager::CheckOBBCollision(Collider* left, Collider* right)
         normal.Normalized();
         axes.push_back(normal);
     }
-
-    // 모든 축마다 최대 값 최소 값을 구해서 비교
 
     for (const auto& axis : axes)
     {

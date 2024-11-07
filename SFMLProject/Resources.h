@@ -53,6 +53,7 @@ inline bool Resources<T>::Load()
 
 template<typename T>
 inline Resources<T>::Resources()
+	: isNotUnload(false)
 {
 	resource = new T;
 }

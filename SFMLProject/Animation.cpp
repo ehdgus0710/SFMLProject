@@ -83,6 +83,7 @@ Animation::Animation(const Animation& other)
 
 Animation::~Animation()
 {
+	frameInfoVector.clear();
 }
 
 void Animation::CreateAnimationInfo(const sf::Texture* texture, const sf::Vector2u& rectSize, int frameCount, float frameTime, bool isRepeat)

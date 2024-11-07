@@ -23,6 +23,6 @@ public:
 
 public:
 	Test(const std::string& texId, const std::string& name = "");
-	~Test();
+	virtual ~Test();
 };
 
