@@ -6,6 +6,7 @@ protected:
 	sf::View		camera;
 	sf::Vector2f	cameraPosition;
 
+	sf::FloatRect	cameraBounds;
 	sf::FloatRect	cameraLimitRect;
 
 	CameraType		type;
@@ -20,6 +21,9 @@ protected:
 	bool			useFollowTarget;
 	bool			useCameraLimit;
 	bool			useLerpFollowTarget;
+
+private:
+	void CameraLimit();
 
 public:
 	void SetActive(bool active) { isActive = active; }
@@ -40,7 +44,11 @@ public:
 	void SetFollowTime(float time) { followTime = time; }
 	float GetFollowTime() const { return followTime; }
 
+	void SetCameraLimitRect(const sf::FloatRect& rect, bool use = true) { cameraLimitRect = rect; useCameraLimit = use; }
+	void UseCameraLimit(bool use) { useCameraLimit = true; }
+
 public:
+	void Start() override;
 	void Update(const float& deltaTime);
 	virtual bool Save() const { return true; };
 	virtual bool Load() { return true; };

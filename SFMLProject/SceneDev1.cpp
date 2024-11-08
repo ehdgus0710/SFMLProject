@@ -33,6 +33,7 @@ void SceneDev1::Enter()
 	TestPlayer* testPlayer = AddGameObject(new TestPlayer("Player", "Player"),LayerType::Player);
 	testPlayer->Awake();
 	mainCamera->SetFollowTarget(testPlayer, true);
+	mainCamera->SetCameraLimitRect(sf::FloatRect(-2000.f, -2000.f, 2000.f, 2000.f));
 
 	SpriteGameObject* background = AddGameObject(new SpriteGameObject("Background", "Background"), LayerType::Default);
 

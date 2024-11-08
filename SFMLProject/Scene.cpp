@@ -31,6 +31,9 @@ Scene::~Scene()
 
 void Scene::Init()
 {
+	mainCamera->Awake();
+	uICamera->Awake();
+
 	for (auto& objectVector : gameObjectVectors)
 	{
 		for (auto& object : objectVector)
@@ -56,6 +59,8 @@ void Scene::Release()
 
 void Scene::Enter()
 {
+	mainCamera->Start();
+	uICamera->Start();
 	for (auto& objectVector : gameObjectVectors)
 	{
 		for (auto& object : objectVector)

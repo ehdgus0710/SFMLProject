@@ -25,12 +25,27 @@ Camera::~Camera()
 {
 }
 
+void Camera::CameraLimit()
+{
+ 	auto size = camera.getSize() * 0.5f;
+
+	cameraPosition.x = Utils::Clamp(cameraPosition.x , cameraLimitRect.left + size.x, cameraLimitRect.width - size.x);
+	cameraPosition.y = Utils::Clamp(cameraPosition.y, cameraLimitRect.top + size.y, cameraLimitRect.height - size.y);
+
+	camera.setCenter(cameraPosition);
+}
+
 void Camera::SetCameraPosition(const sf::Vector2f& position)
 {
 	cameraPosition = position; 
 	camera.setCenter(cameraPosition);
 }
 
+
+void Camera::Start()
+{
+	cameraBounds = sf::FloatRect(sf::Vector2f::zero, camera.getSize());
+}
 
 void Camera::Update(const float& deltaTime)
 {
@@ -59,8 +74,7 @@ void Camera::Update(const float& deltaTime)
 
 	if (useCameraLimit)
 	{
-		cameraPosition = sf::Vector2f::Clamp(cameraPosition, { cameraLimitRect.left,  cameraLimitRect.top }, { cameraLimitRect.width, cameraLimitRect.height });
-		camera.setCenter(cameraPosition);
+		CameraLimit();
 	}
 	
 }
