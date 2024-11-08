@@ -86,13 +86,21 @@ public:
     }
 
 
-
 public:
     void Normalized()
     {
         auto lenght = Length();
+
+        if (lenght == 0)
+            return;
+
         x /= lenght;
         y /= lenght;
+    }
+
+    float SqrMagnitude()
+    {
+        return x * x + y * y;
     }
 
     T Length()
@@ -105,11 +113,15 @@ public:
     static float Dot(const Vector2<T>& lhs, const Vector2<T>& rhs);
     static Vector2<T> Lerp(const Vector2<T>& startPosition, const Vector2<T>& destination, float time);
     static Vector2<T> SmoothStep(const Vector2<T>& startPosition, const Vector2<T>& destination, float time);
+    static Vector2<T> SmoothDamp(const Vector2<T>& current, Vector2<T> target, Vector2<T>& currentVelocity, float smoothTime, float maxSpeed, float deltaTime);
     static float Distance(const Vector2<T>& lhs, const Vector2<T>& rhs);
     static float SqrMagnitude(const Vector2<T>& lhs, const Vector2<T>& rhs);
     static Vector2<T> Min(const Vector2<T>& lhs, const Vector2<T>& rhs);
     static Vector2<T> Max(const Vector2<T>& lhs, const Vector2<T>& rhs);
     static Vector2<T> Clamp(const Vector2<T>& value, const Vector2<T>& min, const Vector2<T>& max);
+    static Vector2<T> Normalized(const Vector2<T>& left, const Vector2<T>& right);
+    static Vector2<T> Normalized(const Vector2<T>& lhs);
+
 
     static const Vector2<T> down;
     static const Vector2<T> one;

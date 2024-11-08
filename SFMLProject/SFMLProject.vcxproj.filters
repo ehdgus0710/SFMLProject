@@ -103,6 +103,9 @@
     <Filter Include="Core\9. TileMap">
       <UniqueIdentifier>{ab0f8422-5e7b-4fde-9da8-c1d882237edd}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Contants\ContantsScene">
+      <UniqueIdentifier>{bd39b06c-b371-4751-803b-5c4e5c8fe3f4}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -177,12 +180,6 @@
     <ClCompile Include="ColliderManager.cpp">
       <Filter>Manager\6. ColliderManager</Filter>
     </ClCompile>
-    <ClCompile Include="SceneDev1.cpp">
-      <Filter>Core\5. Scene</Filter>
-    </ClCompile>
-    <ClCompile Include="SceneDev2.cpp">
-      <Filter>Core\5. Scene</Filter>
-    </ClCompile>
     <ClCompile Include="Animation.cpp">
       <Filter>Core\8. Animation</Filter>
     </ClCompile>
@@ -200,6 +197,21 @@
     </ClCompile>
     <ClCompile Include="TileMap.cpp">
       <Filter>Core\9. TileMap</Filter>
+    </ClCompile>
+    <ClCompile Include="SceneDev1.cpp">
+      <Filter>Contants\ContantsScene</Filter>
+    </ClCompile>
+    <ClCompile Include="SceneDev2.cpp">
+      <Filter>Contants\ContantsScene</Filter>
+    </ClCompile>
+    <ClCompile Include="Rigidbody.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="PhysicsManager.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="TestPlayer.cpp">
+      <Filter>Contants</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -281,12 +293,6 @@
     <ClInclude Include="Defines.h">
       <Filter>Core\0. define</Filter>
     </ClInclude>
-    <ClInclude Include="SceneDev1.h">
-      <Filter>Core\5. Scene</Filter>
-    </ClInclude>
-    <ClInclude Include="SceneDev2.h">
-      <Filter>Core\5. Scene</Filter>
-    </ClInclude>
     <ClInclude Include="Animation.h">
       <Filter>Core\8. Animation</Filter>
     </ClInclude>
@@ -304,6 +310,21 @@
     </ClInclude>
     <ClInclude Include="TileMap.h">
       <Filter>Core\9. TileMap</Filter>
+    </ClInclude>
+    <ClInclude Include="SceneDev1.h">
+      <Filter>Contants\ContantsScene</Filter>
+    </ClInclude>
+    <ClInclude Include="SceneDev2.h">
+      <Filter>Contants\ContantsScene</Filter>
+    </ClInclude>
+    <ClInclude Include="Rigidbody.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="PhysicsManager.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="TestPlayer.h">
+      <Filter>Contants</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

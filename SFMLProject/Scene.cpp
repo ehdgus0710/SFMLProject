@@ -86,6 +86,9 @@ void Scene::Update(float deltaTime)
 			object->Update(deltaTime);
 		}
 	}
+
+	mainCamera->Update(deltaTime);
+	uICamera->Update(deltaTime);
 }
 
 void Scene::FixedUpdate(float fixedDeltaTime)
@@ -104,6 +107,8 @@ void Scene::FixedUpdate(float fixedDeltaTime)
 
 void Scene::Render(sf::RenderWindow& window)
 {
+	auto& saveView = WindowManager::GetInstance().GetRenderWindow()->getView();
+
 	WindowManager::GetInstance().GetRenderWindow()->setView(mainCamera->GetView());
 
 	for (int i = 0; i < (int)LayerType::UI; ++i)
@@ -128,6 +133,8 @@ void Scene::Render(sf::RenderWindow& window)
 			object->Render(window);
 		}
 	}
+
+	 WindowManager::GetInstance().GetRenderWindow()->setView(saveView);
 }
 
 

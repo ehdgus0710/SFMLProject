@@ -39,6 +39,16 @@ sf::Vector2f Utils::RandomInUnitCircle()
 	return RandomOnUnitCircle() * RandomValue();
 }
 
+float Utils::Max(float a, float b)
+{
+	return (a > b) ? a : b;
+}
+
+float Utils::Min(float a, float b)
+{
+	return (a < b) ? a : b;
+}
+
 float Utils::Clamp(float value, float min, float max)
 {
 	if (value < min)

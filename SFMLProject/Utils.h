@@ -16,6 +16,9 @@ public:
 	static sf::Vector2f RandomOnUnitCircle();
 	static sf::Vector2f RandomInUnitCircle();
 
+	static float Max(float a, float b);
+	static float Min(float a, float b);
+
 	static float Clamp(float value, float min, float max);
 	// Origin
 	static sf::Vector2f SetOrigin(sf::Transformable& object, Origins preset, const sf::FloatRect bound);

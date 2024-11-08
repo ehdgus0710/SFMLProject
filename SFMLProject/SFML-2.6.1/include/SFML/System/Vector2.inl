@@ -65,6 +65,55 @@ inline Vector2<T> sf::Vector2<T>::SmoothStep(const Vector2<T>& startPosition, co
 }
 
 template<typename T>
+inline Vector2<T> sf::Vector2<T>::SmoothDamp(const Vector2<T>& current, Vector2<T> target, Vector2<T>& currentVelocity, float smoothTime, float maxSpeed, float deltaTime)
+{
+    float num = 0.f;
+    float num2 = 0.f;
+
+    smoothTime = (0.0001f > smoothTime) ? 0.0001f : smoothTime;
+    float num4 = 2.f / smoothTime;
+    float num5 = num4 * deltaTime;
+    float num6 = 1.f / (1.f + num5 + 0.48f * num5 * num5 + 0.235f * num5 * num5 * num5);
+    float num7 = current.x - target.x;
+    float num8 = current.y - target.y;
+
+    Vector2<T> vector = target;
+    float num10 = maxSpeed * smoothTime;
+    float num11 = num10 * num10;
+    float num12 = num7 * num7 + num8 * num8;
+    if (num12 > num11)
+    {
+        float num13 = (float)sqrt(num12);
+        num7 = num7 / num13 * num10;
+        num8 = num8 / num13 * num10;
+    }
+
+    target.x = current.x - num7;
+    target.y = current.y - num8;
+
+    float num14 = (currentVelocity.x + num4 * num7) * deltaTime;
+    float num15 = (currentVelocity.y + num4 * num8) * deltaTime;
+    currentVelocity.x = (currentVelocity.x - num4 * num14) * num6;
+    currentVelocity.y = (currentVelocity.y - num4 * num15) * num6;
+    num = target.x + (num7 + num14) * num6;
+    num2 = target.y + (num8 + num15) * num6;
+    float num17 = vector.x - current.x;
+    float num18 = vector.y - current.y;
+
+    float num20 = num - vector.x;
+    float num21 = num2 - vector.y;
+    if (num17 * num20 + num18 * num21 > 0.f)
+    {
+        num = vector.x;
+        num2 = vector.y;
+        currentVelocity.x = (num - vector.x) / deltaTime;
+        currentVelocity.y = (num2 - vector.y) / deltaTime;
+    }
+
+    return Vector2<T>(num, num2);
+}
+
+template<typename T>
 inline float sf::Vector2<T>::Distance(const Vector2<T>& lhs, const Vector2<T>& rhs)
 {
     return Vector2<T>( lhs.x - rhs.x , lhs.y - rhs.y).Length();
@@ -97,6 +146,23 @@ inline Vector2<T> sf::Vector2<T>::Clamp(const Vector2<T>& value, const Vector2<T
     clampVector.y = value.y <= max.y ? value.y : max.y;
 
     return clampVector;
+}
+
+template<typename T>
+inline Vector2<T> sf::Vector2<T>::Normalized(const Vector2<T>& left, const Vector2<T>& right)
+{
+    Vector2<T> vector = left - right;
+    vector.Normalized();
+    return vector;
+}
+
+template<typename T>
+inline Vector2<T> sf::Vector2<T>::Normalized(const Vector2<T>& lhs)
+{
+    auto lenght = lhs.Length();
+    if (lenght == 0)
+        return zero;
+    return Vector2<T>(lhs / lenght);
 }
 
 ////////////////////////////////////////////////////////////
