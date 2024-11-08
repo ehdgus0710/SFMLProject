@@ -35,6 +35,9 @@ void TimeManager::Init()
 	frameText.setCharacterSize(30);
 	frameText.setPosition({});
 	frameText.setFont(ResourcesManager<sf::Font>::GetInstance().Get("KOMIKAP"));
+
+	currentFixedTimestep = 1.f / (float)frameTarget;
+	fixedDeltaTime = currentFixedTimestep;
 }
 
 void TimeManager::Update()
