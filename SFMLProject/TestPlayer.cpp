@@ -17,7 +17,7 @@ TestPlayer::~TestPlayer()
 
 void TestPlayer::InputMove()
 {
-	moveDirection = sf::Vector2f::zero;
+	/*moveDirection = sf::Vector2f::zero;
 
 	if (InputManager::GetInstance().GetKeyPressed(sf::Keyboard::Left))
 	{
@@ -26,9 +26,9 @@ void TestPlayer::InputMove()
 	if (InputManager::GetInstance().GetKeyPressed(sf::Keyboard::Right))
 	{
 		moveDirection.x += 1.f;
-	}
+	}*/
 	if(rigidBody != nullptr)
-		rigidBody->SetVelocity({ moveDirection.x * speed , rigidBody->GetCurrentVelocity().y});
+		rigidBody->SetVelocity({ InputManager::GetInstance().GetAxis(Axis::Horizontal) * speed , rigidBody->GetCurrentVelocity().y});
 }
 
 void TestPlayer::InputJump()

@@ -2,7 +2,7 @@
 #include "Test.h"
 #include "Animator.h"
 #include "Animation.h"
-
+#include "Collider.h"
 
 Test::Test(const std::string& texId, const std::string& name)
 	: SpriteGameObject(texId, name)
@@ -46,6 +46,8 @@ void Test::Update(const float& deltaTime)
 
 void Test::Render(sf::RenderWindow& renderWindow)
 {
+	if (collider != nullptr)
+		collider->Render(renderWindow);
 
 	if(animator != nullptr)
 		animator->Render(renderWindow);

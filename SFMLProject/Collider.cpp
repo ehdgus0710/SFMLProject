@@ -24,6 +24,7 @@ Collider::Collider(const Collider& other)
 	, iD(globalCount++)
 	, isDestory(false)
 	, owner(nullptr)
+	, colliderRotation(0.f)
 {
 	ColliderType colliderType = other.collision->GetColliderType();
 	if (ColliderType::Rectangle == colliderType)
@@ -103,7 +104,7 @@ void Collider::SetScale(sf::Vector2f size)
 
 void Collider::Reset()
 {
-	collisionTagetVector.clear();
+	collisionTargetVector.clear();
 	collision->Reset();
 	isDestory = false;
 	SetActive(true);
@@ -129,7 +130,7 @@ void Collider::Render(sf::RenderWindow& renderWindow)
 
 void Collider::OnCollisionEnter(Collider* target)
 {
-	collisionTagetVector.push_back(target);
+	collisionTargetVector.push_back(target);
 	collision->IsCollision();
 	owner->OnCollisionEnter(target);
 }
@@ -144,7 +145,7 @@ void Collider::OnCollisionEnd(Collider* target)
 	owner->OnCollisionEnd(target);
 	collision->EndCollision();
 	if(!isDestory)
-		collisionTagetVector.erase(std::find(collisionTagetVector.begin(), collisionTagetVector.end(), target));
+		collisionTargetVector.erase(std::find(collisionTargetVector.begin(), collisionTargetVector.end(), target));
 }
 
 ColliderType Collider::GetColliderType()

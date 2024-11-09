@@ -7,6 +7,10 @@ Camera::Camera(CameraType type)
 	, followTarget(nullptr)
 	, useCameraLimit(false)
 	, useFollowTarget(false)
+	, currentFollowTime(0.f)
+	, followTime(0.f)
+	, speed(0.f)
+	, useLerpFollowTarget(false)
 {
 }
 
@@ -16,9 +20,14 @@ Camera::Camera(const sf::View& view, CameraType type)
 	, followTarget(nullptr)
 	, useCameraLimit(false)
 	, useFollowTarget(false)
+	, currentFollowTime(0.f)
+	, followTime(0.f)
+	, speed(0.f)
+	, useLerpFollowTarget(false)
 {
 	camera = view;
 	cameraPosition = camera.getCenter();
+	cameraBounds = Rectangle(camera.getSize());
 }
 
 Camera::~Camera()
@@ -29,8 +38,8 @@ void Camera::CameraLimit()
 {
  	auto size = camera.getSize() * 0.5f;
 
-	cameraPosition.x = Utils::Clamp(cameraPosition.x , cameraLimitRect.left + size.x, cameraLimitRect.width - size.x);
-	cameraPosition.y = Utils::Clamp(cameraPosition.y, cameraLimitRect.top + size.y, cameraLimitRect.height - size.y);
+	cameraPosition.x = Utils::Clamp(cameraPosition.x , cameraLimitRect.leftPosition, cameraLimitRect.rightPosition);
+	cameraPosition.y = Utils::Clamp(cameraPosition.y, cameraLimitRect.topPosition, cameraLimitRect.bottomPosition);
 
 	camera.setCenter(cameraPosition);
 }
@@ -42,9 +51,20 @@ void Camera::SetCameraPosition(const sf::Vector2f& position)
 }
 
 
+void Camera::SetCameraLimitRect(const Rectangle& rect, bool use)
+{
+	cameraLimitRect = rect;
+	cameraLimitRect.leftPosition -= cameraBounds.leftPosition;
+	cameraLimitRect.rightPosition -= cameraBounds.rightPosition;
+	cameraLimitRect.topPosition -= cameraBounds.topPosition;
+	cameraLimitRect.bottomPosition -= cameraBounds.bottomPosition;
+
+	useCameraLimit = use;
+}
+
 void Camera::Start()
 {
-	cameraBounds = sf::FloatRect(sf::Vector2f::zero, camera.getSize());
+	// cameraBounds = sf::FloatRect(sf::Vector2f::zero, camera.getSize());
 }
 
 void Camera::Update(const float& deltaTime)

@@ -33,14 +33,14 @@ void SceneDev1::Enter()
 	TestPlayer* testPlayer = AddGameObject(new TestPlayer("Player", "Player"),LayerType::Player);
 	testPlayer->Awake();
 	mainCamera->SetFollowTarget(testPlayer, true);
-	mainCamera->SetCameraLimitRect(sf::FloatRect(-2000.f, -2000.f, 2000.f, 2000.f));
+	mainCamera->SetCameraLimitRect({ -2000.f, 2000.f, -2000.f, 2000.f });
 
 	SpriteGameObject* background = AddGameObject(new SpriteGameObject("Background", "Background"), LayerType::Default);
 
-	//GameObject* obj = AddGameObject(new Test("Player"), LayerType::Default);
-	//obj->SetOrigin(Origins::MiddleCenter);
-	//obj->SetPosition({ 1920.f * 0.5f, 1080 * 0.5f });
-	//obj->CreateCollider(ColliderType::Rectangle, ColliderLayer::Default);
+	GameObject* obj = AddGameObject(new Test("Player"), LayerType::Default);
+	obj->SetOrigin(Origins::MiddleCenter);
+	obj->SetPosition({ 1920.f * 0.5f, 1080 * 0.5f });
+	obj->CreateCollider(ColliderType::Rectangle, ColliderLayer::Default);
 
 	//test = obj;
 	//mainCamera->SetFollowTarget(test);
@@ -71,7 +71,7 @@ void SceneDev1::Enter()
 	//test->animator->Start();
 
 	//Test* test2 = AddGameObject(new Test("Char"), LayerType::Default);
-	////test->CreateCollider(ColliderType::Rectangle, ColliderLayer::Default);
+	//test2->CreateCollider(ColliderType::Rectangle, ColliderLayer::Default);
 
 	//test2->SetOrigin(Origins::MiddleCenter);
 	//test2->Awake();
@@ -82,7 +82,7 @@ void SceneDev1::Enter()
 
 	//cameraPosition = mainCamera->GetCameraPosition();
 
-	//ColliderManager::GetInstance().SetCollisionCheck(ColliderLayer::Default, ColliderLayer::Default);
+	ColliderManager::GetInstance().SetCollisionCheck(ColliderLayer::Default, ColliderLayer::Default);
 
 	Scene::Enter();
 }

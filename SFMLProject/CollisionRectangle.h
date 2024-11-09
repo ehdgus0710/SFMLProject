@@ -1,31 +1,6 @@
 #pragma once
 
 #include "Collision.h"
-struct Rectangle
-{
-	float leftPosition;
-	float rightPosition;
-	float topPosition;
-	float bottomPosition;
-
-	Rectangle(float left, float rgiht, float top, float bottom)
-		: leftPosition(left)
-		, rightPosition(rgiht)
-		, topPosition(top)
-		, bottomPosition(bottom)
-	{
-
-	}
-
-	Rectangle(sf::Vector2f position, sf::Vector2f size)
-		: leftPosition(position.x - size.x * 0.5f)
-		, rightPosition(position.x + size.x * 0.5f)
-		, topPosition(position.y - size.y * 0.5f)
-		, bottomPosition(position.y + size.y * 0.5f)
-	{
-
-	}
-};
 
 class CollisionRectangle : public Collision
 {

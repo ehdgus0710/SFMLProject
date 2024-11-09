@@ -17,7 +17,7 @@ private:
 
 	Collision*		collision;
 
-	std::vector<Collider*> collisionTagetVector;
+	std::vector<Collider*> collisionTargetVector;
 
 	uint64_t		iD;
 	int				collisionCount;
@@ -54,7 +54,7 @@ public:
 	void SetOwner(GameObject* owner) { this->owner = owner; }
 	GameObject* GetOwner() { return owner; }
 
-	const std::vector<Collider*>& GetCollisionTarget() { return collisionTagetVector; }
+	const std::vector<Collider*>& GetCollisionTarget() { return collisionTargetVector; }
 
 public:
 	void Reset();

@@ -33,6 +33,7 @@ void Framework::Update()
 			SceneManager::GetInstance().FixedUpdate(TimeManager::GetInstance().GetFixedDeletaTime());
 		}
 
+		InputManager::GetInstance().Update(TimeManager::GetInstance().GetDeletaTime());
 		SceneManager::GetInstance().Update(TimeManager::GetInstance().GetDeletaTime());
 		ColliderManager::GetInstance().Update();
 
@@ -50,6 +51,8 @@ void Framework::Release()
 }
 
 Framework::Framework()
+	: renderWindow(nullptr)
+	, event()
 {
 }
 

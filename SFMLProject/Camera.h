@@ -6,8 +6,8 @@ protected:
 	sf::View		camera;
 	sf::Vector2f	cameraPosition;
 
-	sf::FloatRect	cameraBounds;
-	sf::FloatRect	cameraLimitRect;
+	Rectangle		cameraBounds;
+	Rectangle		cameraLimitRect;
 
 	CameraType		type;
 	GameObject*		followTarget;
@@ -44,7 +44,7 @@ public:
 	void SetFollowTime(float time) { followTime = time; }
 	float GetFollowTime() const { return followTime; }
 
-	void SetCameraLimitRect(const sf::FloatRect& rect, bool use = true) { cameraLimitRect = rect; useCameraLimit = use; }
+	void SetCameraLimitRect(const Rectangle& rect, bool use = true);
 	void UseCameraLimit(bool use) { useCameraLimit = true; }
 
 public:

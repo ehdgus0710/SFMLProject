@@ -231,6 +231,8 @@ bool ColliderManager::IsRectToRectCollision(Collider* left, Collider* right)
 
         if ((left->GetScale().y + right->GetScale().y) * 0.5f < abs(left->GetPosition().y - right->GetPosition().y))
             return false;
+
+        return true;
     }
 
     else
