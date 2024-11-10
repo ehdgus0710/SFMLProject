@@ -36,6 +36,8 @@ public:
 	void Test1();
 	void Test2();
 
+	sf::FloatRect GetLocalBounds() const;
+	sf::FloatRect GetGlobalBounds() const;
 public:
 	void Update(const float& deltaTime) override;
 	void Start() override;

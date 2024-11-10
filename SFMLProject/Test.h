@@ -21,6 +21,9 @@ public:
 
 	void CreateAnimator();
 
+	sf::FloatRect GetLocalBounds() const override;
+	sf::FloatRect GetGlobalBounds() const override;
+
 public:
 	Test(const std::string& texId, const std::string& name = "");
 	virtual ~Test();

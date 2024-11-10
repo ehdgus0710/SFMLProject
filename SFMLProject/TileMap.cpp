@@ -64,7 +64,7 @@ void TileMap::SetTileInfo(std::string textId, const sf::Vector2u& tileCount, con
 
 	sf::Vector2f totalTileMapSize = { (sf::Vector2f)tileCount * tileSize };
 
-	sf::Vector2u textureCount = { texture->getSize().x / (unsigned int)tileSize.x , texture->getSize().y / (unsigned int)tileSize.y };
+	sf::Vector2u textureCount = { texture->getSize().x / textTileSize.x , texture->getSize().y / textTileSize.y };
 
 	sf::Vector2f positionOffset[4] =
 	{

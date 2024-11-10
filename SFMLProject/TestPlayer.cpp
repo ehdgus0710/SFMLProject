@@ -37,9 +37,19 @@ void TestPlayer::InputJump()
 		return;
 
 
-	isJump = true;
-	rigidBody->SetGround(false);
-	rigidBody->SetVelocity({ rigidBody->GetCurrentVelocity().x, -500.f});
+	if (InputManager::GetInstance().GetKeyUp(sf::Keyboard::Space))
+	{
+		isJump = true;
+		rigidBody->SetGround(false);
+		rigidBody->SetVelocity({ rigidBody->GetCurrentVelocity().x, -500.f });
+
+	}
+	else if (InputManager::GetInstance().GetKeyPressed(sf::Keyboard::Space) && InputManager::GetInstance().GetAxis(Axis::Jump) == 1.f)
+	{
+		isJump = true;
+		rigidBody->SetGround(false);
+		rigidBody->SetVelocity({ rigidBody->GetCurrentVelocity().x, -800.f });
+	}
 }
 
 void TestPlayer::Awake()
@@ -55,9 +65,7 @@ void TestPlayer::Update(const float& deltaTime)
 
 	InputMove();
 
-
-	if (InputManager::GetInstance().GetKeyDown(sf::Keyboard::Space))
-		InputJump();
+	InputJump();
 }
 
 void TestPlayer::FixedUpdate(const float& deltaTime)

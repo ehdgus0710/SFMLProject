@@ -4,6 +4,7 @@ enum class Axis
 {
 	Horizontal,
 	Vertical,
+	Jump,
 };
 
 struct AxisInfo

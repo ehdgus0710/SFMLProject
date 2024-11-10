@@ -12,10 +12,13 @@ protected:
 
 	std::string		name;
 	bool			active = true;
+	bool			isDestory;
 
 public:
 	int				sortingOrder = 0;
 
+	void SetDestory(bool destory);
+	bool GetDestory() { return isDestory; }
 	const bool IsActive() const { return active; }
 	void SetActive(const bool active) { this->active = active; }
 	const std::string& GetName() const { return name; }
@@ -39,8 +42,8 @@ public:
 	}
 
 
-	virtual sf::FloatRect GetLocalBounds() const { return { 0.f , 0.f  , 0.f , 0.f }; }
-	virtual sf::FloatRect GetGlobalBounds() const { return { 0.f , 0.f  , 0.f , 0.f }; }
+	virtual sf::FloatRect GetLocalBounds() const = 0;
+	virtual sf::FloatRect GetGlobalBounds() const = 0;
 
 
 	virtual bool CreateCollider(ColliderType colliderType, ColliderLayer colliderLayer, sf::Vector2f offset = sf::Vector2f::zero, sf::Vector2f size = sf::Vector2f::one);

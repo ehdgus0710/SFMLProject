@@ -126,6 +126,16 @@ void Animator::Test2()
 	ChangeAnimation("PlayerDash");
 }
 
+sf::FloatRect Animator::GetLocalBounds() const
+{
+	return sprite.getLocalBounds();
+}
+
+sf::FloatRect Animator::GetGlobalBounds() const
+{
+	return  sprite.getGlobalBounds();
+}
+
 void Animator::Update(const float& deltaTime)
 {
 	if(isPlaying)

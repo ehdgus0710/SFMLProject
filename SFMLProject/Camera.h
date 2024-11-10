@@ -47,6 +47,8 @@ public:
 	void SetCameraLimitRect(const Rectangle& rect, bool use = true);
 	void UseCameraLimit(bool use) { useCameraLimit = true; }
 
+	sf::FloatRect GetGlobalBounds();
+
 public:
 	void Start() override;
 	void Update(const float& deltaTime);

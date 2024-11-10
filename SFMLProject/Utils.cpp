@@ -86,7 +86,7 @@ sf::Vector2f Utils::SetOrigin(sf::Sprite& object, Origins preset)
 }
 
 sf::Vector2f Utils::SetOrigin(sf::Text& object, Origins preset)
-{
+{ 
 	sf::FloatRect rect = object.getLocalBounds();
 	sf::Vector2f newOrigin(rect.width, rect.height);
 

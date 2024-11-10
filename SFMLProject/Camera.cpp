@@ -62,6 +62,11 @@ void Camera::SetCameraLimitRect(const Rectangle& rect, bool use)
 	useCameraLimit = use;
 }
 
+sf::FloatRect Camera::GetGlobalBounds()
+{
+	return { cameraPosition, camera.getSize() * 2.f };
+}
+
 void Camera::Start()
 {
 	// cameraBounds = sf::FloatRect(sf::Vector2f::zero, camera.getSize());

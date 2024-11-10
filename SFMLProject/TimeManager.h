@@ -37,7 +37,9 @@ public:
 	float GetRealTime() const { return realTime; }
 	float GetRealDeltatime() const { return realDeltatime; }
 	float GetTimeScale() const { return timeScale; }
+	sf::Time& GetTime() { return sfTime; }
 
+	sf::Clock& GetClock() { return clock; }
 	void SetTimeScale(float newTimeScale) { timeScale = newTimeScale; }
 
 	void FrameCheck();

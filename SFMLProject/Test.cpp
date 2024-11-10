@@ -63,6 +63,22 @@ void Test::CreateAnimator()
 	animator = new Animator();
 }
 
+sf::FloatRect Test::GetLocalBounds() const
+{
+	if (animator != nullptr)
+		return animator->GetLocalBounds();
+	else
+		return SpriteGameObject::GetLocalBounds();
+}
+
+sf::FloatRect Test::GetGlobalBounds() const
+{
+	if (animator != nullptr)
+		return animator->GetGlobalBounds();
+	else
+		return SpriteGameObject::GetGlobalBounds();
+}
+
 
 Test::~Test()
 {

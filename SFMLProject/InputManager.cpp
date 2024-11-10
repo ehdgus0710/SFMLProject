@@ -70,6 +70,12 @@ void InputManager::Init()
 	infoVertical.AddKey(false, sf::Keyboard::Up);
 	axisInfoMap.insert({ Axis::Vertical, infoVertical });
 
+	AxisInfo infoJump;
+	infoJump.axis = Axis::Jump;
+	infoJump.AddKey(true, sf::Keyboard::Space);
+	infoJump.sensi = 7.f;
+	axisInfoMap.insert({ Axis::Jump, infoJump });
+
 	BindKey(sf::Keyboard::Up);
 	BindKey(sf::Keyboard::Down);
 	BindKey(sf::Keyboard::Right);

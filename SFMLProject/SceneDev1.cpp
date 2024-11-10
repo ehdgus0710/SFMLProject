@@ -11,6 +11,7 @@
 #include "CameraManger.h"
 
 #include "TestPlayer.h"
+#include "TileMap.h"
 
 void SceneDev1::Init()
 {
@@ -27,6 +28,7 @@ void SceneDev1::Enter()
 	TEXTURE_MANAGER.Load("Player", "graphics/player.png");
 	TEXTURE_MANAGER.Load("PlayerMove", "graphics/PC_Move.png");
 	TEXTURE_MANAGER.Load("PlayerDash", "graphics/PC_Dash.png");
+	TEXTURE_MANAGER.Load("background", "graphics/background_sheet.png");
 
 	ResourcesManager<sf::Font>::GetInstance().Load("KOMIKAP", "fonts/KOMIKAP_.ttf");
 
@@ -41,6 +43,11 @@ void SceneDev1::Enter()
 	obj->SetOrigin(Origins::MiddleCenter);
 	obj->SetPosition({ 1920.f * 0.5f, 1080 * 0.5f });
 	obj->CreateCollider(ColliderType::Rectangle, ColliderLayer::Default);
+
+
+
+	TileMap* tileMap = AddGameObject(new TileMap("background", "TileMap"), LayerType::Default);
+	tileMap->SetTileInfo("background", { 50,50 }, { 64.f, 64.f }, { 50,50 });
 
 	//test = obj;
 	//mainCamera->SetFollowTarget(test);

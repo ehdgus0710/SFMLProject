@@ -116,14 +116,17 @@ void Scene::Render(sf::RenderWindow& window)
 
 	WindowManager::GetInstance().GetRenderWindow()->setView(mainCamera->GetView());
 
+	// sf::FloatRect bounds = mainCamera->GetGlobalBounds();
+
 	for (int i = 0; i < (int)LayerType::UI; ++i)
 	{
 		for (auto& object : gameObjectVectors[i])
 		{
 			if (!object->IsActive())
 				continue;
-
 			object->Render(window);
+			// auto test = object->GetGlobalBounds();
+			// if(bounds.intersects(test))
 		}
 	}
 	WindowManager::GetInstance().GetRenderWindow()->setView(uICamera->GetView());

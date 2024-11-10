@@ -72,6 +72,16 @@ void SpriteGameObject::LateUpdate(const float& deltaTime)
 	GameObject::LateUpdate(deltaTime);
 }
 
+sf::FloatRect SpriteGameObject::GetLocalBounds() const
+{
+	return sprite.getLocalBounds();
+}
+
+sf::FloatRect SpriteGameObject::GetGlobalBounds() const
+{
+	return sprite.getGlobalBounds();
+}
+
 void SpriteGameObject::SetOrigin(Origins preset)
 {
 	originPreset = preset;
