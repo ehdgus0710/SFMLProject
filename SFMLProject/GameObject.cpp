@@ -2,6 +2,8 @@
 #include "GameObject.h"
 #include "Collider.h"
 
+int GameObject::instanceID = 0;
+
 GameObject::GameObject(const std::string& name)
     : name(name)
 	, originPreset(Origins::MiddleCenter)
@@ -9,6 +11,8 @@ GameObject::GameObject(const std::string& name)
 	, rotation(0.f)
 	, scale(sf::Vector2f::one)
 	, position(sf::Vector2f::zero)
+	, iD(instanceID++)
+	, isDestory(false)
 {
 }
 
@@ -27,6 +31,7 @@ GameObject::GameObject(const GameObject& other)
 	, originPreset(other.originPreset)
 	, active(other.active)
 	, collider(nullptr)
+	, isDestory(false)
 {
 	if (other.collider != nullptr)
 		collider = new Collider(*other.collider);

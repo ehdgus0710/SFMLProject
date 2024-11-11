@@ -55,6 +55,7 @@ void TileMap::SetTileInfo(std::string textId, const sf::Vector2u& tileCount, con
 {
 	cellCount = tileCount;
 	cellSize = tileSize;
+	this->textureTileSize = textTileSize;
 
 	vertexArray.clear();
 	vertexArray.setPrimitiveType(sf::Quads);
@@ -152,6 +153,20 @@ sf::FloatRect TileMap::GetGlobalBounds() const
 {
 	sf::FloatRect bounds = GetLocalBounds();
 	return  transform.transformRect(bounds);
+}
+
+void TileMap::SetTileCount(const sf::Vector2u& tileCount)
+{
+	SetTileInfo(spriteSheetId, tileCount, cellSize, textureTileSize);
+}
+
+void TileMap::SetCellSize(const sf::Vector2f& cellSize)
+{
+	SetTileInfo(spriteSheetId, cellCount, cellSize, textureTileSize);
+}
+
+void TileMap::SetTileTextrueSize(const sf::Vector2u& texTileSize)
+{
 }
 
 void TileMap::Render(sf::RenderWindow& window)

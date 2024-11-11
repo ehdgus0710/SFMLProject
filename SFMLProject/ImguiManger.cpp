@@ -82,7 +82,7 @@ void ImguiManger::Update(sf::RenderWindow& window, sf::Time dt)
 	{
 	}*/
 
-	//ImGui::ShowDemoWindow();
+	ImGui::ShowDemoWindow();
 	//ImGui::End();
 	ImGui::EndFrame();
 }

@@ -151,15 +151,18 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Animation.cpp" />
+    <ClCompile Include="AnimationGUI.cpp" />
     <ClCompile Include="Animator.cpp" />
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="CameraManger.cpp" />
     <ClCompile Include="Collider.cpp" />
+    <ClCompile Include="ColliderGUI.cpp" />
     <ClCompile Include="ColliderManager.cpp" />
     <ClCompile Include="Collision.cpp" />
     <ClCompile Include="CollisionCircle.cpp" />
     <ClCompile Include="CollisionPoint.cpp" />
     <ClCompile Include="CollisionRectangle.cpp" />
+    <ClCompile Include="ComponentGUI.cpp" />
     <ClCompile Include="Entity.cpp" />
     <ClCompile Include="Framework.cpp" />
     <ClCompile Include="GameObject.cpp" />
@@ -208,6 +211,7 @@
     <ClCompile Include="Test.cpp" />
     <ClCompile Include="TestPlayer.cpp" />
     <ClCompile Include="TileMap.cpp" />
+    <ClCompile Include="TileMapGUI.cpp" />
     <ClCompile Include="TimeManager.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
     </ClCompile>
@@ -220,15 +224,18 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Animation.h" />
+    <ClInclude Include="AnimationGUI.h" />
     <ClInclude Include="Animator.h" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="CameraManger.h" />
     <ClInclude Include="Collider.h" />
+    <ClInclude Include="ColliderGUI.h" />
     <ClInclude Include="ColliderManager.h" />
     <ClInclude Include="Collision.h" />
     <ClInclude Include="CollisionCircle.h" />
     <ClInclude Include="CollisionPoint.h" />
     <ClInclude Include="CollisionRectangle.h" />
+    <ClInclude Include="ComponentGUI.h" />
     <ClInclude Include="Core.h" />
     <ClInclude Include="Defines.h" />
     <ClInclude Include="Entity.h" />
@@ -264,6 +271,7 @@
     <ClInclude Include="Test.h" />
     <ClInclude Include="TestPlayer.h" />
     <ClInclude Include="TileMap.h" />
+    <ClInclude Include="TileMapGUI.h" />
     <ClInclude Include="TimeManager.h" />
     <ClInclude Include="UIGameObject.h" />
     <ClInclude Include="UITextGameObject.h" />

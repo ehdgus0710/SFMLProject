@@ -1,6 +1,12 @@
 #pragma once
+
+class Animator;
+
 class GameObject : public Entity
 {
+protected:
+	static int instanceID;
+
 protected:
 	sf::Vector2f	position;
 	float			rotation;
@@ -8,9 +14,12 @@ protected:
 	sf::Vector2f	origin;
 
 	Collider*		collider;
+	Animator*		animator;
 	Origins			originPreset;
 
 	std::string		name;
+
+	int				iD;
 	bool			active = true;
 	bool			isDestory;
 
@@ -34,6 +43,7 @@ public:
 	virtual void SetPosition(const sf::Vector2f& pos);
 
 	sf::Vector2f GetOrigin() const { return origin; }
+	Origins GetOrigins() const { return  originPreset; }
 	virtual void SetOrigin(Origins preset);
 	virtual void SetOrigin(const sf::Vector2f& newOrigin)
 	{
@@ -45,9 +55,11 @@ public:
 	virtual sf::FloatRect GetLocalBounds() const = 0;
 	virtual sf::FloatRect GetGlobalBounds() const = 0;
 
+	virtual int GetID() { return iD; }
 
 	virtual bool CreateCollider(ColliderType colliderType, ColliderLayer colliderLayer, sf::Vector2f offset = sf::Vector2f::zero, sf::Vector2f size = sf::Vector2f::one);
 	Collider* GetCollider() { return collider; }
+	Animator* GetAnimator() { return animator; }
 public:
 	void Awake() override;
 	void Start() override;

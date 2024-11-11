@@ -12,6 +12,7 @@ protected:
 
 	sf::Vector2u		cellCount;
 	sf::Vector2f		cellSize;
+	sf::Vector2u		textureTileSize;
 
 public:
 
@@ -30,7 +31,16 @@ public:
 	sf::FloatRect GetLocalBounds() const override;
 	sf::FloatRect GetGlobalBounds() const override;
 
+	void SetTileCount(const sf::Vector2u& tileCount);
+	const sf::Vector2u& GetTileCount() { return cellCount; }
+
+	void SetCellSize(const sf::Vector2f& cellSize);
 	const sf::Vector2f& GetCellSize() const { return cellSize; }
+
+	void SetTileTextrueSize(const sf::Vector2u& texTileSize);
+	const sf::Vector2u& GetTileTextrueSize() const { return textureTileSize; }
+
+	sf::Texture* GetTexture() { return texture; }
 
 public:
 	void Awake() override;
