@@ -19,10 +19,13 @@ public:
 	{
 		this->key = key;
 	}
+	const std::string& GetKey() { return key; }
+
 	void SetFilePath(const std::string path)
 	{
 		this->filePath = path;
 	}
+	const std::string& GetFilePath() { return filePath; }
 
 	void SetnotUnload(bool notUnload)
 	{
@@ -33,6 +36,8 @@ public:
 	{
 		return isNotUnload;
 	}
+
+	T& GetResource() { return *resource; }
 
 public:
 	Resources();

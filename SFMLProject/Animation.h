@@ -4,6 +4,7 @@ class Animator;
 
 struct AnimationInfo
 {
+	std::string		textureID;
 	sf::IntRect		uvRect;
 	sf::Vector2u	rectSize;
 	float			duration;
@@ -54,6 +55,7 @@ public:
 	void SetAnimator(Animator* animator) { this->animator = animator; }
 	const sf::Texture* GetTexture() const { return texture; }
 	const sf::Vector2u& GetUvRect() { return frameInfoVector[0].rectSize; }
+	const sf::Vector2u& GetUvRect(int index) { return frameInfoVector[index].rectSize; }
 
 public:
 	Animation();

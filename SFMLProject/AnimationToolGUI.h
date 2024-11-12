@@ -7,6 +7,7 @@ class AnimationToolGUI : public GUI
 {
 
 private:
+    sf::Sprite                  sprite;
     sf::Texture*                texture;
     std::vector<std::string>    textureVector;
     std::vector<AnimationInfo>  animInfoVector;
@@ -21,7 +22,7 @@ public:
 
     void TextureLoad();
     void AnimationSave(std::string animationName);
-    void AnimationLoad(int& iSize);
+    void AnimationLoad();
 private:
     void Listinit();
     void AnimationPlay(int& iFrmID);

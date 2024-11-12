@@ -20,6 +20,7 @@ public:
 	static float Min(float a, float b);
 
 	static float Clamp(float value, float min, float max);
+	static int Clamp(int value, int min, int max);
 	// Origin
 	static sf::Vector2f SetOrigin(sf::Transformable& object, Origins preset, const sf::FloatRect bound);
 	static sf::Vector2f SetOrigin(sf::Shape& object, Origins preset);

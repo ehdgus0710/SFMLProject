@@ -58,6 +58,15 @@ float Utils::Clamp(float value, float min, float max)
 	return value;
 }
 
+int Utils::Clamp(int value, int min, int max)
+{
+	if (value < min)
+		return min;
+	if (value > max)
+		return max;
+	return value;
+}
+
 sf::Vector2f Utils::SetOrigin(sf::Transformable& object, Origins preset, const sf::FloatRect rect)
 {
 	sf::Vector2f newOrigin(rect.width, rect.height);

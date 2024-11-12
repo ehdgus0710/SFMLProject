@@ -20,9 +20,6 @@ void TileMapGUI::Update()
 	if (tileMap == nullptr)
 		return;
 
-	// ImGui::line(0.f,100.f);
-	// ImGui::Text("TileMap"); 
-
 	ImGui::BeginChild("##TileMap", { 300.f,300.f });
 	ImGui::SeparatorText("TileMap");
 
@@ -32,8 +29,6 @@ void TileMapGUI::Update()
 
 	sf::Vector2u tileCount = tileMap->GetTileCount();
 	int tileCountArr[2] = { (int)tileCount.x, (int)tileCount.y };
-
-	// tileMap->SetTileInfo
 
 	ImGui::Text("CellSize"); ImGui::SameLine();
 	if (ImGui::InputFloat2("##CellSize", cellSizeArr))
@@ -67,19 +62,6 @@ void TileMapGUI::Update()
 
 	ImGui::Image(*texture, { textureSize.x, textureSize.y });
 	OnTileMapEditor();
-	/*ImGui::Text("Rotation"); ImGui::SameLine();
-	if (ImGui::InputFloat("##Rotation", &rotation))
-	{
-		targetObject->SetRotation(rotation);
-	}
-
-	ImGui::Text("Origin"); ImGui::SameLine();
-	if (ImGui::InputFloat2("##Origin", originArr))
-	{
-		origin = { originArr[0], originArr[1] };
-		targetObject->SetOrigin(origin);
-	}*/
-
 
 	ImGui::EndChild();
 }

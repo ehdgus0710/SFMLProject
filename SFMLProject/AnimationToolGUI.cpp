@@ -36,24 +36,34 @@ void AnimationToolGUI::Update()
     static ImGuiComboFlags flags = 0;
     static int iAnimIndexSize = 0;
 
-    //if (ImGui::BeginCombo("##Texture", m_vecTexList[item_current_idx].c_str(), flags))
-    //{
-    //    for (int n = 0; n < m_vecTexList.size(); n++)
-    //    {
-    //        const bool is_selected = (item_current_idx == n);
-    //        if (ImGui::Selectable(m_vecTexList[n].c_str(), is_selected))
-    //        {
-    //            item_current_idx = n;
-    //            m_strTexName = wstring(m_vecTexList[n].begin(), m_vecTexList[n].end());
-    //            m_pTex = CResMgr::GetInst()->FindRes<CTexture>(m_strTexName).Get();
-    //        }
+    auto map = ResourcesManager<sf::Texture>::GetInstance().GetResourcesMap();
 
-    //        // Set the initial focus when opening the combo (scrolling + keyboard navigation focus)
-    //        if (is_selected)
-    //            ImGui::SetItemDefaultFocus();
-    //    }
-    //    ImGui::EndCombo();
-    //}
+    //auto iter = map.begin();
+    std::vector<std::string> keyVector;
+
+    for (auto iter : map)
+    {
+        keyVector.push_back(iter.second->GetKey());
+    }
+
+    if (ImGui::BeginCombo("##Texture", keyVector[item_current_idx].c_str(), flags))
+    {
+        for (int n = 0; n < keyVector.size(); ++n)
+        {
+            const bool is_selected = (item_current_idx == n);
+            if (ImGui::Selectable(keyVector[n].c_str(), is_selected))
+            {
+                item_current_idx = n;
+                texture = &ResourcesManager<sf::Texture>::GetInstance().Get(keyVector[n]);
+                sprite.setTexture(*texture);
+            }
+
+            // Set the initial focus when opening the combo (scrolling + keyboard navigation focus)
+            if (is_selected)
+                ImGui::SetItemDefaultFocus();
+        }
+        ImGui::EndCombo();
+    }
 
     // 텍스쳐	
     ImVec2 uv_min = ImVec2(0.0f, 0.0f);                 // Top-left
@@ -75,46 +85,63 @@ void AnimationToolGUI::Update()
     ImGui::Text("FramSize"); ImGui::SameLine();
     if (ImGui::InputInt("##FramSize", &iAnimIndexSize))
     {
-        //if (m_vecAnimInfo.size() < iAnimIndexSize)
-        //{
-        //    for (size_t i = m_vecAnimInfo.size(); i < iAnimIndexSize; ++i)
-        //    {
-        //        tAnimFrm info = {};
-        //        m_vecAnimInfo.push_back(info);
-        //    }
-        //}
-        //else if (m_vecAnimInfo.size() > iAnimIndexSize)
-        //{
-        //    for (size_t i = m_vecAnimInfo.size(); i > iAnimIndexSize; --i)
-        //    {
-        //        //auto iter = m_vecAnimInfo.end();
-        //        m_vecAnimInfo.pop_back();
-        //    }
-        //}
+        if (animInfoVector.size() < iAnimIndexSize)
+        {
+            for (size_t i = animInfoVector.size(); i < iAnimIndexSize; ++i)
+            {
+                AnimationInfo info = {};
+                if (i > 0)
+                    info = animInfoVector[i - 1];
+
+                animInfoVector.push_back(info);
+            }
+        }
+        else if (animInfoVector.size() > iAnimIndexSize)
+        {
+            for (size_t i = animInfoVector.size(); i > iAnimIndexSize; --i)
+            {
+                //auto iter = m_vecAnimInfo.end();
+                animInfoVector.pop_back();
+            }
+        }
     }
 
-    static int iFrmID = 0;
+    static int frameID = 0;
     sf::Vector2f leftTop = {};
     sf::Vector2f frameSize = {};
 
     if (0 < animInfoVector.size())
     {
-       /* ImGui::Text("FrmID   "); ImGui::SameLine(); ImGui::InputInt("##FrmID", &iFrmID);
-        if (0 > iFrmID) iFrmID = 0; else if (animInfoVector.size() <= iFrmID) iFrmID = (int)animInfoVector.size() - 1;
+        ImGui::Text("FrameIndex"); ImGui::SameLine();
+        if (ImGui::InputInt("##FrameIndex", &frameID))
+            frameID = Utils::Clamp(frameID, 0, (int)animInfoVector.size() - 1);
 
-        ImGui::Text("FrmSize "); ImGui::SameLine();
+        ImGui::Text("RectSize"); ImGui::SameLine();
 
-        ImGui::InputFloat2("##FrmSize", (float*)&animInfoVector[iFrmID].vFrmSize);
+        int rectSizeArr[2] = { (int)animInfoVector[frameID].rectSize.x, (int)animInfoVector[frameID].rectSize.y };
+        if (ImGui::InputInt2("##RectSize", rectSizeArr))
+        {
+            animInfoVector[frameID].rectSize = { (unsigned int)rectSizeArr[0],(unsigned int)rectSizeArr[1] };
+        }
 
-        ImGui::Text("LeftTop "); ImGui::SameLine(); ImGui::InputFloat2("##LeftTop", (float*)&animInfoVector[iFrmID].vLeftTop);
 
-        ImGui::Text("Offset  "); ImGui::SameLine(); ImGui::InputFloat2("##Offset", (float*)&animInfoVector[iFrmID].vOffset);
+        ImGui::Text("LeftPosition"); ImGui::SameLine(); 
+        ImGui::InputInt("##LeftPosition", &animInfoVector[frameID].uvRect.left);
+        ImGui::Text("WidthRange"); ImGui::SameLine();
+        ImGui::InputInt("##WidthRange", &animInfoVector[frameID].uvRect.width);
+        ImGui::Text("TopPosition"); ImGui::SameLine();
+        ImGui::InputInt("##TopPosition", &animInfoVector[frameID].uvRect.top);
+        ImGui::Text("HeightRange"); ImGui::SameLine();
+        ImGui::InputInt("##HeightRange", &animInfoVector[frameID].uvRect.height);
+
         ImGui::Text("Duration"); ImGui::SameLine();
-        ImGui::InputFloat("##Duration", &animInfoVector[iFrmID].fDuration);*/
-
-        // ImVec2 uv_0 = ImVec2(animInfoVector[iFrmID].vLeftTop.x / resolution.x, animInfoVector[iFrmID].vLeftTop.y / resolution.y);
-        // ImVec2 uv_1 = ImVec2(uv_0.x + animInfoVector[iFrmID].vFrmSize.x / resolution.x, uv_0.y + animInfoVector[iFrmID].vFrmSize.y / resolution.y);
-        // ImVec2 size = ImVec2(64.0f, 64.0f);
+        ImGui::InputFloat("##Duration", &animInfoVector[frameID].duration);
+        //ImGui::Text("Offset  "); ImGui::SameLine(); ImGui::InputFloat2("##Offset", (float*)&animInfoVector[frameID].vOffset);
+         /*
+         ImVec2 uv_0 = ImVec2(animInfoVector[frameID].vLeftTop.x / resolution.x, animInfoVector[frameID].vLeftTop.y / resolution.y);
+         ImVec2 uv_1 = ImVec2(uv_0.x + animInfoVector[frameID].vFrmSize.x / resolution.x, uv_0.y + animInfoVector[frameID].vFrmSize.y / resolution.y);
+         */
+         ImVec2 size = ImVec2(64.0f, 64.0f);
 
         static char cName[100];
         ImGui::InputText("##edit", cName, 100);
@@ -125,17 +152,19 @@ void AnimationToolGUI::Update()
             // wstrName = wstring(strName.begin(), strName.end());
         }
 
-      /*  if (nullptr != texture) 
-            ImGui::ImageButton((ImTextureID)texture->getNativeHandle(), size, uv_0, uv_1);*/
+        sprite.setTextureRect(animInfoVector[frameID].uvRect);
+
+        if (nullptr != texture) 
+            ImGui::ImageButton(keyVector[item_current_idx].c_str(), sprite, { (float)animInfoVector[frameID].rectSize.x, (float)animInfoVector[frameID].rectSize.y });
 
         if (ImGui::Button("Play"))
         {
-            iFrmID = 0;
+            frameID = 0;
             isPlay = true;
         }
         ImGui::SameLine(); 
         if (ImGui::Button("repeat"))
-            isRepeat != isRepeat;
+            isRepeat = !isRepeat;
 
         if (ImGui::Button("Anim Save"))
         {
@@ -152,11 +181,12 @@ void AnimationToolGUI::Update()
             AnimationSave("");
         }
 
-        if (isPlay) AnimationPlay(iFrmID);
+        if (isPlay) 
+            AnimationPlay(frameID);
     }
 
     if (ImGui::Button("TexLoad")) TextureLoad();
-    ImGui::SameLine(); if (ImGui::Button("AnimLoad")) AnimationLoad(iAnimIndexSize);
+    ImGui::SameLine(); if (ImGui::Button("AnimLoad")) AnimationLoad();
 
 
     ImGui::End();
@@ -168,10 +198,14 @@ void AnimationToolGUI::TextureLoad()
 
 void AnimationToolGUI::AnimationSave(std::string animationName)
 {
+    // csv 세이브 되게 제작
+
 }
 
-void AnimationToolGUI::AnimationLoad(int& iSize)
+void AnimationToolGUI::AnimationLoad()
 {
+    // csv 로드 하게 수정
+
 }
 
 void AnimationToolGUI::Listinit()
@@ -180,6 +214,23 @@ void AnimationToolGUI::Listinit()
 
 void AnimationToolGUI::AnimationPlay(int& iFrmID)
 {
+    accTime += TimeManager::GetInstance().GetDeletaTime();
+    if (accTime >= animInfoVector[iFrmID].duration)
+    {
+        accTime -= animInfoVector[iFrmID++].duration;
+
+        if (iFrmID == animInfoVector.size())
+        {
+            if (isRepeat)
+                iFrmID = 0;
+            else
+            {
+                --iFrmID;
+                isPlay = false;
+            }
+        }
+    }
+
 }
 
 void AnimationToolGUI::ChangeToolVersion()

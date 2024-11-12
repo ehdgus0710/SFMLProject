@@ -91,6 +91,8 @@ public:
 		}
 		return (*iter->second->resource);
 	}
+
+	const std::unordered_map<std::string, Resources<T>*>& GetResourcesMap() { return resourcesMap; }
 };
 
 template<typename T>
