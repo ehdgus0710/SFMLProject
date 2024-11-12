@@ -11,8 +11,8 @@ protected:
 	InspectorGUI*	currentObjectInspector;
 
 public:
-	virtual void init();
-	virtual void update();
+	virtual void Init();
+	virtual void Update();
 	void SetInspectorGUI(InspectorGUI* inspectorGUI) { currentObjectInspector = inspectorGUI; }
 
 public:

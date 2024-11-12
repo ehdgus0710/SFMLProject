@@ -20,8 +20,8 @@ private:
 	void TransformInfo();
 
 public:
-	virtual void init();
-	virtual void update();
+	virtual void Init();
+	virtual void Update();
 	void SetObject(GameObject* object);
 
 public:

@@ -21,14 +21,14 @@ InspectorGUI::~InspectorGUI()
 {
 }
 
-void InspectorGUI::init()
+void InspectorGUI::Init()
 {
 	componetGUIvector.push_back(new AnimationGUI);
 	componetGUIvector.push_back(new ColliderGUI);
 	componetGUIvector.push_back(new TileMapGUI);
 }
 
-void InspectorGUI::update()
+void InspectorGUI::Update()
 {
 	if (targetObject == nullptr)
 	{
@@ -51,7 +51,7 @@ void InspectorGUI::update()
 	
 	for (auto& componet : componetGUIvector)
 	{
-		componet->update();
+		componet->Update();
 	}
 
 	ImGui::End();

@@ -40,6 +40,8 @@ public:
 	void SetTileTextrueSize(const sf::Vector2u& texTileSize);
 	const sf::Vector2u& GetTileTextrueSize() const { return textureTileSize; }
 
+	void ChangeTile(int currentIndexX, int currentIndexY, int tileUvPosX, int tileUvPosY);
+
 	sf::Texture* GetTexture() { return texture; }
 
 public:

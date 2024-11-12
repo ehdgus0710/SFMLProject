@@ -84,6 +84,9 @@ void InputManager::Init()
 	BindKey(sf::Keyboard::Z);
 	BindKey(sf::Keyboard::F11);
 	BindKey(sf::Keyboard::F1);
+
+	BindMouseButton(sf::Mouse::Left);
+	BindMouseButton(sf::Mouse::Right);
 }
 
 void InputManager::UpdateEvent(const sf::Event* ev)

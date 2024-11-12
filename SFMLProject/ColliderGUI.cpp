@@ -13,7 +13,7 @@ ColliderGUI::~ColliderGUI()
 {
 }
 
-void ColliderGUI::update()
+void ColliderGUI::Update()
 {
 	if (collider == nullptr)
 		return;

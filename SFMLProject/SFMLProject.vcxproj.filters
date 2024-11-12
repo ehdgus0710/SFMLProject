@@ -136,6 +136,9 @@
     <Filter Include="Contants\Imgui\GUI\CompoentGUI\Collider">
       <UniqueIdentifier>{16d3f5f7-6a89-4b03-a13c-ae553f603be8}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Contants\Imgui\GUI\AnimationTool">
+      <UniqueIdentifier>{183904c9-e381-40a4-96bc-60a23d1db1fe}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -284,6 +287,9 @@
     </ClCompile>
     <ClCompile Include="ComponentGUI.cpp">
       <Filter>Contants\Imgui\GUI\CompoentGUI</Filter>
+    </ClCompile>
+    <ClCompile Include="AnimationToolGUI.cpp">
+      <Filter>Contants\Imgui\GUI\AnimationTool</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -448,6 +454,9 @@
     </ClInclude>
     <ClInclude Include="ComponentGUI.h">
       <Filter>Contants\Imgui\GUI\CompoentGUI</Filter>
+    </ClInclude>
+    <ClInclude Include="AnimationToolGUI.h">
+      <Filter>Contants\Imgui\GUI\AnimationTool</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

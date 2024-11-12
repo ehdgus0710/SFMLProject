@@ -51,21 +51,21 @@ void TileMap::ChangeTextureTile(std::string tileID)
 	this->texture = &TEXTURE_MANAGER.Get(spriteSheetId);
 }
 
-void TileMap::SetTileInfo(std::string textId, const sf::Vector2u& tileCount, const sf::Vector2f& tileSize, const sf::Vector2u textTileSize)
+void TileMap::SetTileInfo(std::string textId, const sf::Vector2u& cellCount, const sf::Vector2f& tileSize, const sf::Vector2u textureTileSize)
 {
-	cellCount = tileCount;
+	this->cellCount = cellCount;
 	cellSize = tileSize;
-	this->textureTileSize = textTileSize;
+	this->textureTileSize = textureTileSize;
 
 	vertexArray.clear();
 	vertexArray.setPrimitiveType(sf::Quads);
-	vertexArray.resize(tileCount.x * tileCount.y * 4);
+	vertexArray.resize(cellCount.x * cellCount.y * 4);
 
 	this->texture = &TEXTURE_MANAGER.Get(spriteSheetId);
 
-	sf::Vector2f totalTileMapSize = { (sf::Vector2f)tileCount * tileSize };
+	sf::Vector2f totalTileMapSize = { (sf::Vector2f)cellCount * tileSize };
 
-	sf::Vector2u textureCount = { texture->getSize().x / textTileSize.x , texture->getSize().y / textTileSize.y };
+	sf::Vector2u textureCount = { texture->getSize().x / textureTileSize.x , texture->getSize().y / textureTileSize.y };
 
 	sf::Vector2f positionOffset[4] =
 	{
@@ -78,36 +78,36 @@ void TileMap::SetTileInfo(std::string textId, const sf::Vector2u& tileCount, con
 	sf::Vector2f textUv[4] =
 	{
 		{ 0.f , 0.f }
-		, { (float)textTileSize.x , 0.f}
-		, (sf::Vector2f)textTileSize
-		, {0.f , (float)textTileSize.y }
+		, { (float)textureTileSize.x , 0.f}
+		, (sf::Vector2f)textureTileSize
+		, {0.f , (float)textureTileSize.y }
 	};
 
-	for (int i = 0; i < (int)tileCount.y; ++i)
+	for (int i = 0; i < (int)cellCount.y; ++i)
 	{
 		sf::Vector2f createPosition = totalTileMapSize * -0.5f;
 
-		for (int j = 0; j < (int)tileCount.x; ++j)
+		for (int j = 0; j < (int)cellCount.x; ++j)
 		{
 			sf::Vector2i textureIndex;
 			textureIndex.x = Utils::RandomRange(0, textureCount.x - 1);
 			textureIndex.y = Utils::RandomRange(0, textureCount.y - 1);
 
-			if (i == 0 || i == tileCount.y - 1 || j == 0 || j == tileCount.x - 1)
+			if (i == 0 || i == cellCount.y - 1 || j == 0 || j == cellCount.x - 1)
 			{
 				textureIndex.y = 3;
 			}
 
-			auto quadIndex = i * tileCount.x + j;
-			sf::Vector2f quadPosition(j * tileSize.y, i * tileSize.y);
+			auto quadIndex = i * cellCount.x + j;
+			sf::Vector2f quadPosition(j * (float)tileSize.y, i * (float)tileSize.y);
 
 			for (int k = 0; k < 4; ++k)
 			{
 				int vertexIndex = quadIndex * 4 + k;
 				vertexArray[vertexIndex].position = quadPosition + positionOffset[k];
 				vertexArray[vertexIndex].texCoords = textUv[k];
-				vertexArray[vertexIndex].texCoords.x += textureIndex.x * (float)tileSize.x;
-				vertexArray[vertexIndex].texCoords.y += textureIndex.y * (float)tileSize.y;
+				vertexArray[vertexIndex].texCoords.x += (float)textureIndex.x * (float)textureTileSize.x;
+				vertexArray[vertexIndex].texCoords.y += (float)textureIndex.y * (float)textureTileSize.y;
 			}
 		}
 	}
@@ -131,7 +131,7 @@ void TileMap::Start()
 	texture = &TEXTURE_MANAGER.Get(spriteSheetId);
 
 	position = { 300.f,300.f };
-	SetScale(sf::Vector2f::one * 1.25f);
+	SetScale(sf::Vector2f::one);
 	UpdateTransform();
 }
 
@@ -167,6 +167,25 @@ void TileMap::SetCellSize(const sf::Vector2f& cellSize)
 
 void TileMap::SetTileTextrueSize(const sf::Vector2u& texTileSize)
 {
+}
+
+void TileMap::ChangeTile(int currentIndexX, int currentIndexY, int tileUvPosX, int tileUvPosY)
+{
+	sf::Vector2f textUv[4] =
+	{
+		{ 0.f , 0.f }
+		, { (float)textureTileSize.x , 0.f}
+		, (sf::Vector2f)textureTileSize
+		, {0.f , (float)textureTileSize.y }
+	};
+
+	int index = (currentIndexY * cellCount.x + currentIndexX) * 4;
+	for (int i = 0; i < 4; ++i)
+	{
+		vertexArray[index + i].texCoords = textUv[i];
+		vertexArray[index + i].texCoords.x += textureTileSize.x * tileUvPosX;
+		vertexArray[index + i].texCoords.y += textureTileSize.y * tileUvPosY;
+	}
 }
 
 void TileMap::Render(sf::RenderWindow& window)

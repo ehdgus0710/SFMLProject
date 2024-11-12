@@ -58,6 +58,7 @@ public:
 	virtual int GetID() { return iD; }
 
 	virtual bool CreateCollider(ColliderType colliderType, ColliderLayer colliderLayer, sf::Vector2f offset = sf::Vector2f::zero, sf::Vector2f size = sf::Vector2f::one);
+	virtual void CreateAnimator();
 	Collider* GetCollider() { return collider; }
 	Animator* GetAnimator() { return animator; }
 public:

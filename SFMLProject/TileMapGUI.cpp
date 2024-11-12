@@ -1,7 +1,8 @@
 #include "stdafx.h"
 #include "TileMapGUI.h"
-#include "imgui.h"
+// #include "imgui.h"
 #include "TileMap.h"
+#include "Scene.h"
 
 TileMapGUI::TileMapGUI()
 	: ComponentGUI(ComponentGUIType::TileMap)
@@ -14,7 +15,7 @@ TileMapGUI::~TileMapGUI()
 {
 }
 
-void TileMapGUI::update()
+void TileMapGUI::Update()
 {
 	if (tileMap == nullptr)
 		return;
@@ -42,6 +43,7 @@ void TileMapGUI::update()
 			cellSize.x = cellSizeArr[0];
 			cellSize.y = cellSizeArr[1];
 			tileMap->SetCellSize(cellSize);
+			this->cellSize = cellSize;
 		}
 	}
 	ImGui::Text("TileCount"); ImGui::SameLine();
@@ -56,16 +58,14 @@ void TileMapGUI::update()
 
 	}
 
-	texture = tileMap->GetTexture();
-	auto textureSize = texture->getSize();
 
 	ImVec2 pos = ImGui::GetCursorScreenPos();
-	ImVec2 uv_min = ImVec2(0.0f, 0.0f);                 // Top-left
-	ImVec2 uv_max = ImVec2(1.0f, 1.0f);                 // Lower-right
+	//ImVec2 uv_min = ImVec2(0.0f, 0.0f);                 // Top-left
+	//ImVec2 uv_max = ImVec2(1.0f, 1.0f);                 // Lower-right
 	//ImVec4 tint_col = use_text_color_for_tint ? ImGui::GetStyleColorVec4(ImGuiCol_Text) : ImVec4(1.0f, 1.0f, 1.0f, 1.0f); // No tint
 	//ImVec4 border_col = ImGui::GetStyleColorVec4(ImGuiCol_Border);
 
-	ImGui::Image(*texture, { (float)textureSize.x, (float)textureSize.y });
+	ImGui::Image(*texture, { textureSize.x, textureSize.y });
 	OnTileMapEditor();
 	/*ImGui::Text("Rotation"); ImGui::SameLine();
 	if (ImGui::InputFloat("##Rotation", &rotation))
@@ -88,136 +88,89 @@ void TileMapGUI::SetObject(GameObject* object)
 {
 	target = object;
 	tileMap = (TileMap*)target;
-}
+	if (tileMap == nullptr)
+	{
+		texture = nullptr;
+		return;
+	}
 
-void TileMapGUI::TileMapEditor()
-{
+	texture = tileMap->GetTexture();
+	tileTextureSize = tileMap->GetTileTextrueSize();
 
-	//renderTexture.create(texture.getSize().x, texture.getSize().y);
-
-	
-
-
-
+	textureSize = sf::Vector2f((float)texture->getSize().x, (float)texture->getSize().y);
+	tileUvSize = { 1.f / (textureSize.x / (float)tileTextureSize.x), 1.f / (textureSize.y / (float)tileTextureSize.y) };
+	cellSize = tileMap->GetCellSize();
+	heightCount = (int)textureSize.y / tileTextureSize.y;
+	widthCount = (int)textureSize.x / tileTextureSize.x;
 }
 void TileMapGUI::OnTileMapEditor()
 {
 	bool b = ImGui::Button("Edit##MapTool");
+
+	if(!isTileMapEditor)
+		isSelect = isTileMapEditor;
+
 	if (b)
 	{
 		isTileMapEditor = true;
 	}
-	/*if ()
-	{
-		isTileMapEditor != isTileMapEditor;
-	}*/
 	if (isTileMapEditor)
 	{
 		ImGui::Begin(tileMap->GetName().c_str(), &isTileMapEditor);
 
 		ImGui::Text("Tile LB = Select , RB = cancel");
 
-		sf::Vector2f cellSize = tileMap->GetCellSize();
-		sf::Vector2u tileTextureSize = tileMap->GetTileTextrueSize();;
-		ImGuiIO& io = ImGui::GetIO();
+		ImVec4			bg_col = ImVec4(0.0f, 0.0f, 0.0f, 1.0f);
+		ImVec4			tint_col = ImVec4(1.0f, 1.0f, 1.0f, 1.0f);
 
-		ImVec4 tint_col = ImVec4(1.0f, 1.0f, 1.0f, 1.0f);
-		ImVec2 uv0 = {};
-		ImVec2 uv1 = {};
-		ImVec4 bg_col = ImVec4(0.0f, 0.0f, 0.0f, 1.0f);
-		int frame_padding = -1;
+		std::string name = tileMap->GetName();
 
-		auto texSize = texture->getSize();
-
-		sf::Vector2f size = sf::Vector2f(texSize.x, texSize.y);
-		int heightSize = texSize.y / cellSize.y;
-		int widthSize = texSize.x / cellSize.x;
-
-		if (ImGui::ImageButton(tileMap->GetName().c_str(), *texture, size))
+		for (int i = 0; i < heightCount; ++i)
 		{
-
-		}
-		ImGui::End();
-
-		/*for (int i = 0; i < heightSize; ++i)
-		{
-			for (int j = 0; j < widthSize; ++j)
+			for (int j = 0; j < widthCount; ++j)
 			{
-				ImGui::PushID(i * heightSize + j);
-				uv0 = ImVec2(tileTextureSize.x * j, tileTextureSize.y * i);
-				uv1 = ImVec2(uv0.x + tileTextureSize.x, uv0.y + tileTextureSize.y);
+				ImGui::PushID((i * widthCount) + j);
+				if ((i * widthCount) + j)
+					ImGui::PushStyleVar(ImGuiStyleVar_FramePadding, ImVec2(1.f, 1.f));
 
-				if ()
+				if (ImGui::ImageButton((name + std::to_string((i * widthCount) + j)).c_str(), texture->getNativeHandle(), { 50.f, 50.f },
+					{ tileUvSize.x * j,tileUvSize.y * i}, {tileUvSize.x * (j + 1) ,tileUvSize.y * (i + 1) }, bg_col, tint_col))
 				{
-					m_tIndex.iIndexPosX = j;
-					m_tIndex.iIndexPosY = i;
-					m_tIndex.vUVStartPos.x = uv0.x;
-					m_tIndex.vUVStartPos.y = uv0.y;
-
-					m_bSelect = true;
+					// sf::Vector2f mousePosition = SceneManager::GetInstance().GetCurrentScene()->ScreenToWorld(ImGui::GetMousePos());
+					selectTileX = j;
+					selectTileY = i;
+					isSelect = true;
 				}
-				ImGui::SameLine();
 
+				if ((i * widthCount) + j)
+					ImGui::PopStyleVar();
 				ImGui::PopID();
+
 			}
-			ImGui::NewLine();
 		}
 
-		if (TileMapDomain() && KEY_HOLD(KEY::LBTN) && m_bSelect)
+		if (isSelect)
 		{
-			pTileMap->SetIndexInfoPos(m_tIndex, int(vTilePos.y) * iYFace + int(vTilePos.x));
-			vector<tIndexInfo> vecIndex = pTileMap->GetIndexInfo();
+			if (InputManager::GetInstance().GetKeyPressed(sf::Mouse::Left))
+			{
+				auto currentPos = SceneManager::GetInstance().GetCurrentScene()->ScreenToWorld(InputManager::GetInstance().GetMousePosition());
+				auto tileMapPos = tileMap->GetGlobalBounds();
 
+				if (tileMapPos.left < currentPos.x && tileMapPos.top < currentPos.y
+					&& tileMapPos.left + tileMapPos.width > currentPos.x && tileMapPos.top + tileMapPos.height > currentPos.y)
+				{
+					int indexX = (int)(currentPos.x - tileMapPos.left) / (int)cellSize.x;
+					int indexY = (int)(currentPos.y - tileMapPos.top) / (int)cellSize.y;
+
+					tileMap->ChangeTile(indexX, indexY, selectTileX, selectTileY);
+				}
+			}
+			if (InputManager::GetInstance().GetKeyDown(sf::Mouse::Right))
+			{
+				isSelect = false;
+			}
 		}
-		if (KEY_TAP(KEY::RBTN))
-		{
-			m_bSelect = false;
-		}
-		ImGui::End();*/
+
+		ImGui::End();
 	}
-}
-void render_grid(sf::RenderTexture& renderTexture)
-{
-	sf::Vertex line[2];
-	for (int i = 0; i <= renderTexture.getSize().y; i += 32)
-	{
-		line[0] = sf::Vector2f(0, i);
-		line[1] = sf::Vector2f(renderTexture.getSize().x, i);
-		renderTexture.draw(line, 2, sf::Lines);
-	}
-
-	for (int i = 0; i <= renderTexture.getSize().x; i += 32)
-	{
-		line[0] = sf::Vector2f(i, 0);
-		line[1] = sf::Vector2f(i, renderTexture.getSize().y);
-		renderTexture.draw(line, 2, sf::Lines);
-	}
-}
-void process_imgui(sf::RenderWindow& window, sf::RenderTexture& renderTexture, sf::Sprite& sprite)
-{
-	//ImGui::SetNextWindowPos(ImVec2{ 251, 20 });
-	ImGui::SetNextWindowSize(ImVec2{ static_cast<float>(window.getSize().x - 251.0f), static_cast<float>(window.getSize().y - 20.0f) });
-	ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2{ 0, 0 });
-	ImGui::Begin("Tileset", nullptr, ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_AlwaysHorizontalScrollbar);
-
-	renderTexture.clear();
-	renderTexture.draw(sprite);
-	render_grid(renderTexture);
-
-	//float x = (ImGui::GetWindowSize().x - static_cast<float>(renderTexture.getSize().x)) * 0.5f; //doesn't draw grid correctly
-	float x = (ImGui::GetWindowSize().x - static_cast<float>(renderTexture.getSize().x)) * 0.499f; //draws grid correctly
-	ImVec2 imagePosition(x, 20.0f);
-	ImGui::SetCursorPos(imagePosition);
-	ImGui::Image(renderTexture, ImVec2(static_cast<float>(renderTexture.getSize().x), static_cast<float>(renderTexture.getSize().y)));
-
-	static bool saveToFile = true;
-	if (saveToFile)
-	{
-		sf::Image image(renderTexture.getTexture().copyToImage());
-		image.saveToFile("correct.png");
-		saveToFile = false;
-	}
-
-	ImGui::End();
-	ImGui::PopStyleVar();
 }

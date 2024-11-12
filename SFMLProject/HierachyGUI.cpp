@@ -15,11 +15,11 @@ HierachyGUI::HierachyGUI(const std::string& name)
 HierachyGUI::~HierachyGUI()
 {
 }
-void HierachyGUI::init()
+void HierachyGUI::Init()
 {
 }
 
-void HierachyGUI::update()
+void HierachyGUI::Update()
 {
 	bool b = true;
     static int selected = -1;
@@ -43,7 +43,7 @@ void HierachyGUI::update()
                 selected = currentPos;
                 currentObjectInspector->SetObject(objectVectors[i][j]);
                 currentObjectInspector->Activate();
-                currentObjectInspector->update();
+                currentObjectInspector->Update();
             }
             ++currentPos;
         }

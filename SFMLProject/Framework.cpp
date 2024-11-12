@@ -29,7 +29,7 @@ void Framework::Update()
 				renderWindow->close();
 			InputManager::GetInstance().UpdateEvent(&event);
 		}
-
+		 
 		ImguiManger::GetInstance().Update(*renderWindow, TimeManager::GetInstance().GetTime());
 
 		InputManager::GetInstance().Update(TimeManager::GetInstance().GetDeletaTime());

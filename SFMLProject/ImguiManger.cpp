@@ -10,12 +10,15 @@
 bool ImguiManger::Init(sf::RenderWindow& window, bool loadDefaultFont)
 {
 
+	bool isSuccess = ImGui::SFML::Init(window, loadDefaultFont);
 	ImGui::CreateContext();
 	ImGuiIO& io = ImGui::GetIO(); (void)io;
 	io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard;       // Enable Keyboard Controls
 	//io.ConfigFlags |= ImGuiConfigFlags_NavEnableGamepad;      // Enable Gamepad Controls
 	io.ConfigFlags |= ImGuiConfigFlags_DockingEnable;           // Enable Docking
-	io.ConfigFlags |= ImGuiConfigFlags_ViewportsEnable;         // Enable Multi-Viewport / Platform Windows
+	//io.ConfigFlags |= ImGuiConfigFlags_ViewportsEnable;         // Enable Multi-Viewport / Platform Windows
+	// io.FontGlobalScale = 1.5;
+	io.ConfigViewportsNoAutoMerge = true;
 
 	ImGui::StyleColorsDark();
 	ImGuiStyle& style = ImGui::GetStyle();
@@ -25,7 +28,6 @@ bool ImguiManger::Init(sf::RenderWindow& window, bool loadDefaultFont)
 		style.Colors[ImGuiCol_WindowBg].w = 1.0f;
 	}
 
-	bool isSuccess = ImGui::SFML::Init(window, loadDefaultFont);
 	ImGui::NewFrame();
 
 	ImGui::EndFrame();
@@ -49,11 +51,11 @@ void ImguiManger::Release()
 void ImguiManger::CreateUI()
 {
 	HierachyGUI* hierachyGUI = new HierachyGUI("Hierachy");
-	hierachyGUI->init();
+	hierachyGUI->Init();
 	guiMap.insert({ hierachyGUI->GetName(), hierachyGUI });
 
 	InspectorGUI* inspectorGUI = new InspectorGUI("Inspector");
-	inspectorGUI->init();
+	inspectorGUI->Init();
 	guiMap.insert({ inspectorGUI->GetName(), inspectorGUI });
 
 	hierachyGUI->SetInspectorGUI(inspectorGUI);
@@ -74,7 +76,8 @@ void ImguiManger::Update(sf::RenderWindow& window, sf::Time dt)
 	{
 		if (pair.second->IsActive())
 		{
-			pair.second->update();
+			pair.second->Update();
+			ImGui::Separator();
 		}
 	}
 
@@ -82,7 +85,7 @@ void ImguiManger::Update(sf::RenderWindow& window, sf::Time dt)
 	{
 	}*/
 
-	ImGui::ShowDemoWindow();
+	//ImGui::ShowDemoWindow();
 	//ImGui::End();
 	ImGui::EndFrame();
 }

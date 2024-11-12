@@ -8,7 +8,7 @@ protected:
 	Collider* collider;
 
 public:
-	void update() override;
+	void Update() override;
 	void SetObject(GameObject* object) override;
 
 public:

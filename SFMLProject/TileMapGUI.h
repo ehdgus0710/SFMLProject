@@ -1,23 +1,35 @@
 #pragma once
 
 #include "ComponentGUI.h"
+#include "imgui.h"
 
 class TileMap;
 
 class TileMapGUI : public ComponentGUI
 {
+private:
+	sf::Vector2f	cellSize;
+	sf::Vector2u	tileTextureSize;
+
+	ImVec2			tileUvSize;
+
+	sf::Vector2f	textureSize;
+	int				heightCount;
+	int				widthCount;
+
+	int				selectTileX;
+	int				selectTileY;
+
+	bool			isSelect;
+
 protected:
 	TileMap* tileMap;
-	sf::RenderTexture renderTexture;
 	sf::Texture* texture;
-	sf::Sprite sprite;
 
 	bool isTileMapEditor;
 public:
-	void update() override;
+	void Update() override;
 	void SetObject(GameObject* object) override;
-	void TileMapEditor();
-
 	void OnTileMapEditor();
 public:
 	TileMapGUI();

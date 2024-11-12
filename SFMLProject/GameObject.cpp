@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "GameObject.h"
 #include "Collider.h"
+#include "Animator.h"
 
 int GameObject::instanceID = 0;
 
@@ -13,6 +14,7 @@ GameObject::GameObject(const std::string& name)
 	, position(sf::Vector2f::zero)
 	, iD(instanceID++)
 	, isDestory(false)
+	, animator(nullptr)
 {
 }
 
@@ -32,6 +34,8 @@ GameObject::GameObject(const GameObject& other)
 	, active(other.active)
 	, collider(nullptr)
 	, isDestory(false)
+	, animator(nullptr)
+	, iD(instanceID++)
 {
 	if (other.collider != nullptr)
 		collider = new Collider(*other.collider);
@@ -118,6 +122,14 @@ bool GameObject::CreateCollider(ColliderType colliderType, ColliderLayer collide
 	}
 
 	return false;
+}
+
+void GameObject::CreateAnimator()
+{
+	if (animator != nullptr)
+		return;
+
+	animator = new Animator();
 }
 
 bool GameObject::Save() const

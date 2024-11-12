@@ -6,7 +6,6 @@
 
 Test::Test(const std::string& texId, const std::string& name)
 	: SpriteGameObject(texId, name)
-	, animator(nullptr)
 {
 }
 
@@ -53,14 +52,6 @@ void Test::Render(sf::RenderWindow& renderWindow)
 		animator->Render(renderWindow);
 	else
 		SpriteGameObject::Render(renderWindow);
-}
-
-void Test::CreateAnimator()
-{
-	if (animator != nullptr)
-		return;
-
-	animator = new Animator();
 }
 
 sf::FloatRect Test::GetLocalBounds() const

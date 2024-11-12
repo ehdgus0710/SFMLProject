@@ -10,8 +10,8 @@ public:
 	const std::string& GetName() { return name; }
 
 public:
-	virtual void init() {}
-	virtual void update() = 0;
+	virtual void Init() {}
+	virtual void Update() = 0;
 
 public:
 	virtual void Activate() { isActive = true; }
