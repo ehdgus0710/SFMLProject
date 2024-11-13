@@ -12,16 +12,19 @@ private:
     std::vector<std::string>    textureVector;
     std::vector<AnimationInfo>  animInfoVector;
     std::string                 textureID;
+    sf::Vector2u                rectSize;
+
     float                       accTime;
     bool                        isPlay;
     bool                        isRepeat;
+    bool                        isButton;
 
 public:
     void Init() override;
     void Update() override;
 
     void TextureLoad();
-    void AnimationSave(std::string animationName);
+    void AnimationSave(const std::string& animationName);
     void AnimationLoad();
 private:
     void Listinit();

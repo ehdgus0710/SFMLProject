@@ -13,6 +13,7 @@ AnimationToolGUI::AnimationToolGUI()
 	, isPlay(false)
 	, isRepeat(false)
     , texture(nullptr)
+    , isButton(false)
 
 {
 }
@@ -32,6 +33,13 @@ void AnimationToolGUI::Update()
 
     ImGui::Begin(GetName().c_str(), &b);
 
+
+    if (ImGui::Button("TexLoad", { 100,30 })) 
+        TextureLoad();
+    ImGui::SameLine(); 
+    if (ImGui::Button("AnimLoad", { 100,30 })) 
+        AnimationLoad();
+
     static int item_current_idx = 0; // Here we store our selection data as an index.
     static ImGuiComboFlags flags = 0;
     static int iAnimIndexSize = 0;
@@ -45,6 +53,7 @@ void AnimationToolGUI::Update()
     {
         keyVector.push_back(iter.second->GetKey());
     }
+
 
     if (ImGui::BeginCombo("##Texture", keyVector[item_current_idx].c_str(), flags))
     {
@@ -82,6 +91,12 @@ void AnimationToolGUI::Update()
     if (texture)
         ImGui::Image(tex_id, ImVec2(resolution), uv_min, uv_max, tint_col, border_col);
 
+
+    static int frameID = 0;
+    int index = frameID;
+    sf::Vector2f leftTop = {};
+    sf::Vector2f frameSize = {};
+
     ImGui::Text("FramSize"); ImGui::SameLine();
     if (ImGui::InputInt("##FramSize", &iAnimIndexSize))
     {
@@ -101,55 +116,81 @@ void AnimationToolGUI::Update()
             for (size_t i = animInfoVector.size(); i > iAnimIndexSize; --i)
             {
                 //auto iter = m_vecAnimInfo.end();
+
+                if (animInfoVector.size() - 1 == frameID)
+                    --frameID;
                 animInfoVector.pop_back();
             }
         }
     }
 
-    static int frameID = 0;
-    sf::Vector2f leftTop = {};
-    sf::Vector2f frameSize = {};
-
     if (0 < animInfoVector.size())
     {
-        ImGui::Text("FrameIndex"); ImGui::SameLine();
-        if (ImGui::InputInt("##FrameIndex", &frameID))
-            frameID = Utils::Clamp(frameID, 0, (int)animInfoVector.size() - 1);
-
-        ImGui::Text("RectSize"); ImGui::SameLine();
-
-        int rectSizeArr[2] = { (int)animInfoVector[frameID].rectSize.x, (int)animInfoVector[frameID].rectSize.y };
-        if (ImGui::InputInt2("##RectSize", rectSizeArr))
+        int maxCount = (int)animInfoVector.size() - 1;
+        ImGui::Text("FrameIndex");;
+        if (ImGui::DragInt("##FrameIndex", &index, 0.1f, 0, maxCount))
         {
-            animInfoVector[frameID].rectSize = { (unsigned int)rectSizeArr[0],(unsigned int)rectSizeArr[1] };
+            if(index <= maxCount&& index >= 0)
+                frameID = index;
         }
 
-
-        ImGui::Text("LeftPosition"); ImGui::SameLine(); 
-        ImGui::InputInt("##LeftPosition", &animInfoVector[frameID].uvRect.left);
-        ImGui::Text("WidthRange"); ImGui::SameLine();
-        ImGui::InputInt("##WidthRange", &animInfoVector[frameID].uvRect.width);
-        ImGui::Text("TopPosition"); ImGui::SameLine();
-        ImGui::InputInt("##TopPosition", &animInfoVector[frameID].uvRect.top);
-        ImGui::Text("HeightRange"); ImGui::SameLine();
-        ImGui::InputInt("##HeightRange", &animInfoVector[frameID].uvRect.height);
-
-        ImGui::Text("Duration"); ImGui::SameLine();
-        ImGui::InputFloat("##Duration", &animInfoVector[frameID].duration);
-        //ImGui::Text("Offset  "); ImGui::SameLine(); ImGui::InputFloat2("##Offset", (float*)&animInfoVector[frameID].vOffset);
-         /*
-         ImVec2 uv_0 = ImVec2(animInfoVector[frameID].vLeftTop.x / resolution.x, animInfoVector[frameID].vLeftTop.y / resolution.y);
-         ImVec2 uv_1 = ImVec2(uv_0.x + animInfoVector[frameID].vFrmSize.x / resolution.x, uv_0.y + animInfoVector[frameID].vFrmSize.y / resolution.y);
-         */
-         ImVec2 size = ImVec2(64.0f, 64.0f);
-
-        static char cName[100];
-        ImGui::InputText("##edit", cName, 100);
-        ImGui::SameLine();
-        if (ImGui::Button("AnimName"))
+        if (texture != nullptr)
         {
-            // strName = cName;
-            // wstrName = wstring(strName.begin(), strName.end());
+            ImGui::Text("RectSize");
+
+            int rectSizeArr[2] = { (int)animInfoVector[frameID].rectSize.x, (int)animInfoVector[frameID].rectSize.y };
+
+            if (ImGui::DragInt2("##DragRectSize", rectSizeArr, 0.3f, 0, 5000))
+            {
+                animInfoVector[frameID].rectSize = { (unsigned int)rectSizeArr[0],(unsigned int)rectSizeArr[1] };
+                rectSize = animInfoVector[frameID].rectSize;
+            }
+
+            if (ImGui::SliderInt2("##SlideRectSize", rectSizeArr, 0, 1000))
+            {
+                animInfoVector[frameID].rectSize = { (unsigned int)rectSizeArr[0],(unsigned int)rectSizeArr[1] };
+                rectSize = animInfoVector[frameID].rectSize;
+            }
+
+            isButton = ImGui::Button("ChangeButton", { 100, 20 });
+
+
+            if (!isButton)
+            {
+                ImGui::Text("LeftPosition");
+                ImGui::DragInt("##DragLeftPosition", &animInfoVector[frameID].uvRect.left, 0.5f, 0, texture->getSize().x);
+                ImGui::SliderInt("##SliderLeftPosition", &animInfoVector[frameID].uvRect.left, 0, texture->getSize().x);
+
+                ImGui::Text("TopPosition");
+                ImGui::DragInt("##DragTopPosition", &animInfoVector[frameID].uvRect.top, 0.5f, 0, texture->getSize().y);
+                ImGui::SliderInt("##SliderTopPosition", &animInfoVector[frameID].uvRect.top, 0, texture->getSize().y);
+
+                ImGui::Text("WidthRange");
+                ImGui::DragInt("##DragWidthRange", &animInfoVector[frameID].uvRect.width, 0.5f, 0, texture->getSize().x);
+                ImGui::SliderInt("##SliderWidthRange", &animInfoVector[frameID].uvRect.width, 0, texture->getSize().x);
+
+                ImGui::Text("HeightRange");
+                ImGui::DragInt("##DragHeightRange", &animInfoVector[frameID].uvRect.height, 0.5f, 0, texture->getSize().y);
+                ImGui::SliderInt("##SliderHeightRange", &animInfoVector[frameID].uvRect.height, 0, texture->getSize().y);
+            }
+            else
+            {
+
+            }
+
+            ImGui::Text("Duration");
+            ImGui::DragFloat("##DragDuration", &animInfoVector[frameID].duration, 0.05f, 0.01f, 10.f);
+            ImGui::SliderFloat("##SliderDuration", &animInfoVector[frameID].duration, 0, 10.f);
+
+        }
+
+        std::string animationName;
+        static char cName[100];
+        ImGui::Text("Animation Name");
+        ImGui::InputText("##Animation Name", cName, 100);     ImGui::SameLine();
+        if (ImGui::Button("SetName", {100,30}))
+        {
+            animationName = cName;
         }
 
         sprite.setTextureRect(animInfoVector[frameID].uvRect);
@@ -157,37 +198,23 @@ void AnimationToolGUI::Update()
         if (nullptr != texture) 
             ImGui::ImageButton(keyVector[item_current_idx].c_str(), sprite, { (float)animInfoVector[frameID].rectSize.x, (float)animInfoVector[frameID].rectSize.y });
 
-        if (ImGui::Button("Play"))
+        if (ImGui::Button("Play", { 100,30 }))
         {
             frameID = 0;
             isPlay = true;
         }
         ImGui::SameLine(); 
-        if (ImGui::Button("repeat"))
+        if (ImGui::Button("repeat", { 100,30 }))
             isRepeat = !isRepeat;
 
-        if (ImGui::Button("Anim Save"))
+        if (ImGui::Button("Animation Save", { 100,30 }))
         {
-            /*strName = cName;
-            wstrName = wstring(strName.begin(), strName.end());
-
-            for (size_t i = 0; i < m_vecAnimInfo.size(); i++)
-            {
-                m_vecAnimInfo[i].vFrmSize.x /= m_pTex->Width();
-                m_vecAnimInfo[i].vFrmSize.y /= m_pTex->Height();
-                m_vecAnimInfo[i].vLeftTop.x /= m_pTex->Width();
-                m_vecAnimInfo[i].vLeftTop.y /= m_pTex->Height();
-            }*/
-            AnimationSave("");
+            AnimationSave(animationName);
         }
 
         if (isPlay) 
             AnimationPlay(frameID);
     }
-
-    if (ImGui::Button("TexLoad")) TextureLoad();
-    ImGui::SameLine(); if (ImGui::Button("AnimLoad")) AnimationLoad();
-
 
     ImGui::End();
 }
@@ -196,7 +223,7 @@ void AnimationToolGUI::TextureLoad()
 {
 }
 
-void AnimationToolGUI::AnimationSave(std::string animationName)
+void AnimationToolGUI::AnimationSave(const std::string& animationName)
 {
     // csv 세이브 되게 제작
 
