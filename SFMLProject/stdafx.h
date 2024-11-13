@@ -9,6 +9,8 @@
 #include <functional>
 #include <random>
 #include <unordered_set>
+#include <fstream>
+#include <codecvt>
 
 // 자료구조
 #include <unordered_map>
@@ -27,11 +29,15 @@
 #include "ColliderManager.h"
 #include "SceneManager.h"
 #include "Scene.h"
-
-// Utils
+#include "SoundManger.h"
 
 #include "Defines.h"
 #include "Utils.h"
+#include "DataTable.h"
+#include "StringTable.h"
+
+#include "DataTableManager.h"
+// Utils
 
 // Objec
 #include "GameObject.h"

@@ -139,6 +139,12 @@
     <Filter Include="Contants\Imgui\GUI\AnimationTool">
       <UniqueIdentifier>{183904c9-e381-40a4-96bc-60a23d1db1fe}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Manager\9. SoundManager">
+      <UniqueIdentifier>{1677db5b-3c36-4031-9022-76f0e4764844}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Manager\DataTable">
+      <UniqueIdentifier>{d597fdd6-0819-4f1a-a773-cb961666a786}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -290,6 +296,24 @@
     </ClCompile>
     <ClCompile Include="AnimationToolGUI.cpp">
       <Filter>Contants\Imgui\GUI\AnimationTool</Filter>
+    </ClCompile>
+    <ClCompile Include="SoundManger.cpp">
+      <Filter>Manager\9. SoundManager</Filter>
+    </ClCompile>
+    <ClCompile Include="DataTableManager.cpp">
+      <Filter>Manager\DataTable</Filter>
+    </ClCompile>
+    <ClCompile Include="StringTable.cpp">
+      <Filter>Manager\DataTable</Filter>
+    </ClCompile>
+    <ClCompile Include="DataTable.cpp">
+      <Filter>Manager\DataTable</Filter>
+    </ClCompile>
+    <ClCompile Include="LangugeStringTable.cpp">
+      <Filter>Manager\DataTable</Filter>
+    </ClCompile>
+    <ClCompile Include="Variables.cpp">
+      <Filter>Core\Utils</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -457,6 +481,27 @@
     </ClInclude>
     <ClInclude Include="AnimationToolGUI.h">
       <Filter>Contants\Imgui\GUI\AnimationTool</Filter>
+    </ClInclude>
+    <ClInclude Include="SoundManger.h">
+      <Filter>Manager\9. SoundManager</Filter>
+    </ClInclude>
+    <ClInclude Include="DataTableManager.h">
+      <Filter>Manager\DataTable</Filter>
+    </ClInclude>
+    <ClInclude Include="DataTable.h">
+      <Filter>Manager\DataTable</Filter>
+    </ClInclude>
+    <ClInclude Include="StringTable.h">
+      <Filter>Manager\DataTable</Filter>
+    </ClInclude>
+    <ClInclude Include="rapidcsv.h">
+      <Filter>Core\Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="LangugeStringTable.h">
+      <Filter>Manager\DataTable</Filter>
+    </ClInclude>
+    <ClInclude Include="Variables.h">
+      <Filter>Core\Utils</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
