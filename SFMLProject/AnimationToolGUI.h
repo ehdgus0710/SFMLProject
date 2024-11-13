@@ -12,12 +12,16 @@ private:
     std::vector<std::string>    textureVector;
     std::vector<AnimationInfo>  animInfoVector;
     std::string                 textureID;
-    sf::Vector2u                rectSize;
 
+    sf::Vector2u                rectSize;
+    sf::Vector2u                atlasRectSize;
+
+    static int                  frameID;
     float                       accTime;
     bool                        isPlay;
     bool                        isRepeat;
     bool                        isButton;
+    bool                        isAtlasTextrue;
 
 public:
     void Init() override;
@@ -30,6 +34,8 @@ private:
     void Listinit();
     void AnimationPlay(int& iFrmID);
     void ChangeToolVersion();
+    void AtlasTextrue();
+    void DefaultTextrue();
 
 public:
     AnimationToolGUI();
