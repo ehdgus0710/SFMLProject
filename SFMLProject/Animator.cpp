@@ -3,8 +3,9 @@
 #include "Animation.h"
 
 
-Animator::Animator()
-	: currentAnimation(nullptr)
+Animator::Animator(sf::Sprite& sprite)
+	: sprite(&sprite)
+	, currentAnimation(nullptr)
 	, isPlaying(false)
 {
 }
@@ -61,6 +62,18 @@ void Animator::CreateAnimation(const sf::Texture* texture, const std::string& id
 		StartAnimation(animation, isRepeat);
 }
 
+void Animator::AddAnimation(Animation* animation, const std::string& animationName)
+{
+	if (animationMap.find(animationName) != animationMap.end())
+		return;
+
+	animation->SetAnimator(this);
+	animationMap.insert({ animationName, animation });
+
+	if (currentAnimation == nullptr)
+		StartAnimation(animation, animation->IsRepeat());
+}
+
 void Animator::ChangeAnimation(const std::string& animationName, bool isRepeat)
 {
 	auto animation = animationMap.find(animationName);
@@ -71,7 +84,7 @@ void Animator::ChangeAnimation(const std::string& animationName, bool isRepeat)
 	currentAnimation->SetRepeat(false);
 	currentAnimation = animation->second;
 
-	sprite.setTexture(*currentAnimation->GetTexture(), true);
+	sprite->setTexture(*currentAnimation->GetTexture(), true);
 	currentAnimation->Play(isRepeat);
 }
 
@@ -79,25 +92,25 @@ void Animator::StartAnimation(Animation* animation, bool isRepeat)
 {
 	isPlaying = true;
 	currentAnimation = animation;
-	sprite.setTexture(*currentAnimation->GetTexture(), true);
+	sprite->setTexture(*currentAnimation->GetTexture(), true);
 	currentAnimation->Play(isRepeat);
 }
 
 void Animator::Render(sf::RenderWindow& renderWindow)
 {
-	renderWindow.draw(sprite);
+	renderWindow.draw(*sprite);
 }
 
 void Animator::SetCurrentFrameRect(const sf::IntRect& rect)
 {
 	uvRect = rect;
 	// sprite.setOrigin((sf::Vector2f)uvRect.getSize() * 0.5f);
-	sprite.setTextureRect(uvRect);
+	sprite->setTextureRect(uvRect);
 }
 
 void Animator::SetCurrentFrameSize(const sf::Vector2u& size)
 {
-	sprite.setOrigin((sf::Vector2f)size * 0.5f);
+	sprite->setOrigin((sf::Vector2f)size * 0.5f);
 }
 
 void Animator::SetOrigin(Origins preset)
@@ -106,14 +119,14 @@ void Animator::SetOrigin(Origins preset)
 		return;
 
 	origins = preset;
-	originPosition = Utils::SetOrigin(sprite, preset);
+	originPosition = Utils::SetOrigin(*sprite, preset);
 }
 
 void Animator::SetOrigin(const sf::Vector2f& newOrigin)
 {
 	origins = Origins::Custom;
 	originPosition = newOrigin;
-	sprite.setOrigin(originPosition);
+	sprite->setOrigin(originPosition);
 }
 
 void Animator::Test1()
@@ -128,12 +141,12 @@ void Animator::Test2()
 
 sf::FloatRect Animator::GetLocalBounds() const
 {
-	return sprite.getLocalBounds();
+	return sprite->getLocalBounds();
 }
 
 sf::FloatRect Animator::GetGlobalBounds() const
 {
-	return  sprite.getGlobalBounds();
+	return  sprite->getGlobalBounds();
 }
 
 void Animator::Update(const float& deltaTime)
@@ -146,6 +159,7 @@ void Animator::Start()
 {
 	//this->GetAnimation("PlayerDash")->func = std::move(std::bind(&Animator::Test1, this));
 	//this->GetAnimation("PlayerMove")->func = std::move(std::bind(&Animator::Test2, this)); // = &Animator::Test2;
-	this->GetAnimation("PlayerDash")->functest = std::bind(&Animator::Test1, this);
-	this->GetAnimation("PlayerMove")->functest = std::bind(&Animator::Test2, this);
+	// this->GetAnimation("PlayerDash")->functest = std::bind(&Animator::Test1, this);
+	// this->GetAnimation("PlayerMove")->functest = std::bind(&Animator::Test2, this);
+
 }

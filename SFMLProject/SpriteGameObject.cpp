@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "SpriteGameObject.h"
 #include "Collider.h"
-
+#include "Animator.h"
 
 SpriteGameObject::SpriteGameObject(const std::string& texId, const std::string& name)
 	:textureId(texId)
@@ -46,12 +46,17 @@ void SpriteGameObject::Render(sf::RenderWindow& renderWindow)
 
 void SpriteGameObject::Start()
 {
-	sprite.setTexture(ResourcesManager<sf::Texture>::GetInstance().Get(textureId));
+	
 	SetScale(scale);
 	SetPosition(position);
 	SetRotation(rotation);
 
 	SetOrigin(originPreset);
+
+	if (animator)
+		animator->Start();
+	else
+		sprite.setTexture(ResourcesManager<sf::Texture>::GetInstance().Get(textureId));
 
 	if (collider != nullptr)
 		collider->Reset();
@@ -70,6 +75,14 @@ void SpriteGameObject::FixedUpdate(const float& deltaTime)
 void SpriteGameObject::LateUpdate(const float& deltaTime)
 {
 	GameObject::LateUpdate(deltaTime);
+}
+
+void SpriteGameObject::CreateAnimator()
+{
+	if (animator != nullptr)
+		return;
+
+	animator = new Animator(sprite);
 }
 
 sf::FloatRect SpriteGameObject::GetLocalBounds() const

@@ -128,8 +128,6 @@ void GameObject::CreateAnimator()
 {
 	if (animator != nullptr)
 		return;
-
-	animator = new Animator();
 }
 
 bool GameObject::Save() const

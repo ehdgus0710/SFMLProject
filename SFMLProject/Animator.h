@@ -7,7 +7,7 @@ class Animator : public Entity
 protected:
 	std::unordered_map<std::string, Animation*> animationMap;
 	Animation*									currentAnimation;
-	sf::Sprite									sprite;
+	sf::Sprite*									sprite;
 	sf::IntRect									uvRect;
 	bool										isPlaying;
 
@@ -22,12 +22,13 @@ public:
 
 	void CreateAnimation(const std::string& id, const std::string& animationName, const sf::Vector2u& rectSize, int frameCount, float frameTime, bool isRepeat = false);
 	void CreateAnimation(const sf::Texture* texture, const std::string& id, const std::string& animationName, const sf::Vector2u& rectSize, int frameCount, float frameTime, bool isRepeat = false);
+	void AddAnimation(Animation* animation, const std::string& animationName);
 
 	void ChangeAnimation(const std::string& animationName, bool isRepeat = false);
 	void Render(sf::RenderWindow& renderWindow);
 	void SetCurrentFrameRect(const sf::IntRect& rect);
 	void SetCurrentFrameSize(const sf::Vector2u& size);
-	sf::Sprite& GetCurrentSprite() { return sprite; }
+	sf::Sprite& GetCurrentSprite() { return *sprite; }
 
 
 	void SetOrigin(Origins preset);
@@ -46,7 +47,7 @@ public:
 
 
 public:
-	Animator();	
+	Animator(sf::Sprite& sprite);
 	Animator(const Animator& other);
 	~Animator();
 };

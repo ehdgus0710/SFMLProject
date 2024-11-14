@@ -461,9 +461,6 @@
     <ClInclude Include="GUI.h">
       <Filter>Contants\Imgui\GUI</Filter>
     </ClInclude>
-    <ClInclude Include="InspectorGUI.h">
-      <Filter>Contants\Imgui\GUI</Filter>
-    </ClInclude>
     <ClInclude Include="HierachyGUI.h">
       <Filter>Contants\Imgui\GUI</Filter>
     </ClInclude>
@@ -502,6 +499,9 @@
     </ClInclude>
     <ClInclude Include="Variables.h">
       <Filter>Core\Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="InspectorGUI.h">
+      <Filter>Contants\Imgui\Manager</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

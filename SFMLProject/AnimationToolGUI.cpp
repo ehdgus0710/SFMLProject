@@ -112,7 +112,7 @@ void AnimationToolGUI::Update()
                 if (i > 0)
                     info = animInfoVector[i - 1];
 
-                info.duration = 0.01f;
+                info.duration = 0.1f;
                 animInfoVector.push_back(info);
             }
         }
@@ -190,6 +190,32 @@ void AnimationToolGUI::Update()
 
 void AnimationToolGUI::TextureLoad()
 {
+    OPENFILENAME ofn = {};       // common dialog box structure
+    wchar_t szFile[260] = { 0 };       // if using TCHAR macros
+
+    std::wstring wstrFilePath = L"\.";
+    wstrFilePath += L"animations\\";
+
+    // Initialize OPENFILENAME	
+    ofn.lStructSize = sizeof(ofn);
+    // ofn.hwndOwner = CCore::GetInst()->GetMainHwnd();
+    ofn.lpstrFile = szFile;
+    ofn.nMaxFile = sizeof(szFile);
+    ofn.lpstrFilter = L"All\0*.csv\0";
+    ofn.nFilterIndex = 2;
+    ofn.lpstrFileTitle = NULL;
+    ofn.nMaxFileTitle = 0;
+    // ofn.lpstrInitialDir = strMapFilePath.c_str(); // 탐색창 초기 경로
+    ofn.Flags = OFN_PATHMUSTEXIST | OFN_FILEMUSTEXIST;
+
+    if (GetOpenFileName(&ofn)) // DoModal (modal window)
+    {
+        std::string file;
+        std::wstring wfilePath = ofn.lpstrFile;
+        file.assign(wfilePath.begin(), wfilePath.end());
+    }
+
+
 }
 
 void AnimationToolGUI::AnimationSave(const std::string& animationName)
@@ -229,29 +255,27 @@ void AnimationToolGUI::AnimationLoad()
         file.assign(wfilePath.begin(), wfilePath.end());
        
         animation.loadFromFile(file);
-    }
 
+        textureID = animation.GetTextureID();
+        texture = &ResourcesManager<sf::Texture>::GetInstance().Get(textureID);
+        animInfoVector = animation.GetFrameInfo();
+        animationName = animation.GetAnimationName();
+        rectSize = animInfoVector[0].rectSize;
+        iAnimIndexSize = animInfoVector.size();
 
+        int size = (int)textureVector.size();
 
-    textureID = animation.GetTextureID();
-    texture = &ResourcesManager<sf::Texture>::GetInstance().Get(textureID);
-    animInfoVector = animation.GetFrameInfo();
-    animationName = animation.GetAnimationName();
-    rectSize = animInfoVector[0].rectSize;
-    iAnimIndexSize = animInfoVector.size();
-
-    int size = (int)textureVector.size();
-
-    for (int i = 0; i < size; ++i)
-    {
-        if (textureVector[i] == textureID)
+        for (int i = 0; i < size; ++i)
         {
-            itemCurrentIndex = i;
-            break;
+            if (textureVector[i] == textureID)
+            {
+                itemCurrentIndex = i;
+                break;
+            }
         }
-    }
 
-    sprite.setTexture(*texture);
+        sprite.setTexture(*texture);
+    }
 }
 
 void AnimationToolGUI::AnimationPlay(int& iFrmID)
@@ -281,18 +305,34 @@ void AnimationToolGUI::ChangeToolVersion()
 
 void AnimationToolGUI::AtlasTextrue()
 {
+    ImGui::Text("AtlasRectSize");
+
+    int atlasRectSizeArr[2] = { (int)atlasRectSize.x, (int)atlasRectSize.y };
+
+    if (ImGui::DragInt2("##DragAtlasRectSize", atlasRectSizeArr, 0.3f, 0, 5000))
+    {
+        atlasRectSize = { (unsigned int)atlasRectSizeArr[0],(unsigned int)atlasRectSizeArr[1] };
+    }
+
+    if (ImGui::SliderInt2("##SlideAtlasRectSize", atlasRectSizeArr, 0, 1000))
+    {
+        atlasRectSize = { (unsigned int)atlasRectSizeArr[0],(unsigned int)atlasRectSizeArr[1] };
+    }
+
     ImGui::Text("RectSize");
 
-    int rectSizeArr[2] = { (int)atlasRectSize.x, (int)atlasRectSize.y };
+    int rectSizeArr[2] = { (int)animInfoVector[frameID].rectSize.x, (int)animInfoVector[frameID].rectSize.y };
 
     if (ImGui::DragInt2("##DragRectSize", rectSizeArr, 0.3f, 0, 5000))
     {
-        atlasRectSize = { (unsigned int)rectSizeArr[0],(unsigned int)rectSizeArr[1] };
+        animInfoVector[frameID].rectSize = { (unsigned int)rectSizeArr[0],(unsigned int)rectSizeArr[1] };
+        animInfoVector[frameID].rectSize;
     }
 
     if (ImGui::SliderInt2("##SlideRectSize", rectSizeArr, 0, 1000))
     {
-        atlasRectSize = { (unsigned int)rectSizeArr[0],(unsigned int)rectSizeArr[1] };
+        animInfoVector[frameID].rectSize = { (unsigned int)rectSizeArr[0],(unsigned int)rectSizeArr[1] };
+        animInfoVector[frameID].rectSize;
     }
 
     if (ImGui::Button("SetDefalutRectSize", { 200, 20 }) && atlasRectSize.x != 0 && atlasRectSize.y != 0)
@@ -308,22 +348,54 @@ void AnimationToolGUI::AtlasTextrue()
             animInfoVector[i].uvRect.height = atlasRectSize.y;
         }
     }
+    if (isButton)
+    {
+        static int leftCount = 0;
+        static int topCount = 0;
+        static int widthCount = 0;
+        static int heightCount = 0;
+        ImGui::Text("LeftPosition");
+        if (ImGui::DragInt("##DragLeftPosition", &leftCount, 0.5f, 0, (texture->getSize().x / atlasRectSize.x) - 1))
+        {
+            animInfoVector[frameID].uvRect.left = atlasRectSize.x * leftCount;
+        }
 
-    ImGui::Text("LeftPosition");
-    ImGui::DragInt("##DragLeftPosition", &animInfoVector[frameID].uvRect.left, 0.5f, 0, texture->getSize().x);
-    ImGui::SliderInt("##SliderLeftPosition", &animInfoVector[frameID].uvRect.left, 0, texture->getSize().x);
+        ImGui::Text("TopPosition");
+        if (ImGui::DragInt("##DragTopPosition", &topCount, 0.5f, 0, (texture->getSize().y / atlasRectSize.y)) - 1)
+        {
+            animInfoVector[frameID].uvRect.top = atlasRectSize.y * topCount;
+        }
 
-    ImGui::Text("TopPosition");
-    ImGui::DragInt("##DragTopPosition", &animInfoVector[frameID].uvRect.top, 0.5f, 0, texture->getSize().y);
-    ImGui::SliderInt("##SliderTopPosition", &animInfoVector[frameID].uvRect.top, 0, texture->getSize().y);
+        ImGui::Text("WidthRange");
+        if (ImGui::DragInt("##DragWidthRange", &widthCount, 0.5f, 0, texture->getSize().x / atlasRectSize.x))
+        {
+            animInfoVector[frameID].uvRect.width = atlasRectSize.x * widthCount;
+        }
 
-    ImGui::Text("WidthRange");
-    ImGui::DragInt("##DragWidthRange", &animInfoVector[frameID].uvRect.width, 0.5f, 0, texture->getSize().x);
-    ImGui::SliderInt("##SliderWidthRange", &animInfoVector[frameID].uvRect.width, 0, texture->getSize().x);
+        ImGui::Text("HeightRange");
+        if (ImGui::DragInt("##DragHeightRange", &heightCount, 0.5f, 0, texture->getSize().y / atlasRectSize.y))
+        {
+            animInfoVector[frameID].uvRect.height = atlasRectSize.y * heightCount;
+        }
+    }
+    else
+    {
+        ImGui::Text("LeftPosition");
+        ImGui::DragInt("##DragLeftPosition", &animInfoVector[frameID].uvRect.left, 0.5f, 0, texture->getSize().x);
+        ImGui::SliderInt("##SliderLeftPosition", &animInfoVector[frameID].uvRect.left, 0, texture->getSize().x);
 
-    ImGui::Text("HeightRange");
-    ImGui::DragInt("##DragHeightRange", &animInfoVector[frameID].uvRect.height, 0.5f, 0, texture->getSize().y);
-    ImGui::SliderInt("##SliderHeightRange", &animInfoVector[frameID].uvRect.height, 0, texture->getSize().y);
+        ImGui::Text("TopPosition");
+        ImGui::DragInt("##DragTopPosition", &animInfoVector[frameID].uvRect.top, 0.5f, 0, texture->getSize().y);
+        ImGui::SliderInt("##SliderTopPosition", &animInfoVector[frameID].uvRect.top, 0, texture->getSize().y);
+
+        ImGui::Text("WidthRange");
+        ImGui::DragInt("##DragWidthRange", &animInfoVector[frameID].uvRect.width, 0.5f, 0, texture->getSize().x);
+        ImGui::SliderInt("##SliderWidthRange", &animInfoVector[frameID].uvRect.width, 0, texture->getSize().x);
+
+        ImGui::Text("HeightRange");
+        ImGui::DragInt("##DragHeightRange", &animInfoVector[frameID].uvRect.height, 0.5f, 0, texture->getSize().y);
+        ImGui::SliderInt("##SliderHeightRange", &animInfoVector[frameID].uvRect.height, 0, texture->getSize().y);
+    }
 }
 
 void AnimationToolGUI::DefaultTextrue()

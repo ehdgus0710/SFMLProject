@@ -278,5 +278,7 @@ bool Animation::loadFromFile(const std::string& filePath)
 	}
 	frameCount = (int)frameInfoVector.size();
 
+	texture = &ResourcesManager<sf::Texture>::GetInstance().Get(textureID);
+
 	return true;
 }

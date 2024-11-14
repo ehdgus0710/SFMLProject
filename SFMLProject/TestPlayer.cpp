@@ -1,5 +1,6 @@
 #include "stdafx.h"
 #include "TestPlayer.h"
+#include "Animator.h"
 
 TestPlayer::TestPlayer(const std::string& texId, const std::string& name)
 	: SpriteGameObject(texId, name)
@@ -61,7 +62,8 @@ void TestPlayer::Awake()
 
 void TestPlayer::Update(const float& deltaTime)
 {
-
+	if (animator)
+		animator->Update(deltaTime);
 
 	InputMove();
 

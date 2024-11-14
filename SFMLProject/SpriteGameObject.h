@@ -22,6 +22,7 @@ public:
 	void FixedUpdate(const float& deltaTime) override;
 	void LateUpdate(const float& deltaTime) override;
 
+	void CreateAnimator() override;
 	sf::FloatRect GetLocalBounds() const override;
 	sf::FloatRect GetGlobalBounds() const override;
 public:

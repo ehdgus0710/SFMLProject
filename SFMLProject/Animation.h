@@ -72,6 +72,8 @@ public:
 	const std::string& GetTextureID() { return textureID; }
 	const std::vector<AnimationInfo>& GetFrameInfo() { return frameInfoVector; }
 
+	bool IsRepeat() { return isRepeat; }
+
 public:
 	bool SaveCSV(const std::string& filePath);
 	bool loadFromFile(const std::string& filePath);
