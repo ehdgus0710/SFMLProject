@@ -145,6 +145,9 @@
     <Filter Include="Manager\DataTable">
       <UniqueIdentifier>{d597fdd6-0819-4f1a-a773-cb961666a786}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Core\6. Componet\6. FSM">
+      <UniqueIdentifier>{ebcba802-bd5b-4e08-91c7-cd2275d2796c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -314,6 +317,27 @@
     </ClCompile>
     <ClCompile Include="Variables.cpp">
       <Filter>Core\Utils</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerRunState.cpp">
+      <Filter>Contants\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerFSM.cpp">
+      <Filter>Contants\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerIdleState.cpp">
+      <Filter>Contants\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerJumpState.cpp">
+      <Filter>Contants\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerDeadState.cpp">
+      <Filter>Contants\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerBreakState.cpp">
+      <Filter>Contants\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="BaseState.cpp">
+      <Filter>Contants\Player</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -502,6 +526,27 @@
     </ClInclude>
     <ClInclude Include="InspectorGUI.h">
       <Filter>Contants\Imgui\Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerRunState.h">
+      <Filter>Contants\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerBreakState.h">
+      <Filter>Contants\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerDeadState.h">
+      <Filter>Contants\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerFSM.h">
+      <Filter>Contants\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerIdleState.h">
+      <Filter>Contants\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerJumpState.h">
+      <Filter>Contants\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="BaseState.h">
+      <Filter>Contants\Player</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

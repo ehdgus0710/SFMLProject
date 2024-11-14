@@ -154,6 +154,7 @@
     <ClCompile Include="AnimationGUI.cpp" />
     <ClCompile Include="AnimationToolGUI.cpp" />
     <ClCompile Include="Animator.cpp" />
+    <ClCompile Include="BaseState.cpp" />
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="CameraManger.cpp" />
     <ClCompile Include="Collider.cpp" />
@@ -203,6 +204,12 @@
     <ClCompile Include="Object.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="PhysicsManager.cpp" />
+    <ClCompile Include="PlayerBreakState.cpp" />
+    <ClCompile Include="PlayerDeadState.cpp" />
+    <ClCompile Include="PlayerFSM.cpp" />
+    <ClCompile Include="PlayerIdleState.cpp" />
+    <ClCompile Include="PlayerJumpState.cpp" />
+    <ClCompile Include="PlayerRunState.cpp" />
     <ClCompile Include="Resources.cpp" />
     <ClCompile Include="Rigidbody.cpp" />
     <ClCompile Include="Scene.cpp" />
@@ -234,6 +241,7 @@
     <ClInclude Include="AnimationGUI.h" />
     <ClInclude Include="AnimationToolGUI.h" />
     <ClInclude Include="Animator.h" />
+    <ClInclude Include="BaseState.h" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="CameraManger.h" />
     <ClInclude Include="Collider.h" />
@@ -269,6 +277,12 @@
     <ClInclude Include="LangugeStringTable.h" />
     <ClInclude Include="Object.h" />
     <ClInclude Include="PhysicsManager.h" />
+    <ClInclude Include="PlayerBreakState.h" />
+    <ClInclude Include="PlayerDeadState.h" />
+    <ClInclude Include="PlayerFSM.h" />
+    <ClInclude Include="PlayerIdleState.h" />
+    <ClInclude Include="PlayerJumpState.h" />
+    <ClInclude Include="PlayerRunState.h" />
     <ClInclude Include="rapidcsv.h" />
     <ClInclude Include="Resources.h" />
     <ClInclude Include="ResourcesManager.h" />
