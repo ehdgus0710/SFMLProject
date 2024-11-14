@@ -43,17 +43,17 @@ Animation* Animator::GetAnimation(const std::string& animationName)
 	return animation->second;
 }
 
-void Animator::CreateAnimation(const std::string id, const std::string& animationName, const sf::Vector2u& rectSize, int frameCount, float frameTime, bool isRepeat)
+void Animator::CreateAnimation(const std::string& id, const std::string& animationName, const sf::Vector2u& rectSize, int frameCount, float frameTime, bool isRepeat)
 {
-	CreateAnimation(&ResourcesManager<sf::Texture>::GetInstance().Get(id), animationName, rectSize, frameCount, frameTime, isRepeat);
+	CreateAnimation(&ResourcesManager<sf::Texture>::GetInstance().Get(id), id, animationName, rectSize, frameCount, frameTime, isRepeat);
 }
 
-void Animator::CreateAnimation(const sf::Texture* texture, const std::string& animationName, const sf::Vector2u& rectSize, int frameCount, float frameTime, bool isRepeat)
+void Animator::CreateAnimation(const sf::Texture* texture, const std::string& id, const std::string& animationName, const sf::Vector2u& rectSize, int frameCount, float frameTime, bool isRepeat)
 {
 	if (animationMap.end() != animationMap.find(animationName))
 		return;
 
-	Animation* animation = new Animation(texture, rectSize, frameCount, frameTime, isRepeat);
+	Animation* animation = new Animation(texture, id, animationName, rectSize, frameCount, frameTime, isRepeat);
 	animationMap.insert({ animationName ,animation });
 	animation->SetAnimator(this);
 

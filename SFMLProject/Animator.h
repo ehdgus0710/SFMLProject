@@ -20,8 +20,8 @@ protected:
 public:
 	Animation* GetAnimation(const std::string& animationName);
 
-	void CreateAnimation(const std::string id, const std::string& animationName, const sf::Vector2u& rectSize, int frameCount, float frameTime, bool isRepeat = false);
-	void CreateAnimation(const sf::Texture* texture, const std::string& animationName, const sf::Vector2u& rectSize, int frameCount, float frameTime, bool isRepeat = false);
+	void CreateAnimation(const std::string& id, const std::string& animationName, const sf::Vector2u& rectSize, int frameCount, float frameTime, bool isRepeat = false);
+	void CreateAnimation(const sf::Texture* texture, const std::string& id, const std::string& animationName, const sf::Vector2u& rectSize, int frameCount, float frameTime, bool isRepeat = false);
 
 	void ChangeAnimation(const std::string& animationName, bool isRepeat = false);
 	void Render(sf::RenderWindow& renderWindow);

@@ -2,7 +2,7 @@
 #include "Animation.h"
 #include "GameObject.h"
 #include "Animator.h"
-
+#include "rapidcsv.h"
 
 Animation::Animation()
 	: texture(nullptr)
@@ -17,7 +17,7 @@ Animation::Animation()
 {
 }
 
-Animation::Animation(const sf::Texture* texture, const sf::Vector2u& rectSize, int frameCount, float frameTime, bool isRepeat)
+Animation::Animation(const sf::Texture* texture, const std::string& textureID,const std::string& animationName ,const sf::Vector2u& rectSize, int frameCount, float frameTime, bool isRepeat)
 	: texture(texture)
 	, totalFrameTime(0.f)
 	, currentAnimationTime(0.f)
@@ -27,7 +27,8 @@ Animation::Animation(const sf::Texture* texture, const sf::Vector2u& rectSize, i
 	, isPlaying(false)
 	, isUnscale(false)
 	, animator(nullptr)
-
+	, animationID(animationName)
+	, textureID(textureID)
 {
 	frameInfoVector.clear();
 
@@ -86,8 +87,9 @@ Animation::~Animation()
 	frameInfoVector.clear();
 }
 
-void Animation::CreateAnimationInfo(const sf::Texture* texture, const sf::Vector2u& rectSize, int frameCount, float frameTime, bool isRepeat)
+void Animation::CreateAnimationInfo(const sf::Texture* texture, const std::string& textureID, const sf::Vector2u& rectSize, int frameCount, float frameTime, bool isRepeat)
 {
+	this->textureID = textureID;
 	sf::Vector2u textureSize = texture->getSize();
 	sf::Vector2u textureFrameCount = { textureSize.x / rectSize.x ,textureSize.y / rectSize.y };
 	int count = 0;
@@ -114,6 +116,21 @@ void Animation::CreateAnimationInfo(const sf::Texture* texture, const sf::Vector
 			count = 0;
 			++topPos;
 		}
+	}
+}
+
+void Animation::CreateAnimationInfo(const sf::Texture* texture, const std::string& textureID, const std::string& animationName, const std::vector<AnimationInfo>& frames)
+{
+	this->textureID = textureID;
+	this->texture = texture;
+	animationID = animationName;
+
+	frameInfoVector = frames;
+	frameCount = (int)frames.size();
+
+	for (auto& frame : frameInfoVector)
+	{
+		totalFrameTime += frame.duration;
 	}
 }
 
@@ -218,4 +235,48 @@ void Animation::SetAnimationEvent(void* event, unsigned int index)
 		return;
 
 	// frameInfoVector[index].animationEvent = event;
+}
+
+
+bool Animation::SaveCSV(const std::string& filePath)
+{
+	std::ofstream outFile(filePath);
+
+	outFile << "TEXTUREID,ANIMAIONID,REPEAT(0: true, 1: false)" << std::endl;
+	outFile << textureID << "," << animationID << "," << std::to_string((int)isRepeat) << std::endl;
+
+	for (auto& frame : frameInfoVector)
+	{
+		outFile << std::endl;
+		outFile << frame.textureID;
+		outFile << "," + std::to_string(frame.rectSize.x);
+		outFile << "," + std::to_string(frame.rectSize.y);
+		outFile << "," + std::to_string(frame.uvRect.left);
+		outFile << "," + std::to_string(frame.uvRect.top);
+		outFile << "," + std::to_string(frame.uvRect.width);
+		outFile << "," + std::to_string(frame.uvRect.height);
+		outFile << "," + std::to_string(frame.duration);
+	}
+	return true;
+}
+
+bool Animation::loadFromFile(const std::string& filePath)
+{
+	rapidcsv::Document doc(filePath);
+
+	textureID = doc.GetCell<std::string>(0, 0);
+	animationID = doc.GetCell<std::string>(1, 0);
+	isRepeat = (bool)doc.GetCell<int>(2, 0);
+
+	frameInfoVector.clear();
+	for (int i = 2; i < doc.GetRowCount(); ++i)
+	{
+		auto row = doc.GetRow<std::string>(i);
+
+		frameInfoVector.push_back({ row[0] , {(unsigned int)std::stoi(row[1]) ,(unsigned int)std::stoi(row[2])},  {  std::stoi(row[3]) ,std::stoi(row[4]) , std::stoi(row[5]) ,std::stoi(row[6]) }, std::stof(row[7]) });
+		totalFrameTime += frameInfoVector[i - 2].duration;
+	}
+	frameCount = (int)frameInfoVector.size();
+
+	return true;
 }

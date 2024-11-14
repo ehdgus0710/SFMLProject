@@ -12,6 +12,7 @@ private:
     std::vector<std::string>    textureVector;
     std::vector<AnimationInfo>  animInfoVector;
     std::string                 textureID;
+    std::string                 animationName;
 
     sf::Vector2u                rectSize;
     sf::Vector2u                atlasRectSize;
@@ -31,7 +32,6 @@ public:
     void AnimationSave(const std::string& animationName);
     void AnimationLoad();
 private:
-    void Listinit();
     void AnimationPlay(int& iFrmID);
     void ChangeToolVersion();
     void AtlasTextrue();

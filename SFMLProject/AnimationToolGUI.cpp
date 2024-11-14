@@ -6,8 +6,11 @@
 #include "Animator.h"
 #include "GameObject.h"
 
-int AnimationToolGUI::frameID = 0;
+#include "Windows.h"
 
+int AnimationToolGUI::frameID = 0;
+static int iAnimIndexSize = 0;
+static int itemCurrentIndex = 0; // Here we store our selection data as an index.
 AnimationToolGUI::AnimationToolGUI()
 	: GUI("AnimationTool")
 	, accTime(0.f)
@@ -42,31 +45,31 @@ void AnimationToolGUI::Update()
     if (ImGui::Button("AnimLoad", { 100,30 })) 
         AnimationLoad();
 
-    static int item_current_idx = 0; // Here we store our selection data as an index.
+   
     static ImGuiComboFlags flags = 0;
-    static int iAnimIndexSize = 0;
 
+    textureVector.clear();
     auto map = ResourcesManager<sf::Texture>::GetInstance().GetResourcesMap();
 
     //auto iter = map.begin();
-    std::vector<std::string> keyVector;
 
     for (auto iter : map)
     {
-        keyVector.push_back(iter.second->GetKey());
+        textureVector.push_back(iter.second->GetKey());
     }
 
 
-    if (ImGui::BeginCombo("##Texture", keyVector[item_current_idx].c_str(), flags))
+    if (ImGui::BeginCombo("##Texture", textureVector[itemCurrentIndex].c_str(), flags))
     {
-        for (int n = 0; n < keyVector.size(); ++n)
+        for (int n = 0; n < textureVector.size(); ++n)
         {
-            const bool is_selected = (item_current_idx == n);
-            if (ImGui::Selectable(keyVector[n].c_str(), is_selected))
+            const bool is_selected = (itemCurrentIndex == n);
+            if (ImGui::Selectable(textureVector[n].c_str(), is_selected))
             {
-                item_current_idx = n;
-                texture = &ResourcesManager<sf::Texture>::GetInstance().Get(keyVector[n]);
+                itemCurrentIndex = n;
+                texture = &ResourcesManager<sf::Texture>::GetInstance().Get(textureVector[n]);
                 sprite.setTexture(*texture);
+                textureID = textureVector[n];
             }
 
             // Set the initial focus when opening the combo (scrolling + keyboard navigation focus)
@@ -151,7 +154,6 @@ void AnimationToolGUI::Update()
             ImGui::SliderFloat("##SliderDuration", &animInfoVector[frameID].duration, 0, 3.f);
         }
 
-        std::string animationName;
         static char cName[100];
         ImGui::Text("Animation Name");
         ImGui::InputText("##Animation Name", cName, 100);     ImGui::SameLine();
@@ -163,7 +165,7 @@ void AnimationToolGUI::Update()
         sprite.setTextureRect(animInfoVector[frameID].uvRect);
 
         if (nullptr != texture) 
-            ImGui::ImageButton(keyVector[item_current_idx].c_str(), sprite, { (float)animInfoVector[frameID].rectSize.x, (float)animInfoVector[frameID].rectSize.y });
+            ImGui::ImageButton(textureVector[itemCurrentIndex].c_str(), sprite, { (float)animInfoVector[frameID].rectSize.x, (float)animInfoVector[frameID].rectSize.y });
 
         if (ImGui::Button("Play", { 100,30 }))
         {
@@ -193,17 +195,63 @@ void AnimationToolGUI::TextureLoad()
 void AnimationToolGUI::AnimationSave(const std::string& animationName)
 {
     // csv 세이브 되게 제작
-
+    Animation animation;
+    animation.CreateAnimationInfo(texture, textureID, animationName, animInfoVector);
+    animation.SaveCSV("animations/" + animationName + ".csv");
 }
 
 void AnimationToolGUI::AnimationLoad()
 {
-    // csv 로드 하게 수정
+    OPENFILENAME ofn = {};       // common dialog box structure
+    wchar_t szFile[260] = { 0 };       // if using TCHAR macros
 
-}
 
-void AnimationToolGUI::Listinit()
-{
+    std::wstring wstrFilePath = L"\.";
+    wstrFilePath += L"animations\\";
+
+    // Initialize OPENFILENAME	
+    ofn.lStructSize = sizeof(ofn);
+    // ofn.hwndOwner = CCore::GetInst()->GetMainHwnd();
+    ofn.lpstrFile = szFile;
+    ofn.nMaxFile = sizeof(szFile);
+    ofn.lpstrFilter = L"All\0*.csv\0";
+    ofn.nFilterIndex = 2;
+    ofn.lpstrFileTitle = NULL;
+    ofn.nMaxFileTitle = 0;
+    // ofn.lpstrInitialDir = strMapFilePath.c_str(); // 탐색창 초기 경로
+    ofn.Flags = OFN_PATHMUSTEXIST | OFN_FILEMUSTEXIST;
+
+    Animation animation;
+    if (GetOpenFileName(&ofn)) // DoModal (modal window)
+    {
+        std::string file;
+        std::wstring wfilePath = ofn.lpstrFile;
+        file.assign(wfilePath.begin(), wfilePath.end());
+       
+        animation.loadFromFile(file);
+    }
+
+
+
+    textureID = animation.GetTextureID();
+    texture = &ResourcesManager<sf::Texture>::GetInstance().Get(textureID);
+    animInfoVector = animation.GetFrameInfo();
+    animationName = animation.GetAnimationName();
+    rectSize = animInfoVector[0].rectSize;
+    iAnimIndexSize = animInfoVector.size();
+
+    int size = (int)textureVector.size();
+
+    for (int i = 0; i < size; ++i)
+    {
+        if (textureVector[i] == textureID)
+        {
+            itemCurrentIndex = i;
+            break;
+        }
+    }
+
+    sprite.setTexture(*texture);
 }
 
 void AnimationToolGUI::AnimationPlay(int& iFrmID)
