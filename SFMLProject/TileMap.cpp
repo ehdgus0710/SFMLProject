@@ -1,5 +1,6 @@
 #include "stdafx.h"
 #include "TileMap.h"
+#include "rapidcsv.h"
 
 TileMap::TileMap(const std::string& TileId, const std::string& name)
 	: GameObject(name)
@@ -89,14 +90,7 @@ void TileMap::SetTileInfo(std::string textId, const sf::Vector2u& cellCount, con
 
 		for (int j = 0; j < (int)cellCount.x; ++j)
 		{
-			sf::Vector2i textureIndex;
-			textureIndex.x = Utils::RandomRange(0, textureCount.x - 1);
-			textureIndex.y = Utils::RandomRange(0, textureCount.y - 1);
-
-			if (i == 0 || i == cellCount.y - 1 || j == 0 || j == cellCount.x - 1)
-			{
-				textureIndex.y = 3;
-			}
+			sf::Vector2i textureIndex = sf::Vector2i::zero;
 
 			auto quadIndex = i * cellCount.x + j;
 			sf::Vector2f quadPosition(j * (float)tileSize.y, i * (float)tileSize.y);
@@ -105,9 +99,9 @@ void TileMap::SetTileInfo(std::string textId, const sf::Vector2u& cellCount, con
 			{
 				int vertexIndex = quadIndex * 4 + k;
 				vertexArray[vertexIndex].position = quadPosition + positionOffset[k];
-				vertexArray[vertexIndex].texCoords = textUv[k];
-				vertexArray[vertexIndex].texCoords.x += (float)textureIndex.x * (float)textureTileSize.x;
-				vertexArray[vertexIndex].texCoords.y += (float)textureIndex.y * (float)textureTileSize.y;
+				vertexArray[vertexIndex].texCoords = sf::Vector2f::zero;
+				// vertexArray[vertexIndex].texCoords.x += (float)textureIndex.x * (float)textureTileSize.x;
+				// vertexArray[vertexIndex].texCoords.y += (float)textureIndex.y * (float)textureTileSize.y;
 			}
 		}
 	}
@@ -130,9 +124,11 @@ void TileMap::Start()
 {
 	texture = &TEXTURE_MANAGER.Get(spriteSheetId);
 
-	position = { 300.f,300.f };
+	position = { 300.055f,300.055f };
 	SetScale(sf::Vector2f::one);
 	UpdateTransform();
+
+	SaveCsv("TileMap/test.csv");
 }
 
 void TileMap::UpdateTransform()
@@ -194,4 +190,100 @@ void TileMap::Render(sf::RenderWindow& window)
 	renderState.transform = transform;
 
 	window.draw(vertexArray, renderState);
+}
+
+bool TileMap::SaveCsv(const std::string& filePath) const
+{
+	std::ofstream outFile(filePath);
+
+	outFile << "TEXTUREID,CellCountX,CellCountY,CellSizeX,CellSizeY,TEXTURESIZEX,TEXTURESIZY,PositionX,PositionY,ScaleX,ScaleY,Rotation,ORIGINPRESET" << std::endl;
+	outFile << spriteSheetId << "," << cellCount.x << "," << cellCount.y << "," << cellSize.x << "," << cellSize.y << "," << textureTileSize.x << "," << textureTileSize.y;
+	outFile << "," << position.x << "," << position.y << "," << scale.x << "," << scale.y << "," << rotation << "," << (int)originPreset << std::endl;
+
+
+	outFile << std::endl;
+	outFile << "CELLTEXCOORDX,CELLTEXCOORDY" << std::endl;
+
+	for (int i = 0; i < (int)cellCount.y; ++i)
+	{
+		for (int j = 0; j < (int)cellCount.x; ++j)
+		{
+			int index = (i * cellCount.x + j) * 4;
+			for (int k = 0; k < 4; ++k) 
+			{
+				outFile << vertexArray[index + k].texCoords.x;
+				outFile << "," << vertexArray[index + k].texCoords.y;
+				if (k != 3)
+					outFile << ",";
+			}
+			outFile << std::endl;
+		}
+	}
+	return true;
+}
+
+bool TileMap::LoadCsv(const std::string& filePath)
+{
+	rapidcsv::Document doc(filePath);
+
+	spriteSheetId = doc.GetCell<std::string>(0, 0);
+	cellCount.x = doc.GetCell<unsigned int>(1, 0);
+	cellCount.y = doc.GetCell<unsigned int>(2, 0);
+	cellSize.x = doc.GetCell<float>(3, 0);
+	cellSize.y = doc.GetCell<float>(4, 0);
+	textureTileSize.x = doc.GetCell<unsigned int>(5, 0);
+	textureTileSize.y = doc.GetCell<unsigned int>(6, 0);
+	position.x = doc.GetCell<float>(7, 0);
+	position.y = doc.GetCell<float>(8, 0);
+	scale.x = doc.GetCell<float>(9, 0);
+	scale.y = doc.GetCell<float>(10, 0);
+	rotation = doc.GetCell<float>(11, 0);
+	originPreset = (Origins)doc.GetCell<int>(12, 0);
+
+	vertexArray.clear();
+	vertexArray.setPrimitiveType(sf::Quads);
+	vertexArray.resize(cellCount.x * cellCount.y * 4);
+
+	texture = &TEXTURE_MANAGER.Get(spriteSheetId);
+
+	sf::Vector2u textureCount = { texture->getSize().x / textureTileSize.x , texture->getSize().y / textureTileSize.y };
+
+	sf::Vector2f positionOffset[4] =
+	{
+		{ 0.f , 0.f }
+		, { cellSize.x , 0.f }
+		, { cellSize.x , cellSize.y }
+		, { 0.f , cellSize.y }
+	};
+
+	sf::Vector2f textUv[4] =
+	{
+		{ 0.f , 0.f }
+		, { (float)textureTileSize.x , 0.f}
+		, (sf::Vector2f)textureTileSize
+		, {0.f , (float)textureTileSize.y }
+	};
+
+	int rowPosition = 3;
+	
+	for (int i = 0; i < (int)cellCount.y; ++i)
+	{
+		for (int j = 0; j < (int)cellCount.x; ++j)
+		{
+			sf::Vector2i textureIndex = sf::Vector2i::zero;
+
+			auto quadIndex = i * cellCount.x + j;
+			sf::Vector2f quadPosition(j * (float)cellSize.y, i * (float)cellSize.y);
+
+			for (int k = 0; k < 4; ++k)
+			{
+				int vertexIndex = quadIndex * 4 + k;
+				vertexArray[vertexIndex].position = quadPosition + positionOffset[k];
+				vertexArray[vertexIndex].texCoords = { doc.GetCell<float>(k * 2, rowPosition) , doc.GetCell<float>((k * 2) + 1 , rowPosition) };
+			}
+			++rowPosition;
+		}
+	}
+
+	return true;
 }

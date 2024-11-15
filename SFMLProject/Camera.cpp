@@ -103,3 +103,13 @@ void Camera::Update(const float& deltaTime)
 	}
 	
 }
+
+bool Camera::SaveCsv(const std::string& filePath) const
+{
+	return false;
+}
+
+bool Camera::LoadCsv(const std::string& filePath)
+{
+	return false;
+}

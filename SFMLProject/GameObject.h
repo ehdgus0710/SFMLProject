@@ -83,6 +83,8 @@ public:
 public:
 	bool Save() const override;
 	bool Load() override;
+	bool SaveCsv(const std::string& filePath) const override;
+	bool LoadCsv(const std::string& filePath) override;
 public:
 	GameObject(const std::string& name);
 	virtual ~GameObject();

@@ -50,6 +50,10 @@ void SceneDev1::Enter()
 	mainCamera->SetFollowTarget(testPlayer, true);
 	// mainCamera->SetCameraLimitRect({ -2000.f, 2000.f, -2000.f, 2000.f });
 
+	TileMap* tile = AddGameObject(new TileMap("tiles", "Map"), LayerType::Default);
+	tile->SetTileInfo("tiles", { 30,30 }, { 64.f,64.f }, { 32,32 });
+	tile->SaveCsv("TileMap/test.csv");
+	tile->LoadCsv("TileMap/test.csv");
 	ColliderManager::GetInstance().SetCollisionCheck(ColliderLayer::Default, ColliderLayer::Default);
 
 	Scene::Enter();

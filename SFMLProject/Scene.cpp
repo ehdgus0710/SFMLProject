@@ -5,13 +5,16 @@
 Scene::Scene(const SceneIds id)
 	: id(id)
 	, cameraSpeed(500.f)
+	, isFreeView(false)
 	, mainCamera(nullptr)
 	, uICamera(nullptr)
+	, freeCamera(nullptr)
 {
 	gameObjectVectors.resize((int)LayerType::End);
 	cameraPosition = sf::Vector2f::zero;
 
 	mainCamera = new Camera(WindowManager::GetInstance().GetRenderWindow()->getDefaultView(), CameraType::Main);
+	freeCamera = new Camera(WindowManager::GetInstance().GetRenderWindow()->getDefaultView(), CameraType::Main);
 	uICamera = new Camera(WindowManager::GetInstance().GetRenderWindow()->getDefaultView(), CameraType::UI);
 }
 
@@ -26,6 +29,12 @@ Scene::~Scene()
 	{
 		delete uICamera;
 		uICamera = nullptr;
+	}
+
+	if (freeCamera != nullptr)
+	{
+		delete freeCamera;
+		freeCamera = nullptr;
 	}
 }
 
@@ -92,6 +101,32 @@ void Scene::Update(float deltaTime)
 		}
 	}
 
+	if (InputManager::GetInstance().GetKeyUp(sf::Keyboard::F2))
+	{
+		if (isFreeView)
+		{
+			isFreeView = !isFreeView;
+			TimeManager::GetInstance().SetTimeScale(1.f);
+		}
+		else
+		{
+			isFreeView = !isFreeView;
+			TimeManager::GetInstance().SetTimeScale(0.f);
+		}
+	}
+
+	if (isFreeView)
+	{
+		if (InputManager::GetInstance().GetKeyPressed(sf::Keyboard::Left))
+			freeCamera->SetCameraPosition(freeCamera->GetCameraPosition() + sf::Vector2f::left * cameraSpeed * TimeManager::GetInstance().GetRealDeltatime());
+		if (InputManager::GetInstance().GetKeyPressed(sf::Keyboard::Right))
+			freeCamera->SetCameraPosition(freeCamera->GetCameraPosition() + sf::Vector2f::right * cameraSpeed * TimeManager::GetInstance().GetRealDeltatime());
+		if (InputManager::GetInstance().GetKeyPressed(sf::Keyboard::Up))
+			freeCamera->SetCameraPosition(freeCamera->GetCameraPosition() + sf::Vector2f::up * cameraSpeed * TimeManager::GetInstance().GetRealDeltatime());
+		if (InputManager::GetInstance().GetKeyPressed(sf::Keyboard::Down))
+			freeCamera->SetCameraPosition(freeCamera->GetCameraPosition() + sf::Vector2f::down * cameraSpeed * TimeManager::GetInstance().GetRealDeltatime());
+	}
+
 	mainCamera->Update(deltaTime);
 	uICamera->Update(deltaTime);
 }
@@ -114,21 +149,46 @@ void Scene::Render(sf::RenderWindow& window)
 {
 	auto& saveView = WindowManager::GetInstance().GetRenderWindow()->getView();
 
-	WindowManager::GetInstance().GetRenderWindow()->setView(mainCamera->GetView());
-
-	// sf::FloatRect bounds = mainCamera->GetGlobalBounds();
-
-	for (int i = 0; i < (int)LayerType::UI; ++i)
+	if (isFreeView)
 	{
-		for (auto& object : gameObjectVectors[i])
+		WindowManager::GetInstance().GetRenderWindow()->setView(freeCamera->GetView());
+		const sf::Vector2f& cameraPosition = freeCamera->GetCameraPosition();
+		auto cameraSize = freeCamera->GetView().getSize();
+
+		for (int i = 0; i < (int)LayerType::UI; ++i)
 		{
-			if (!object->IsActive())
-				continue;
-			object->Render(window);
-			// auto test = object->GetGlobalBounds();
-			// if(bounds.intersects(test))
+			for (auto& object : gameObjectVectors[i])
+			{
+				if (!object->IsActive())
+					continue;
+
+				if ((cameraSize.x + object->GetScale().x) * 0.5f > abs(cameraPosition.x - object->GetPosition().x)
+					&& (cameraSize.y + object->GetScale().y) * 0.5f > abs(cameraPosition.y - object->GetPosition().y))
+					object->Render(window);
+				
+			}
 		}
 	}
+	else
+	{
+		WindowManager::GetInstance().GetRenderWindow()->setView(mainCamera->GetView());
+
+		for (int i = 0; i < (int)LayerType::UI; ++i)
+		{
+			const sf::Vector2f& cameraPosition = freeCamera->GetCameraPosition();
+			auto cameraSize = freeCamera->GetView().getSize();
+			for (auto& object : gameObjectVectors[i])
+			{
+				if (!object->IsActive())
+					continue;
+				object->Render(window);
+				if ((cameraSize.x + object->GetScale().x) * 0.5f > abs(cameraPosition.x - object->GetPosition().x)
+					&& (cameraSize.y + object->GetScale().y) * 0.5f > abs(cameraPosition.y - object->GetPosition().y))
+					object->Render(window);
+			}
+		}
+	}
+	
 	WindowManager::GetInstance().GetRenderWindow()->setView(uICamera->GetView());
 
 	for (int i = (int)LayerType::UI; i < (int)LayerType::End; ++i)

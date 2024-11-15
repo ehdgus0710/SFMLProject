@@ -178,7 +178,7 @@ bool Animator::Load()
 	return false;
 }
 
-bool Animator::SaveCSV(const std::string& filePath) const
+bool Animator::SaveCsv(const std::string& filePath) const
 {
 	std::ofstream outFile(filePath);
 
@@ -193,7 +193,7 @@ bool Animator::SaveCSV(const std::string& filePath) const
 	return true;
 }
 
-bool Animator::LoadCSV(const std::string& filePath)
+bool Animator::LoadCsv(const std::string& filePath)
 {
 	rapidcsv::Document doc(filePath);
 

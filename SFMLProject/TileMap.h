@@ -49,6 +49,9 @@ public:
 	void Release() override;
 	void Start() override;
 	void Render(sf::RenderWindow& window) override;
+
+	bool SaveCsv(const std::string& filePath) const override;
+	bool LoadCsv(const std::string& filePath) override;
 public:
 	TileMap(const std::string& TileId, const std::string& name = "");
 	~TileMap() = default;

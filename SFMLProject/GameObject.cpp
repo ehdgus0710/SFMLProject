@@ -139,3 +139,13 @@ bool GameObject::Load()
 {
     return false;
 }
+
+bool GameObject::SaveCsv(const std::string& filePath) const
+{
+	return false;
+}
+
+bool GameObject::LoadCsv(const std::string& filePath)
+{
+	return false;
+}

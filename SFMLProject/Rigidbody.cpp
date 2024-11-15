@@ -65,3 +65,13 @@ bool Rigidbody::Load()
 {
 	return false;
 }
+
+bool Rigidbody::SaveCsv(const std::string& filePath) const
+{
+	return false;
+}
+
+bool Rigidbody::LoadCsv(const std::string& filePath)
+{
+	return false;
+}

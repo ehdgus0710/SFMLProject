@@ -54,6 +54,8 @@ public:
 	void Update(const float& deltaTime);
 	virtual bool Save() const { return true; };
 	virtual bool Load() { return true; };
+	bool SaveCsv(const std::string& filePath) const override;
+	bool LoadCsv(const std::string& filePath) override;
 public:
 	Camera(CameraType type);
 	Camera(const sf::View& view, CameraType type);

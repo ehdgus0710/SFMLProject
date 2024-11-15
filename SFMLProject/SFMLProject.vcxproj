@@ -228,6 +228,7 @@
     <ClCompile Include="Test.cpp" />
     <ClCompile Include="TestPlayer.cpp" />
     <ClCompile Include="TileMap.cpp" />
+    <ClCompile Include="TileMapController.cpp" />
     <ClCompile Include="TileMapGUI.cpp" />
     <ClCompile Include="TimeManager.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
@@ -307,6 +308,7 @@
     <ClInclude Include="Test.h" />
     <ClInclude Include="TestPlayer.h" />
     <ClInclude Include="TileMap.h" />
+    <ClInclude Include="TileMapController.h" />
     <ClInclude Include="TileMapGUI.h" />
     <ClInclude Include="TimeManager.h" />
     <ClInclude Include="UIGameObject.h" />

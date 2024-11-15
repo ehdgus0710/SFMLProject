@@ -43,8 +43,8 @@ public:
 	void Start() override;
 	bool Save() const override;
 	bool Load() override;
-	bool SaveCSV(const std::string& filePath) const;
-	bool LoadCSV(const std::string& filePath);
+	bool SaveCsv(const std::string& filePath) const override;
+	bool LoadCsv(const std::string& filePath) override;
 
 
 public:

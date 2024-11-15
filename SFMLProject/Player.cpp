@@ -16,7 +16,7 @@ Player::Player(const std::string& name)
 	rigidBody = new Rigidbody(this);
 	rigidBody->SetGround(true);
 	CreateAnimator();
-	animator->LoadCSV("animators/mario.csv");
+	animator->LoadCsv("animators/mario.csv");
 	CreateCollider(ColliderType::Rectangle, ColliderLayer::Player);
 }
 
@@ -28,23 +28,6 @@ Player::~Player()
 
 void Player::Awake()
 {
-	/*ResourcesManager<Animation>::GetInstance().Load("marioIdle", "animations/marioIdle.csv");
-	ResourcesManager<Animation>::GetInstance().Load("marioRun", "animations/marioRun.csv");
-	ResourcesManager<Animation>::GetInstance().Load("marioJump", "animations/marioJump.csv");
-	ResourcesManager<Animation>::GetInstance().Load("marioDead", "animations/marioDead.csv");
-	ResourcesManager<Animation>::GetInstance().Load("marioHit", "animations/marioHit.csv");
-	ResourcesManager<Animation>::GetInstance().Load("marioGrap", "animations/marioGrap.csv");
-	ResourcesManager<Animation>::GetInstance().Load("marioBreak", "animations/marioBreak.csv");
-
-	animator->AddAnimation(&ResourcesManager<Animation>::GetInstance().Get("marioIdle"), "marioIdle");
-	animator->AddAnimation(&ResourcesManager<Animation>::GetInstance().Get("marioRun"), "marioRun");
-	animator->AddAnimation(&ResourcesManager<Animation>::GetInstance().Get("marioJump"), "marioJump");
-	animator->AddAnimation(&ResourcesManager<Animation>::GetInstance().Get("marioDead"), "marioDead");
-	animator->AddAnimation(&ResourcesManager<Animation>::GetInstance().Get("marioHit"), "marioHit");
-	animator->AddAnimation(&ResourcesManager<Animation>::GetInstance().Get("marioGrap"), "marioGrap");
-	animator->AddAnimation(&ResourcesManager<Animation>::GetInstance().Get("marioBreak"), "marioBreak");*/
-
-	//animator->SaveCSV("animators/mario.csv");
 }
 
 void Player::Start()
@@ -68,25 +51,6 @@ void Player::InputMove()
 
 void Player::InputJump()
 {
-	/*if (isJump)
-		return;
-
-	if (fsm.GetCurrentStateType() != PlayerStateType::Hit && fsm.GetCurrentStateType() != PlayerStateType::Dead)
-		fsm.ChangeState(PlayerStateType::Jump);
-
-	if (InputManager::GetInstance().GetKeyUp(sf::Keyboard::Space))
-	{
-		isJump = true;
-		rigidBody->SetGround(false);
-		rigidBody->SetVelocity({ rigidBody->GetCurrentVelocity().x, -500.f });
-
-	}
-	else if (InputManager::GetInstance().GetKeyPressed(sf::Keyboard::Space) && InputManager::GetInstance().GetAxis(Axis::Jump) == 1.f)
-	{
-		isJump = true;
-		rigidBody->SetGround(false);
-		rigidBody->SetVelocity({ rigidBody->GetCurrentVelocity().x, -800.f });
-	}*/
 }
 
 void Player::TakeDamage()

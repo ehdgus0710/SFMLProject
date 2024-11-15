@@ -50,7 +50,7 @@ void TimeManager::Update()
 		currentFixedTimestep = maximumAllowedTimestep;
 
 	deltaTime *= timeScale;
-	realDeltatime += realDeltatime;
+	realTime += realDeltatime;
 	time += deltaTime;
 
 	FrameCheck();

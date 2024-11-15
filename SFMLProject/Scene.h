@@ -12,9 +12,11 @@ protected:
 
 	Camera*									mainCamera;
 	Camera*									uICamera;
+	Camera*									freeCamera;
 
 	sf::Vector2f							cameraPosition;
 	float									cameraSpeed;
+	bool									isFreeView;
 
 public:
 	sf::Vector2f ScreenToWorld(sf::Vector2i screenPos);

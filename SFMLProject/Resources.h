@@ -15,6 +15,8 @@ private:
 public:
 	bool Save() const override;
 	bool Load() override;
+	bool SaveCsv(const std::string& filePath) const override;
+	bool LoadCsv(const std::string& filePath) override;
 	void SetKey(const std::string key)
 	{
 		this->key = key;
@@ -54,6 +56,18 @@ template<typename T>
 inline bool Resources<T>::Load()
 {
 	return true;
+}
+
+template<typename T>
+inline bool Resources<T>::SaveCsv(const std::string& filePath) const
+{
+	return false;
+}
+
+template<typename T>
+inline bool Resources<T>::LoadCsv(const std::string& filePath)
+{
+	return false;
 }
 
 template<typename T>
