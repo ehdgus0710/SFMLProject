@@ -1,8 +1,8 @@
 #pragma once
 
-#include "PlayerBaseState.h"
+#include "BaseState.h"
 
-class PlayerIdleState : public PlayerBaseState
+class PlayerBaseState : public BaseState<PlayerStateType>
 {
 public:
 	void Awake() override;
@@ -13,8 +13,9 @@ public:
 	void Update(float deltaTime) override;
 	void FixedUpdate(float fixedDeltaTime) override;
 	void LateUpdate(float deltaTime) override;
+
 public:
-	PlayerIdleState();
-	~PlayerIdleState();
+	PlayerBaseState(PlayerStateType stateType);
+	virtual ~PlayerBaseState();
 };
 

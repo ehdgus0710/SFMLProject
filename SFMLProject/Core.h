@@ -80,3 +80,16 @@ enum class CameraType
 
 	End
 };
+
+// State
+enum class PlayerStateType
+{
+	Idle,
+	Run,
+	Break,
+	Jump,
+	Hit,
+	Dead,
+
+	End
+};

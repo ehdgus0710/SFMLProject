@@ -148,6 +148,9 @@
     <Filter Include="Core\6. Componet\6. FSM">
       <UniqueIdentifier>{ebcba802-bd5b-4e08-91c7-cd2275d2796c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Contants\Player\PlayerState">
+      <UniqueIdentifier>{6f9243a3-ec4b-41e5-8989-63b1ce601bda}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -318,26 +321,35 @@
     <ClCompile Include="Variables.cpp">
       <Filter>Core\Utils</Filter>
     </ClCompile>
+    <ClCompile Include="PlayerBreakState.cpp">
+      <Filter>Contants\Player\PlayerState</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerDeadState.cpp">
+      <Filter>Contants\Player\PlayerState</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerIdleState.cpp">
+      <Filter>Contants\Player\PlayerState</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerJumpState.cpp">
+      <Filter>Contants\Player\PlayerState</Filter>
+    </ClCompile>
     <ClCompile Include="PlayerRunState.cpp">
+      <Filter>Contants\Player\PlayerState</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerBaseState.cpp">
       <Filter>Contants\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="BaseState.cpp">
+      <Filter>Core\6. Componet\6. FSM</Filter>
+    </ClCompile>
+    <ClCompile Include="FSMController.cpp">
+      <Filter>Core\6. Componet\6. FSM</Filter>
     </ClCompile>
     <ClCompile Include="PlayerFSM.cpp">
       <Filter>Contants\Player</Filter>
     </ClCompile>
-    <ClCompile Include="PlayerIdleState.cpp">
-      <Filter>Contants\Player</Filter>
-    </ClCompile>
-    <ClCompile Include="PlayerJumpState.cpp">
-      <Filter>Contants\Player</Filter>
-    </ClCompile>
-    <ClCompile Include="PlayerDeadState.cpp">
-      <Filter>Contants\Player</Filter>
-    </ClCompile>
-    <ClCompile Include="PlayerBreakState.cpp">
-      <Filter>Contants\Player</Filter>
-    </ClCompile>
-    <ClCompile Include="BaseState.cpp">
-      <Filter>Contants\Player</Filter>
+    <ClCompile Include="PlayerHitState.cpp">
+      <Filter>Contants\Player\PlayerState</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -528,25 +540,34 @@
       <Filter>Contants\Imgui\Manager</Filter>
     </ClInclude>
     <ClInclude Include="PlayerRunState.h">
-      <Filter>Contants\Player</Filter>
+      <Filter>Contants\Player\PlayerState</Filter>
     </ClInclude>
     <ClInclude Include="PlayerBreakState.h">
-      <Filter>Contants\Player</Filter>
+      <Filter>Contants\Player\PlayerState</Filter>
     </ClInclude>
     <ClInclude Include="PlayerDeadState.h">
+      <Filter>Contants\Player\PlayerState</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerIdleState.h">
+      <Filter>Contants\Player\PlayerState</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerJumpState.h">
+      <Filter>Contants\Player\PlayerState</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerBaseState.h">
       <Filter>Contants\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="BaseState.h">
+      <Filter>Core\6. Componet\6. FSM</Filter>
+    </ClInclude>
+    <ClInclude Include="FSMController.h">
+      <Filter>Core\6. Componet\6. FSM</Filter>
     </ClInclude>
     <ClInclude Include="PlayerFSM.h">
       <Filter>Contants\Player</Filter>
     </ClInclude>
-    <ClInclude Include="PlayerIdleState.h">
-      <Filter>Contants\Player</Filter>
-    </ClInclude>
-    <ClInclude Include="PlayerJumpState.h">
-      <Filter>Contants\Player</Filter>
-    </ClInclude>
-    <ClInclude Include="BaseState.h">
-      <Filter>Contants\Player</Filter>
+    <ClInclude Include="PlayerHitState.h">
+      <Filter>Contants\Player\PlayerState</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

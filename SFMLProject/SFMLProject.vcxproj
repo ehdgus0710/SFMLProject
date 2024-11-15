@@ -169,6 +169,7 @@
     <ClCompile Include="DataTableManager.cpp" />
     <ClCompile Include="Entity.cpp" />
     <ClCompile Include="Framework.cpp" />
+    <ClCompile Include="FSMController.cpp" />
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="GUI.cpp" />
     <ClCompile Include="HierachyGUI.cpp" />
@@ -204,9 +205,11 @@
     <ClCompile Include="Object.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="PhysicsManager.cpp" />
+    <ClCompile Include="PlayerBaseState.cpp" />
     <ClCompile Include="PlayerBreakState.cpp" />
     <ClCompile Include="PlayerDeadState.cpp" />
     <ClCompile Include="PlayerFSM.cpp" />
+    <ClCompile Include="PlayerHitState.cpp" />
     <ClCompile Include="PlayerIdleState.cpp" />
     <ClCompile Include="PlayerJumpState.cpp" />
     <ClCompile Include="PlayerRunState.cpp" />
@@ -258,6 +261,7 @@
     <ClInclude Include="Defines.h" />
     <ClInclude Include="Entity.h" />
     <ClInclude Include="Framework.h" />
+    <ClInclude Include="FSMController.h" />
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="GUI.h" />
     <ClInclude Include="HierachyGUI.h" />
@@ -277,9 +281,11 @@
     <ClInclude Include="LangugeStringTable.h" />
     <ClInclude Include="Object.h" />
     <ClInclude Include="PhysicsManager.h" />
+    <ClInclude Include="PlayerBaseState.h" />
     <ClInclude Include="PlayerBreakState.h" />
     <ClInclude Include="PlayerDeadState.h" />
     <ClInclude Include="PlayerFSM.h" />
+    <ClInclude Include="PlayerHitState.h" />
     <ClInclude Include="PlayerIdleState.h" />
     <ClInclude Include="PlayerJumpState.h" />
     <ClInclude Include="PlayerRunState.h" />

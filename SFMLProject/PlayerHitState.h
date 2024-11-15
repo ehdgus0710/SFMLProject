@@ -1,8 +1,6 @@
 #pragma once
-
 #include "PlayerBaseState.h"
-
-class PlayerIdleState : public PlayerBaseState
+class PlayerHitState : public PlayerBaseState
 {
 public:
 	void Awake() override;
@@ -14,7 +12,7 @@ public:
 	void FixedUpdate(float fixedDeltaTime) override;
 	void LateUpdate(float deltaTime) override;
 public:
-	PlayerIdleState();
-	~PlayerIdleState();
+	PlayerHitState();
+	~PlayerHitState();
 };
 
