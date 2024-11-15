@@ -1,6 +1,7 @@
 #pragma once
 
 class Animator;
+class Rigidbody;
 
 class GameObject : public Entity
 {
@@ -15,6 +16,7 @@ protected:
 
 	Collider*		collider;
 	Animator*		animator;
+	Rigidbody*		rigidBody;
 	Origins			originPreset;
 
 	std::string		name;
@@ -59,8 +61,10 @@ public:
 
 	virtual bool CreateCollider(ColliderType colliderType, ColliderLayer colliderLayer, sf::Vector2f offset = sf::Vector2f::zero, sf::Vector2f size = sf::Vector2f::one);
 	virtual void CreateAnimator();
+
 	Collider* GetCollider() { return collider; }
 	Animator* GetAnimator() { return animator; }
+	Rigidbody* GetRigidbody() { return rigidBody; }
 public:
 	void Awake() override;
 	void Start() override;

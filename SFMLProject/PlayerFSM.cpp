@@ -7,10 +7,12 @@
 #include "PlayerJumpState.h"
 #include "PlayerDeadState.h"
 #include "PlayerBaseState.h"
+#include "PlayerHitState.h"
 
 PlayerFSM::PlayerFSM(Player* owner)
 	: owner(owner)
 {
+	CreateAllState();
 }
 
 PlayerFSM::~PlayerFSM()
@@ -19,11 +21,14 @@ PlayerFSM::~PlayerFSM()
 
 void PlayerFSM::Awake()
 {
-	CreateAllState();
 }
 
 void PlayerFSM::Start()
 {
+	for (auto state : stateMap)
+	{
+		state.second->Start();
+	}
 }
 
 void PlayerFSM::CreateAllState()
@@ -65,24 +70,31 @@ BaseState<PlayerStateType>* PlayerFSM::CreateState(PlayerStateType type)
 	switch (type)
 	{
 	case PlayerStateType::Idle:
-		return new PlayerIdleState();
+		state = new PlayerIdleState(this);
+		break;
 	case PlayerStateType::Run:
-		return new PlayerIdleState();
+		state = new PlayerRunState(this);
+		break;
 	case PlayerStateType::Break:
-		return new PlayerIdleState();
+		state = new PlayerBreakState(this);
+		break;
 	case PlayerStateType::Jump:
-		return new PlayerIdleState();
+		state = new PlayerJumpState(this);
+		break;
 	case PlayerStateType::Hit:
-		return new PlayerIdleState();
+		state= new PlayerHitState(this);
+		break;
 	case PlayerStateType::Dead:
-		return new PlayerIdleState();
+		state = new PlayerDeadState(this);
+		break;
 	case PlayerStateType::End:
 		break;
 	default:
 		break;
 	}
 
-	return nullptr;
+	state->Awake();
+	return state;
 }
 
 void PlayerFSM::Update(float deltaTime)

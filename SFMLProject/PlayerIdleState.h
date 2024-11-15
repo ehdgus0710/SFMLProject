@@ -4,6 +4,7 @@
 
 class PlayerIdleState : public PlayerBaseState
 {
+
 public:
 	void Awake() override;
 	void Start() override;
@@ -14,7 +15,7 @@ public:
 	void FixedUpdate(float fixedDeltaTime) override;
 	void LateUpdate(float deltaTime) override;
 public:
-	PlayerIdleState();
+	PlayerIdleState(PlayerFSM* fsm);
 	~PlayerIdleState();
 };
 

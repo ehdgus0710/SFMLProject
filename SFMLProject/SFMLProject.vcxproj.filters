@@ -351,6 +351,9 @@
     <ClCompile Include="PlayerHitState.cpp">
       <Filter>Contants\Player\PlayerState</Filter>
     </ClCompile>
+    <ClCompile Include="Player.cpp">
+      <Filter>Contants\Player</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Singleton.h">
@@ -568,6 +571,9 @@
     </ClInclude>
     <ClInclude Include="PlayerHitState.h">
       <Filter>Contants\Player\PlayerState</Filter>
+    </ClInclude>
+    <ClInclude Include="Player.h">
+      <Filter>Contants\Player</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

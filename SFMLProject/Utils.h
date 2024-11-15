@@ -26,6 +26,7 @@ public:
 	static sf::Vector2f SetOrigin(sf::Shape& object, Origins preset);
 	static sf::Vector2f SetOrigin(sf::Sprite& object, Origins preset);
 	static sf::Vector2f SetOrigin(sf::Text& object, Origins preset);
+	static sf::Vector2f SetOrigin(sf::Sprite& object, sf::IntRect& uvRect, Origins preset);
 };
 
 struct Rectangle

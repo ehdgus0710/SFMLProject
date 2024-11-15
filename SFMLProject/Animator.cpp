@@ -1,12 +1,14 @@
 #include "stdafx.h"
 #include "Animator.h"
 #include "Animation.h"
+#include "rapidcsv.h"
 
 
-Animator::Animator(sf::Sprite& sprite)
+Animator::Animator(GameObject* owner, sf::Sprite& sprite)
 	: sprite(&sprite)
 	, currentAnimation(nullptr)
 	, isPlaying(false)
+	, owner(owner)
 {
 }
 
@@ -104,13 +106,14 @@ void Animator::Render(sf::RenderWindow& renderWindow)
 void Animator::SetCurrentFrameRect(const sf::IntRect& rect)
 {
 	uvRect = rect;
-	// sprite.setOrigin((sf::Vector2f)uvRect.getSize() * 0.5f);
+	// Utils::SetOrigin(*sprite, uvRect, owner->GetOrigins());
 	sprite->setTextureRect(uvRect);
 }
 
 void Animator::SetCurrentFrameSize(const sf::Vector2u& size)
 {
-	sprite->setOrigin((sf::Vector2f)size * 0.5f);
+	//sprite->setOrigin((sf::Vector2f)size * 0.5f);
+	Utils::SetOrigin(*sprite, uvRect, owner->GetOrigins());
 }
 
 void Animator::SetOrigin(Origins preset)
@@ -118,15 +121,14 @@ void Animator::SetOrigin(Origins preset)
 	if (preset == Origins::Custom)
 		return;
 
-	origins = preset;
-	originPosition = Utils::SetOrigin(*sprite, preset);
+	Utils::SetOrigin(*sprite, preset);
 }
 
 void Animator::SetOrigin(const sf::Vector2f& newOrigin)
 {
-	origins = Origins::Custom;
-	originPosition = newOrigin;
-	sprite->setOrigin(originPosition);
+	/*origins = Origins::Custom;
+	originPosition = newOrigin;*/
+	sprite->setOrigin(newOrigin);
 }
 
 void Animator::Test1()
@@ -162,4 +164,50 @@ void Animator::Start()
 	// this->GetAnimation("PlayerDash")->functest = std::bind(&Animator::Test1, this);
 	// this->GetAnimation("PlayerMove")->functest = std::bind(&Animator::Test2, this);
 
+}
+
+bool Animator::Save() const
+{
+	
+
+	return false;
+}
+
+bool Animator::Load()
+{
+	return false;
+}
+
+bool Animator::SaveCSV(const std::string& filePath) const
+{
+	std::ofstream outFile(filePath);
+
+	outFile << "ANIMATIONCSVPATH,ANIMAIONID" << std::endl;
+
+	for (auto& animation : animationMap)
+	{
+		outFile << std::endl;
+		auto resource = ResourcesManager<Animation>::GetInstance().GetResource(animation.first);
+		outFile << resource.GetFilePath() + "," + resource.GetKey();
+	}
+	return true;
+}
+
+bool Animator::LoadCSV(const std::string& filePath)
+{
+	rapidcsv::Document doc(filePath);
+
+	std::string animationCsvPath;
+	std::string animationId;
+	for (int i = 2; i < doc.GetRowCount(); ++i)
+	{
+		auto row = doc.GetRow<std::string>(i);
+		animationCsvPath = row[0];
+		animationId = row[1];
+
+		ResourcesManager<Animation>::GetInstance().Load(animationId, animationCsvPath);
+		Animation* animation = &ResourcesManager<Animation>::GetInstance().Get(animationId);
+		AddAnimation(animation, animationId);
+	}
+	return true;
 }

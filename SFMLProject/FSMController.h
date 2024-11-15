@@ -10,6 +10,11 @@ protected:
 	T currentStateType;
 	T preiousStateType;
 
+
+public:
+	T GetCurrentStateType() { return currentStateType; }
+	T GetPreiousStateType() { return preiousStateType; }
+
 public:
 	virtual void AddState(T type);
 	virtual BaseState<T>* CreateState(T type) = 0;

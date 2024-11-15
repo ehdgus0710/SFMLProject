@@ -14,6 +14,7 @@ private:
 
 public:
 	BaseState<PlayerStateType>* CreateState(PlayerStateType type);
+	Player* GetPlayer() { return owner; }
 
 public:
 	void Awake() override;

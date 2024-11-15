@@ -4,6 +4,10 @@
 
 class PlayerJumpState : public PlayerBaseState
 {
+protected:
+	Rigidbody*		rigidbody;
+	float			horizontal;
+	bool			isLeftRun;
 public:
 	void Awake() override;
 	void Start() override;
@@ -12,9 +16,8 @@ public:
 	void Exit() override;
 	void Update(float deltaTime) override;
 	void FixedUpdate(float fixedDeltaTime) override;
-	void LateUpdate(float deltaTime) override;
 public:
-	PlayerJumpState();
+	PlayerJumpState(PlayerFSM* fsm);
 	~PlayerJumpState();
 };
 

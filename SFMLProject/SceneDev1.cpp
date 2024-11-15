@@ -13,6 +13,8 @@
 #include "TestPlayer.h"
 #include "TileMap.h"
 
+#include "Player.h"
+
 void SceneDev1::Init()
 {
 	Scene::Init();
@@ -39,7 +41,7 @@ void SceneDev1::Enter()
 	ResourcesManager<sf::Font>::GetInstance().Load("KOMIKAP", "fonts/KOMIKAP_.ttf");
 	ResourcesManager<Animation>::GetInstance().Load("marioIdle", "animations/marioIdle.csv");
 
-	TestPlayer* testPlayer = AddGameObject(new TestPlayer("Player", "Player"),LayerType::Player);
+	Player* testPlayer = AddGameObject(new Player("Player"),LayerType::Player);
 	testPlayer->Awake();
 	testPlayer->CreateAnimator();
 

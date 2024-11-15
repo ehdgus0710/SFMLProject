@@ -1,9 +1,18 @@
 #pragma once
 
 #include "BaseState.h"
+#include "Player.h"
+#include "PlayerFSM.h"
 
 class PlayerBaseState : public BaseState<PlayerStateType>
 {
+protected:
+	Player*		player;
+	PlayerFSM*	fsm;
+
+	std::vector<std::function<void()>>	stateStartEvents;
+	std::vector<std::function<void()>>	stateEndEvents;
+
 public:
 	void Awake() override;
 	void Start() override;
@@ -15,7 +24,7 @@ public:
 	void LateUpdate(float deltaTime) override;
 
 public:
-	PlayerBaseState(PlayerStateType stateType);
+	PlayerBaseState(PlayerFSM* fsm, PlayerStateType stateType);
 	virtual ~PlayerBaseState();
 };
 

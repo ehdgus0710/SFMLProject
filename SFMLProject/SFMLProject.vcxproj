@@ -205,6 +205,7 @@
     <ClCompile Include="Object.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="PhysicsManager.cpp" />
+    <ClCompile Include="Player.cpp" />
     <ClCompile Include="PlayerBaseState.cpp" />
     <ClCompile Include="PlayerBreakState.cpp" />
     <ClCompile Include="PlayerDeadState.cpp" />
@@ -281,6 +282,7 @@
     <ClInclude Include="LangugeStringTable.h" />
     <ClInclude Include="Object.h" />
     <ClInclude Include="PhysicsManager.h" />
+    <ClInclude Include="Player.h" />
     <ClInclude Include="PlayerBaseState.h" />
     <ClInclude Include="PlayerBreakState.h" />
     <ClInclude Include="PlayerDeadState.h" />

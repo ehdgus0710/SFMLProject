@@ -4,6 +4,10 @@
 
 class PlayerBreakState : public PlayerBaseState
 {
+protected:
+	Rigidbody*		rigidbody;
+	float			horizontal;
+	bool			isMoveDirectionLeft;
 public:
 	void Awake() override;
 	void Start() override;
@@ -12,8 +16,7 @@ public:
 	void Exit() override;
 	void Update(float deltaTime) override;
 	void FixedUpdate(float fixedDeltaTime) override;
-	void LateUpdate(float deltaTime) override;
 public:
-	PlayerBreakState();
+	PlayerBreakState(PlayerFSM* fsm);
 	~PlayerBreakState();
 };

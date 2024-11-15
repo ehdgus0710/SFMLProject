@@ -6,8 +6,6 @@
 class TestPlayer : public SpriteGameObject
 {
 protected:
-	Rigidbody*		rigidBody;
-
 	sf::Vector2f	moveDirection;
 
 	float speed;

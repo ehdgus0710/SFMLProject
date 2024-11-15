@@ -1,8 +1,8 @@
 #include "stdafx.h"
 #include "PlayerHitState.h"
 
-PlayerHitState::PlayerHitState()
-	: PlayerBaseState(PlayerStateType::Hit)
+PlayerHitState::PlayerHitState(PlayerFSM* fsm)
+	: PlayerBaseState(fsm, PlayerStateType::Hit)
 {
 }
 

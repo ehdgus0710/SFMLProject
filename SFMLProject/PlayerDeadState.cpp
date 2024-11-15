@@ -2,8 +2,8 @@
 #include "PlayerDeadState.h"
 
 
-PlayerDeadState::PlayerDeadState()
-	: PlayerBaseState(PlayerStateType::Dead)
+PlayerDeadState::PlayerDeadState(PlayerFSM* fsm)
+	: PlayerBaseState(fsm, PlayerStateType::Dead)
 {
 }
 

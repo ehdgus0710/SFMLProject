@@ -12,7 +12,7 @@ public:
 	void FixedUpdate(float fixedDeltaTime) override;
 	void LateUpdate(float deltaTime) override;
 public:
-	PlayerHitState();
+	PlayerHitState(PlayerFSM* fsm);
 	~PlayerHitState();
 };
 

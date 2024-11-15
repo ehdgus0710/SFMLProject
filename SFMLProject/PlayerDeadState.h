@@ -14,6 +14,6 @@ public:
 	void FixedUpdate(float fixedDeltaTime) override;
 	void LateUpdate(float deltaTime) override;
 public:
-	PlayerDeadState();
+	PlayerDeadState(PlayerFSM* fsm);
 	~PlayerDeadState();
 };

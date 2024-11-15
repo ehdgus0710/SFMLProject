@@ -82,7 +82,7 @@ void SpriteGameObject::CreateAnimator()
 	if (animator != nullptr)
 		return;
 
-	animator = new Animator(sprite);
+	animator = new Animator(this, sprite);
 }
 
 sf::FloatRect SpriteGameObject::GetLocalBounds() const

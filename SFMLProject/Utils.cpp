@@ -106,3 +106,15 @@ sf::Vector2f Utils::SetOrigin(sf::Text& object, Origins preset)
 
 	return newOrigin;
 }
+
+sf::Vector2f Utils::SetOrigin(sf::Sprite& object, sf::IntRect& uvRect, Origins preset)
+{
+	sf::Vector2f newOrigin((float)uvRect.width, (float)uvRect.height);
+
+	newOrigin.x *= ((int)preset % 3) * 0.5f;
+	newOrigin.y *= ((int)preset / 3) * 0.5f;
+
+	object.setOrigin(newOrigin);
+
+	return newOrigin;
+}

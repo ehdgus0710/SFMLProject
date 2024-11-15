@@ -18,6 +18,7 @@ protected:
 	ResourcesManager& operator=(const ResourcesManager&) = delete;
 public:
 	static T Empty;
+	static Resources<T> ResourcesEmpty;
 
 	void UnloadAll()
 	{
@@ -77,7 +78,7 @@ public:
 		auto iter = resourcesMap.find(id);
 		if (iter == resourcesMap.end())
 		{
-			return Empty;
+			return ResourcesEmpty;
 		}
 		return *(iter->second);
 	}
@@ -97,5 +98,7 @@ public:
 
 template<typename T>
 T ResourcesManager<T>::Empty;
+template<typename T>
+Resources<T> ResourcesManager<T>::ResourcesEmpty;
 
 #define TEXTURE_MANAGER (ResourcesManager<sf::Texture>::GetInstance())

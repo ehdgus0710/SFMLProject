@@ -4,7 +4,6 @@
 
 TestPlayer::TestPlayer(const std::string& texId, const std::string& name)
 	: SpriteGameObject(texId, name)
-	, rigidBody(nullptr)
 	, speed(500.f)
 	, isJump(false)
 {
@@ -56,7 +55,6 @@ void TestPlayer::InputJump()
 void TestPlayer::Awake()
 {
 	rigidBody = new Rigidbody(this);
-
 	rigidBody->SetGround(true);
 }
 

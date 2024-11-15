@@ -9,10 +9,9 @@ protected:
 	Animation*									currentAnimation;
 	sf::Sprite*									sprite;
 	sf::IntRect									uvRect;
-	bool										isPlaying;
 
-	Origins		origins;
-	sf::Vector2f originPosition;
+	GameObject*									owner;
+	bool										isPlaying;
 
 protected:
 	void StartAnimation(Animation* animation, bool isRepeat = false);
@@ -42,12 +41,14 @@ public:
 public:
 	void Update(const float& deltaTime) override;
 	void Start() override;
-	bool Save() const override { return true; }
-	bool Load() override { return true; }
+	bool Save() const override;
+	bool Load() override;
+	bool SaveCSV(const std::string& filePath) const;
+	bool LoadCSV(const std::string& filePath);
 
 
 public:
-	Animator(sf::Sprite& sprite);
+	Animator(GameObject* owner, sf::Sprite& sprite);
 	Animator(const Animator& other);
 	~Animator();
 };
